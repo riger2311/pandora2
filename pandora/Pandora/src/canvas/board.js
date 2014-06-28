@@ -41,10 +41,10 @@ function drawAllTokens()
   //draw Tokens of each PLayer
   //number defines tokens of which players
   //using later in function "getImageCoords"
-  drawteam(json.player2, 1);
-  drawteam(json.player1, 2);
+  drawTeam(json.player2, 1);
+  drawTeam(json.player1, 2);
 }
-function drawteam(team, playerID)
+function drawTeam(team, playerID)
 {
   var teamCounter;
 
@@ -223,3 +223,45 @@ function selectToken(tokenAtBlock)
   
   selectedToken = tokenAtBlock;
 }
+function processMove(clickedBlock)
+{
+  var tokenAtBlock = getTokenAtBlock(clickedBlock);
+  var enemyPiece = blockOccupiedByEnemy(clickedBlock);
+  
+  if (tokenAtBlock !== null)
+  {
+    removeSelection(selectedToken);
+    checkIfTokenClicked(clickedBlock);      
+  }
+  //TODO implement function
+  else if (canSelectedMoveToBlock(selectedToken, clickedBlock, enemyPiece) === true)
+  {
+    //TODO implement function
+    moveToken(clickedBlock, enemyToken);
+  }
+}
+function blockOccupiedByEnemy(clickedBlock)
+{
+  var team;
+  //BEWARE ORDER!!!!
+  //change if more than 2 players
+  switch(currentTurn)
+  {
+    case 0:
+        team = json.player2;
+        break;
+    case 1:
+        team = json.player1;
+  }
+  return getTokenAtBlockForTeam(team, clickedBlock);
+}
+//TODO Check functionality
+//if piece of own team is selected and new selection is made
+//remove old selection = remove frame
+//add new selection = add frame
+function removeSelection(selectedToken)
+{
+  //TODO draw tiles at point selectedToken.col/.row
+  drawPiece(selectedToken, currentTurn);
+}
+
