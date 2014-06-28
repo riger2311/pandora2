@@ -45,7 +45,7 @@ public class Pandora extends JApplet {
                 main.setSize(800,600);
 
                 
-                Rules rules = new Rules();
+                Game rules = new Game();
                 RulesEditor rulesPanel = new RulesEditor();
                 
                 main.getjTabbedPane1().add("Regeln", rulesPanel);
@@ -76,7 +76,7 @@ public class Pandora extends JApplet {
                 
                 applet.start();
                 
-                Rules rules = new Rules();
+                Game rules = new Game();
                 RulesEditor rules_editor = new RulesEditor();
                 
                 */
