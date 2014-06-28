@@ -19,20 +19,29 @@ public class RulesEditor extends javax.swing.JPanel {
     String collidesWith;
     String ownObject;
     int collisionAction;
+    Game actualGame;
     
     /**
      * Creates new form RulesEditor
+     * @param game
      */
-    public RulesEditor() {
+    public RulesEditor(Game game) {
         initComponents();
+        actualGame = game;
         this.rolling = false;
+        
+        if(game.getDiceEnabled())
+        {
+            MovementLabel.setText("Bewegung durch Würfeln");
+            Movement.setVisible(false);
+        }
         
         jList1.removeAll();
         DefaultListModel list = new DefaultListModel(); //stores information into jList
         
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < game.getNumberOfPlayers(); i++)
         {
-            list.addElement("Spielstein " + i);
+            list.addElement("Spieler " + i);
         }
 
         jList1.setModel(list); //fills data into jList
@@ -64,24 +73,17 @@ public class RulesEditor extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
-        RadioButtonRoll = new javax.swing.JRadioButton();
-        RadioButtonMove = new javax.swing.JRadioButton();
-        TextRoll = new javax.swing.JTextField();
-        TextMove = new javax.swing.JTextField();
+        Movement = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         ContactObjectList = new javax.swing.JComboBox();
         ContactActionBox = new javax.swing.JComboBox();
         ApplyRules = new javax.swing.JButton();
-        testingbutton = new javax.swing.JButton();
         addButton = new javax.swing.JButton();
         RemoveButton = new javax.swing.JButton();
         ErrorLabel = new javax.swing.JLabel();
-
-        buttonGroup1.add(RadioButtonRoll);
-        buttonGroup1.add(RadioButtonMove);
+        MovementLabel = new javax.swing.JLabel();
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -91,26 +93,10 @@ public class RulesEditor extends javax.swing.JPanel {
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jList1);
 
-        RadioButtonRoll.setText("Bewegung mittels Würfeln");
-        RadioButtonRoll.addActionListener(new java.awt.event.ActionListener() {
+        Movement.setText("Reichweite");
+        Movement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioButtonRollActionPerformed(evt);
-            }
-        });
-
-        RadioButtonMove.setText("Bewegungsreichweite");
-        RadioButtonMove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioButtonMoveActionPerformed(evt);
-            }
-        });
-
-        TextRoll.setText("Würfel");
-
-        TextMove.setText("Reichweite");
-        TextMove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextMoveActionPerformed(evt);
+                MovementActionPerformed(evt);
             }
         });
 
@@ -132,13 +118,6 @@ public class RulesEditor extends javax.swing.JPanel {
             }
         });
 
-        testingbutton.setText("testing");
-        testingbutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                testingbuttonActionPerformed(evt);
-            }
-        });
-
         addButton.setText("+");
 
         RemoveButton.setText("-");
@@ -147,6 +126,8 @@ public class RulesEditor extends javax.swing.JPanel {
                 RemoveButtonActionPerformed(evt);
             }
         });
+
+        MovementLabel.setText("Bewegungsreichweite");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -165,41 +146,30 @@ public class RulesEditor extends javax.swing.JPanel {
                         .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(RemoveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(RadioButtonRoll)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(TextRoll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(RadioButtonMove)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(TextMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap(11, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(testingbutton)
-                        .addGap(12, 12, 12)
-                        .addComponent(ApplyRules))))
+                        .addComponent(ApplyRules))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(MovementLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Movement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(RadioButtonRoll)
-                            .addComponent(TextRoll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(RadioButtonMove)
-                            .addComponent(TextMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(MovementLabel)
+                            .addComponent(Movement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -208,10 +178,9 @@ public class RulesEditor extends javax.swing.JPanel {
                             .addComponent(addButton)
                             .addComponent(RemoveButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ApplyRules)
-                            .addComponent(testingbutton)
-                            .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ApplyRules)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1)))
@@ -219,37 +188,13 @@ public class RulesEditor extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void RadioButtonRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonRollActionPerformed
-        // TODO add your handling code here:
-        System.out.println("Moving should be rolling...");
-        //TODO: fix method
-        //this.rolling = true; //set moving method to "Rolling", unnecessary -dm
-    }//GEN-LAST:event_RadioButtonRollActionPerformed
+    private void MovementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MovementActionPerformed
 
-    private void RadioButtonMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonMoveActionPerformed
-        // TODO add your handling code here
-        System.out.println("Moving should be moving by fixed value...");
-        //TODO: fix method
-        //this.rolling = false; //unnecessary -dm
-    }//GEN-LAST:event_RadioButtonMoveActionPerformed
-
-    private void TextMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextMoveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextMoveActionPerformed
+    }//GEN-LAST:event_MovementActionPerformed
 
     private void ApplyRulesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyRulesActionPerformed
 
-        if(RadioButtonRoll.isSelected())
-        {
-            System.out.println("Rolling State: " + this.rolling);
-            this.rolling = true;
-        }
         
-        if(RadioButtonMove.isSelected())
-        {
-            System.out.println("Rolling State: " + this.rolling);
-            this.rolling = false;
-        }
         
         //getting collision parameters
         ownObject = jList1.getSelectedValue().toString();
@@ -278,13 +223,6 @@ public class RulesEditor extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_ContactObjectListActionPerformed
 
-    private void testingbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testingbuttonActionPerformed
-        // button to go to dialog
-        
-        JDialog Wizard = new Wizard(null, true);
-        Wizard.setVisible(true);
-    }//GEN-LAST:event_testingbuttonActionPerformed
-
     private void RemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_RemoveButtonActionPerformed
@@ -295,16 +233,12 @@ public class RulesEditor extends javax.swing.JPanel {
     private javax.swing.JComboBox ContactActionBox;
     private javax.swing.JComboBox ContactObjectList;
     private javax.swing.JLabel ErrorLabel;
-    private javax.swing.JRadioButton RadioButtonMove;
-    private javax.swing.JRadioButton RadioButtonRoll;
+    private javax.swing.JTextField Movement;
+    private javax.swing.JLabel MovementLabel;
     private javax.swing.JButton RemoveButton;
-    private javax.swing.JTextField TextMove;
-    private javax.swing.JTextField TextRoll;
     private javax.swing.JButton addButton;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton testingbutton;
     // End of variables declaration//GEN-END:variables
 }
