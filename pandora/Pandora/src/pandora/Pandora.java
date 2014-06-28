@@ -40,14 +40,14 @@ public class Pandora extends JApplet {
                 Game gameValues = new Game();
                 
                 //creates the startdialog and the wizard
-                Wizard newWizard = new Wizard(null, true/*, gameValues*/);
+                Wizard newWizard = new Wizard(null, true, gameValues);
                 StartDialog start = new StartDialog(null, true, newWizard);
                 start.setLocationRelativeTo(null);
                 newWizard.setLocationRelativeTo(null);
                 start.setVisible(true);
 
                 //Setting a Main JFrame to display the RulesEditor Panel
-                Mainframe main = new Mainframe();
+                Mainframe main = new Mainframe(gameValues);
                 main.setSize(800,600);
 
                 

@@ -12,7 +12,6 @@ package pandora;
  */
 public class Game {
     
-      Boolean rolling;
       private String nameOfGame;
       private int numberOfPlayers;
       private int fieldWidth;
@@ -25,7 +24,6 @@ public class Game {
       
 
     public Game() {
-        this.rolling = false;
         nameOfGame = " ";
         numberOfPlayers = 2;
         fieldWidth = 2;
@@ -36,17 +34,18 @@ public class Game {
         tokensPerPlayer = 1;
         
     }
-      
-      
-      void setRolling(Boolean value)
+      void reset()
       {
-          this.rolling = value;
+        nameOfGame = " ";
+        numberOfPlayers = 2;
+        fieldWidth = 2;
+        fieldHeight = 2;
+        diceEnabled = true;
+        eyesOfDice = 6;
+        dices = 1;
+        tokensPerPlayer = 1;
       }
       
-      Boolean getRolling()
-      {
-          return this.rolling;
-      }
 
     /**
      * @return the nameOfGame
