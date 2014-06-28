@@ -26,6 +26,15 @@ public class Game {
 
     public Game() {
         this.rolling = false;
+        nameOfGame = " ";
+        numberOfPlayers = 2;
+        fieldWidth = 2;
+        fieldHeight = 2;
+        diceEnabled = true;
+        eyesOfDice = 6;
+        dices = 1;
+        tokensPerPlayer = 1;
+        
     }
       
       
