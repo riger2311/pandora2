@@ -95,7 +95,7 @@ public class RulesEditor extends javax.swing.JPanel {
         jList1.setSelectedIndex(0);
         jScrollPane1.setViewportView(jList1);
 
-        Movement.setText("Reichweite");
+        Movement.setText("3");
         Movement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MovementActionPerformed(evt);
@@ -129,6 +129,8 @@ public class RulesEditor extends javax.swing.JPanel {
             }
         });
 
+        ErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+
         MovementLabel.setText("Bewegungsreichweite");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -150,8 +152,8 @@ public class RulesEditor extends javax.swing.JPanel {
                         .addComponent(RemoveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(11, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(ErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ApplyRules))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,8 +161,8 @@ public class RulesEditor extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(MovementLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Movement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(Movement, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 116, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,19 +197,35 @@ public class RulesEditor extends javax.swing.JPanel {
     }//GEN-LAST:event_MovementActionPerformed
 
     private void ApplyRulesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyRulesActionPerformed
-
+        //resetting ErrorLabel because of eventual previous errors
+        ErrorLabel.setText("");
+        
+        //check if game uses dices, else user should enter number of fields to move
         if(!actualGame.getDiceEnabled())
         {
             try{
-            actualGame.setStaticMovement(Integer.parseInt(Movement.getText()));
+                int movement = Integer.parseInt(Movement.getText());
+                //checks for boundaries in movement
+                if(movement < Constants.LOWER_MOVEMENT_BOUND || movement > Constants.UPPER_MOVEMENT_BOUND)
+                {
+                    ErrorLabel.setText("Bitte Bewegungsweite neu eingeben");
+                }
+                else
+                {
+                    actualGame.setStaticMovement(movement);
+                }
+            
+            
             }
             catch(NumberFormatException e)
-            {
+            {   
+                ErrorLabel.setText("Bitte Bewegungsweite eingeben");
                 System.out.println("Exception " + e.getMessage());
             }
         }
         
-        //getting collision parameters
+        //TODO: Collision-things schould be transported to "Add"-Button
+        //getting collision parameters 
         ownObject = jList1.getSelectedValue().toString();
         collidesWith = ContactObjectList.getSelectedItem().toString();
         
@@ -216,12 +234,9 @@ public class RulesEditor extends javax.swing.JPanel {
         {
             ErrorLabel.setText("Collision with itself is not allowed.");
         }
-        else
-        {
-            ErrorLabel.setText(" ");
-        }
         
         collisionAction = ContactActionBox.getSelectedIndex();
+        
         //debug output -dm
         System.out.println("object " + ownObject + " performs action " + 
                 collisionAction + " on object " + collidesWith);

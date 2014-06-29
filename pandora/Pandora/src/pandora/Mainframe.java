@@ -107,8 +107,16 @@ public class Mainframe extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuActionPerformed
 
     private void NewProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewProjectActionPerformed
-         game.reset();
+        //resets game and starts new wizard
+        game.reset();
         Wizard gandalf = new Wizard(null, true, game);
+        gandalf.setVisible(true);
+        
+        //displays new panels after reset,
+        //needed to display changes
+        this.jTabbedPane1.removeAll();
+        //TODO: add mapeditor
+        this.jTabbedPane1.add("Regeln", new RulesEditor(game));
     }//GEN-LAST:event_NewProjectActionPerformed
 
     private void LoadProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadProjectActionPerformed
@@ -124,6 +132,12 @@ public class Mainframe extends javax.swing.JFrame {
         
         game.loadProject(fileName);
         System.out.println("loaded " + fileName);
+        //displays new rules panel after loading from a file, 
+        //needed to display changes
+        this.jTabbedPane1.removeAll();
+        //TODO: add mapeditor
+        this.jTabbedPane1.add("Regeln", new RulesEditor(game));
+        
         
     }//GEN-LAST:event_LoadProjectActionPerformed
 
