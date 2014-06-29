@@ -27,7 +27,7 @@ public class Wizard extends javax.swing.JDialog {
             Boolean wizard_ok = false;
             int tokens_per_player_;
             int total_tokens_;
-            
+    /*        
     public
             String giveName;
             String givePlayers;
@@ -35,6 +35,7 @@ public class Wizard extends javax.swing.JDialog {
             String giveHeight;
             String giveDizes;
             String giveDizesCount;
+            */
             
     /**
      * Creates new form Wizard
@@ -42,6 +43,7 @@ public class Wizard extends javax.swing.JDialog {
     public Wizard(java.awt.Frame parent, boolean modal, Game game) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         game_ = game;
         t_number_of_players.removeAllItems();
         for(int i = 1; i <= 5; i++)
