@@ -106,6 +106,7 @@
               </StringArray>
             </Property>
             <Property name="selectionMode" type="int" value="0"/>
+            <Property name="selectedIndex" type="int" value="0"/>
           </Properties>
         </Component>
       </SubComponents>

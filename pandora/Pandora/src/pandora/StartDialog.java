@@ -6,7 +6,9 @@
 
 package pandora;
 
+import java.io.File;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -15,13 +17,15 @@ import javax.swing.JDialog;
 public class StartDialog extends javax.swing.JDialog {
 
     JDialog gandalf;
+    Game actualGame;
     /**
      * Creates new form StartDialog
      */
-    public StartDialog(java.awt.Frame parent, boolean modal, JDialog wizard) {
+    public StartDialog(java.awt.Frame parent, boolean modal, JDialog wizard, Game game) {
         super(parent, modal);
         initComponents();
         gandalf = wizard;
+        actualGame = game;
     }
 
     /**
@@ -53,23 +57,28 @@ public class StartDialog extends javax.swing.JDialog {
         });
 
         LoadProject.setText("Projekt laden");
+        LoadProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoadProjectActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(146, 146, 146)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LoadProject, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NewProject))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(118, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addGap(99, 99, 99))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(146, 146, 146)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LoadProject, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NewProject))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,6 +101,21 @@ public class StartDialog extends javax.swing.JDialog {
        gandalf.setVisible(true);
        dispose();
     }//GEN-LAST:event_NewProjectActionPerformed
+
+    private void LoadProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadProjectActionPerformed
+        JFileChooser fc = new JFileChooser();
+        File file = null;
+        String fileName = "";
+        
+        if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+        {
+            file = fc.getSelectedFile();
+            fileName = file.getAbsolutePath().toString();
+        }
+        
+        actualGame.loadProject(fileName);
+        dispose();
+    }//GEN-LAST:event_LoadProjectActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

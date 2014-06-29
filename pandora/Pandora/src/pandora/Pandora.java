@@ -12,6 +12,7 @@ import javax.swing.JApplet;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import pandora.TileMap.*;
 
 
 
@@ -41,7 +42,7 @@ public class Pandora extends JApplet {
                 
                 //creates the startdialog and the wizard
                 Wizard newWizard = new Wizard(null, true, gameValues);
-                StartDialog start = new StartDialog(null, true, newWizard);
+                StartDialog start = new StartDialog(null, true, newWizard, gameValues);
                 start.setLocationRelativeTo(null);
                 newWizard.setLocationRelativeTo(null);
                 start.setVisible(true);
@@ -51,6 +52,9 @@ public class Pandora extends JApplet {
                 main.setSize(800,600);
 
                 
+                //TODO: add MapEditor to TabbedPanel
+                //MapEditor mapEditor = new MapEditor(gameValues);
+                //main.getjTabbedPane1().add("Map-Editor", mapEditor);
 
                 RulesEditor rulesPanel = new RulesEditor(gameValues);
                 

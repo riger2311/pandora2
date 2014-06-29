@@ -6,6 +6,9 @@
 
 package pandora;
 
+import java.io.File;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author dominikmocher
@@ -19,6 +22,8 @@ public class Mainframe extends javax.swing.JFrame {
     public Mainframe(Game actualGame) {
         initComponents();
         game = actualGame;
+        
+        
     }
 
     /**
@@ -32,21 +37,54 @@ public class Mainframe extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        Menu = new javax.swing.JMenu();
+        NewProject = new javax.swing.JMenuItem();
+        SaveProject = new javax.swing.JMenuItem();
+        LoadProject = new javax.swing.JMenuItem();
+        Exit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("File");
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+        Menu.setText("Pandora");
+        Menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
+                MenuActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        NewProject.setText("Neu");
+        NewProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NewProjectActionPerformed(evt);
+            }
+        });
+        Menu.add(NewProject);
+
+        SaveProject.setText("Speichern");
+        SaveProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveProjectActionPerformed(evt);
+            }
+        });
+        Menu.add(SaveProject);
+
+        LoadProject.setText("Laden");
+        LoadProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoadProjectActionPerformed(evt);
+            }
+        });
+        Menu.add(LoadProject);
+
+        Exit.setText("Schließen");
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitActionPerformed(evt);
+            }
+        });
+        Menu.add(Exit);
+
+        jMenuBar1.add(Menu);
 
         setJMenuBar(jMenuBar1);
 
@@ -64,15 +102,58 @@ public class Mainframe extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        game.reset();
+    private void MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuActionPerformed
+       
+    }//GEN-LAST:event_MenuActionPerformed
+
+    private void NewProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewProjectActionPerformed
+         game.reset();
         Wizard gandalf = new Wizard(null, true, game);
-    }//GEN-LAST:event_jMenu1ActionPerformed
+    }//GEN-LAST:event_NewProjectActionPerformed
+
+    private void LoadProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadProjectActionPerformed
+        JFileChooser fc = new JFileChooser();
+        File file = null;
+        String fileName = "";
+        
+        if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+        {
+            file = fc.getSelectedFile();
+            fileName = file.getAbsolutePath().toString();
+        }
+        
+        game.loadProject(fileName);
+        System.out.println("loaded " + fileName);
+        
+    }//GEN-LAST:event_LoadProjectActionPerformed
+
+    private void SaveProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveProjectActionPerformed
+       
+       JFileChooser fc = new JFileChooser();
+       File file = null;
+       String fileName = "";
+        
+       if(fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
+       {
+          file = fc.getSelectedFile();
+          fileName = file.getAbsolutePath().toString();
+       }
+        
+       game.saveProject(fileName);
+       System.out.println("saved");
+    }//GEN-LAST:event_SaveProjectActionPerformed
+
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem Exit;
+    private javax.swing.JMenuItem LoadProject;
+    private javax.swing.JMenu Menu;
+    private javax.swing.JMenuItem NewProject;
+    private javax.swing.JMenuItem SaveProject;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables

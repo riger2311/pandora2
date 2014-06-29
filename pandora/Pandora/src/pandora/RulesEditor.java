@@ -45,6 +45,7 @@ public class RulesEditor extends javax.swing.JPanel {
         }
 
         jList1.setModel(list); //fills data into jList
+        jList1.setSelectedIndex(0);
         
         //initialize ContactComboBox
         ContactObjectList.removeAllItems();
@@ -91,6 +92,7 @@ public class RulesEditor extends javax.swing.JPanel {
             public Object getElementAt(int i) { return strings[i]; }
         });
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.setSelectedIndex(0);
         jScrollPane1.setViewportView(jList1);
 
         Movement.setText("Reichweite");
@@ -194,7 +196,16 @@ public class RulesEditor extends javax.swing.JPanel {
 
     private void ApplyRulesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyRulesActionPerformed
 
-        
+        if(!actualGame.getDiceEnabled())
+        {
+            try{
+            actualGame.setStaticMovement(Integer.parseInt(Movement.getText()));
+            }
+            catch(NumberFormatException e)
+            {
+                System.out.println("Exception " + e.getMessage());
+            }
+        }
         
         //getting collision parameters
         ownObject = jList1.getSelectedValue().toString();
@@ -214,6 +225,7 @@ public class RulesEditor extends javax.swing.JPanel {
         //debug output -dm
         System.out.println("object " + ownObject + " performs action " + 
                 collisionAction + " on object " + collidesWith);
+        System.out.println("Movement is " + actualGame.getStaticMovement());
         
         
         
