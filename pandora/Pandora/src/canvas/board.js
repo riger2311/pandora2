@@ -1,8 +1,8 @@
 
-var BLOCK_SIZE = 75;
+var BLOCK_SIZE = 100;
 //IN_PLAY = 1 if token is on board
 var IN_PLAY = 1;
-var currentTurn = 0;
+var currentTurn = 0; //starting with player 1
 var selectedToken = null;
 
 
@@ -51,10 +51,10 @@ function drawTeam(team, playerID)
   //loop through every single token to draw it
   for (teamCounter = 0; teamCounter < team.length; teamCounter++) 
   { 
-    drawPiece(team[teamCounter], playerID);
+    drawToken(team[teamCounter], playerID);
   } 
 }
-function drawPiece(curToken, playerID)
+function drawToken(curToken, playerID)
 {
   //draw current token
   //get id of current token
@@ -139,13 +139,12 @@ function click_on_board(ev)
      
     //if currently no block is selected DO
     //token in this block?
-    if(selectedToken == null)
+    if(selectedToken === null)
     {
         checkIfTokenClicked(clickedBlock);
     }
     else
     {
-       //TODO Implement
         processMove(clickedBlock);
     }
 }
@@ -226,22 +225,24 @@ function selectToken(tokenAtBlock)
 function processMove(clickedBlock)
 {
   var tokenAtBlock = getTokenAtBlock(clickedBlock);
-  var enemyPiece = blockOccupiedByEnemy(clickedBlock);
+  var enemyToken = getOwner(clickedBlock);
   
   if (tokenAtBlock !== null)
   {
-    removeSelection(selectedToken);
+    //NOTE: pls uncomment if removeSelection implementation works
+    //removeSelection(selectedToken);
     checkIfTokenClicked(clickedBlock);      
   }
   //TODO implement function
-  else if (canSelectedMoveToBlock(selectedToken, clickedBlock, enemyPiece) === true)
+  else if (checkMovement(selectedToken, clickedBlock, enemyToken) === true)
   {
     //TODO implement function
     moveToken(clickedBlock, enemyToken);
   }
 }
-function blockOccupiedByEnemy(clickedBlock)
+function getOwner(clickedBlock)
 {
+
   var team;
   //BEWARE ORDER!!!!
   //change if more than 2 players
@@ -258,10 +259,10 @@ function blockOccupiedByEnemy(clickedBlock)
 //TODO Check functionality
 //if piece of own team is selected and new selection is made
 //remove old selection = remove frame
-//add new selection = add frame
+//to do that, draw tiles and token again!
 function removeSelection(selectedToken)
 {
   //TODO draw tiles at point selectedToken.col/.row
-  drawPiece(selectedToken, currentTurn);
+  //drawToken(selectedToken, currentTurn);
 }
 
