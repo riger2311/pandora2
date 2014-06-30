@@ -2,6 +2,7 @@
 var BLOCK_SIZE = 100;
 //IN_PLAY = 1 if token is on board
 var IN_PLAY = 1;
+var LOST = 0;
 var currentTurn = 0; //starting with player 1
 var selectedToken = null;
 
@@ -27,7 +28,6 @@ function draw()
     tokenIMG = new Image();
     tokenIMG.src = 'pieces.png';
     tokenIMG.onload = drawAllTokens;
-    //TODO add click event
     canvas.addEventListener('click', click_on_board, false);
   }
   else
@@ -38,11 +38,12 @@ function draw()
 
 function drawAllTokens()
 {
+  //TODO DYNAMIC
   //draw Tokens of each PLayer
   //number defines tokens of which players
   //using later in function "getImageCoords"
-  drawTeam(json.player2, 1);
-  drawTeam(json.player1, 2);
+  drawTeam(json.player1, 1);
+  drawTeam(json.player2, 2);
 }
 function drawTeam(team, playerID)
 {
@@ -88,6 +89,7 @@ function getImageCoords(token, playerID)
 
 function params()
 {
+  //TODO DYNAMIC
   json = 
   {
     "player1": 
@@ -172,6 +174,7 @@ function getTokenAtBlock(clickedBlock)
   var team;
   //which team is selected
   //global var currentTurn saves team which turn it is
+  //TODO DYNAMIC
   switch(currentTurn)
   {
     case 0:
@@ -225,11 +228,12 @@ function selectToken(tokenAtBlock)
 function processMove(clickedBlock)
 {
   var tokenAtBlock = getTokenAtBlock(clickedBlock);
-  var enemyToken = getOwner(clickedBlock);
+  var enemyToken = getEnemy(clickedBlock);
   
   if (tokenAtBlock !== null)
   {
     //NOTE: pls uncomment if removeSelection implementation works
+    //TODO
     //removeSelection(selectedToken);
     checkIfTokenClicked(clickedBlock);      
   }
@@ -239,12 +243,13 @@ function processMove(clickedBlock)
     moveToken(clickedBlock, enemyToken);
   }
 }
-function getOwner(clickedBlock)
+function getEnemy(clickedBlock)
 {
 
   var team;
   //BEWARE ORDER!!!!
   //change if more than 2 players
+  //TODO DYNAMIC
   switch(currentTurn)
   {
     case 0:
@@ -284,8 +289,72 @@ function checkMovement(selectedToken, clickedBlock)
 function toDice(number)
 {
   //NOTE Math.random generates float values between 0 and 1
+  //TODO DYNAMIC
   var rnd = 1 + Math.floor(Math.random() * 6);
   document.getElementById('textarea').value = rnd;
   document.getElementById('button').style.visibility = 'hidden';
   return rnd;
+}
+function moveToken(clickedBlock, enemyToken)
+{
+  // Clear the block in the original position
+  //TODO Implement due to missing draw tiles function
+  //TODO implement rules and mission accomplished
+  //drawBlock(selectedPiece.col, selectedPiece.row);
+  
+  var team = currentTurn;
+  var opposite = getOwner(enemyToken);
+
+  team[selectedToken.position].col = clickedBlock.col;
+  team[selectedToken.position].row = clickedBlock.row;
+  
+  if (enemyToken !== null)
+  {
+    // Clear the piece your about to take
+    //TODO implemt function due to missing draw tiles
+    //drawBlock(enemyToken.col, enemyPiece.row);  
+    opposite[enemyToken.position].status = LOST;
+  }
+  
+  // Draw the piece in the new position
+  drawToken(selectedToken, currentTurn);       
+  
+  currentTurn = (currentTurn + 1);
+  document.getElementById('button').style.visibility = 'visible';
+  selectedtoken = null;
+}
+function getOwner(token)
+{
+  //TODO DYNAMIC
+  var count;
+  var owner = null;
+  for (count = 0; count < player1.length; count++) 
+  {
+    token = player1[count];
+    
+    if(token.status === IN_PLAY &&
+      token.col === clickedBlock.col &&
+      token.row === clickedBlock.row)
+    {
+      count = player1.length;
+      owner = player1;
+    }
+  }
+  if(owner === null)
+  {
+    for (count = 0; count < player2.length; count++) 
+  {
+    token = player1[count];
+    
+    if(token.status === IN_PLAY &&
+      token.col === clickedBlock.col &&
+      token.row === clickedBlock.row)
+    {
+      count = player2.length;
+      owner = player2;
+    }
+  }
+
+  }
+  return owner;
 }
