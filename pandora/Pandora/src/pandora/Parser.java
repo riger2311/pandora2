@@ -31,9 +31,9 @@ public class Parser {
     Game newGame = new Game();
     newGame.setNameOfGame("TestNamedesSpieles");
     
-    
     FileWriter fileWriter = null;
     String project_name = newGame.getNameOfGame();
+    
     String test = "hello";
     String shit = "Hallo5555";
     //Dynamic Variables in parsing text
@@ -474,8 +474,20 @@ public class Parser {
         ScriptEngineManager factory = new ScriptEngineManager();
         // create a JavaScript engine
         ScriptEngine engine = factory.getEngineByName("JavaScript");
+        
+        // create directory
+        File directory = new File(project_name);
+        if (directory.exists())
+        {
+                System.out.println("Cannot overwrite directory.");
+        }
+        else 
+        {
+            directory.mkdir();
+        }
+        
         // evaluate JavaScript code from String
-         File newTextFile = new File(project_name+".js");
+         File newTextFile = new File("./" + project_name + "/" + project_name+".js");
             fileWriter = new FileWriter(newTextFile);
             fileWriter.write(source);
             fileWriter.close();
