@@ -233,8 +233,7 @@ function processMove(clickedBlock)
     //removeSelection(selectedToken);
     checkIfTokenClicked(clickedBlock);      
   }
-  //TODO implement function
-  else if (checkMovement(selectedToken, clickedBlock, enemyToken) === true)
+  else if (checkMovement(selectedToken, clickedBlock) === true)
   {
     //TODO implement function
     moveToken(clickedBlock, enemyToken);
@@ -265,4 +264,28 @@ function removeSelection(selectedToken)
   //TODO draw tiles at point selectedToken.col/.row
   //drawToken(selectedToken, currentTurn);
 }
+//press button dice to get a value
+function checkMovement(selectedToken, clickedBlock)
+{
+  var rowMoveTo = selectedToken.row;
+  var colMoveTo = selectedToken.col;
 
+  var dice = document.getElementById('textarea').value;
+  document.getElementById('button').visibility = 'hidden';
+          
+  return (((clickedBlock.row === (rowMoveTo.row - dice)
+        ||(clickedBlock.row === (rowMoveTo.row + dice)))
+        &&(clickedBlock.col === rowMoveTo.col))
+        ||((clickedBlock.col === (rowMoveTo.col - dice)
+        ||(clickedBlock.col === (rowMoveTo.col + dice)))
+        &&(clickedBlock.row === rowMoveTo.row)));
+
+}
+function toDice(number)
+{
+  //NOTE Math.random generates float values between 0 and 1
+  var rnd = 1 + Math.floor(Math.random() * 6);
+  document.getElementById('textarea').value = rnd;
+  document.getElementById('button').style.visibility = 'hidden';
+  return rnd;
+}

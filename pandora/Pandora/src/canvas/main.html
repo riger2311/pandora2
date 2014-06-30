@@ -6,8 +6,13 @@
         <script src='board.js'></script>
     </head>
     <body onload='draw();'>
+        <form>
+            <button onclick="toDice()"style = "visibility:visible" id="button" value="0" type="button">Dice</button>
+            <textarea style = "resize:none" rows="1" cols="1" id="textarea" name="text"></textarea>
+        </form>
         <div>
             <canvas id="board" width="800" height="800"></canvas>
+
         </div>
     </body>
 </html>
