@@ -36,6 +36,7 @@ public class Pandora extends JApplet {
                 catch (Exception e) {
                   System.out.println("Error happened...");
                 }
+                
                 try{
                 //initializing game class to store values
                 Game gameValues = new Game();
@@ -51,14 +52,14 @@ public class Pandora extends JApplet {
                 main.setSize(800,600);
 
                 
-                //TODO: add MapEditor to TabbedPanel
-                //MapEditor mapEditor = new MapEditor(gameValues);
-                //main.getjTabbedPane1().add("Map-Editor", mapEditor);
+                //TODO: implement gameValues in MapEditor 
+                MapEditor mapEditor = new MapEditor();
+                main.getjTabbedPane1().add(ConstantSrings.HEAD_MAP, mapEditor);
 
                 RulesEditor rulesPanel = new RulesEditor(gameValues);
                 
                 //adding Tabbe Panel
-                main.getjTabbedPane1().add("Regeln", rulesPanel);
+                main.getjTabbedPane1().add(ConstantSrings.HEAD_RULES, rulesPanel);
                 main.validate();
                 //setting location of frame to center of screen
                 main.setLocationRelativeTo(null);

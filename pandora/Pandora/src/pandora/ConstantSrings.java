@@ -14,7 +14,22 @@ public class ConstantSrings {
     
     /*
     *
-    *  Strings in RulesEditorClass
+    *  Strings in Pandora.Java
+    *
+    */
+    
+    // heads for panels 
+    public static final String HEAD_MAP = "Map-Editor";
+    public static final String HEAD_RULES = "Regeln";
+    
+    public static final String MSG_SAVED = "Projekt wurde gespeichert";
+    public static final String MSG_LOADED = "Projekt wurde erfolgreich geladen";
+    public static final String MSG_PARSE_OK = "Spiel erfolgreich generiert";
+    public static final String MSG_PARSE_FAIL = "Spiel konnte nicht erstellt werden";
+    
+    /*
+    *
+    *  Strings in RulesEditor.java
     *
     */
     public static final String ERROR_COLLISION_EMPTY = "Keine Kollisionen vorhanden";

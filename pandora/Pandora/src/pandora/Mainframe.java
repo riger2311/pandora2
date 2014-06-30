@@ -8,6 +8,8 @@ package pandora;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import pandora.TileMap.MapEditor;
 
 /**
  *
@@ -42,8 +44,8 @@ public class Mainframe extends javax.swing.JFrame {
         SaveProject = new javax.swing.JMenuItem();
         LoadProject = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
-        Menu1 = new javax.swing.JMenu();
-        Parseit = new javax.swing.JMenuItem();
+        Export = new javax.swing.JMenu();
+        GenerateGame = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,17 +90,17 @@ public class Mainframe extends javax.swing.JFrame {
 
         jMenuBar1.add(Menu);
 
-        Menu1.setText("Parse");
+        Export.setText("Export");
 
-        Parseit.setText("Parse it!");
-        Parseit.addActionListener(new java.awt.event.ActionListener() {
+        GenerateGame.setText("Erstelle Spiel");
+        GenerateGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ParseitActionPerformed(evt);
+                GenerateGameActionPerformed(evt);
             }
         });
-        Menu1.add(Parseit);
+        Export.add(GenerateGame);
 
-        jMenuBar1.add(Menu1);
+        jMenuBar1.add(Export);
 
         setJMenuBar(jMenuBar1);
 
@@ -106,7 +108,7 @@ public class Mainframe extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +132,8 @@ public class Mainframe extends javax.swing.JFrame {
         //needed to display changes
         this.jTabbedPane1.removeAll();
         //TODO: add mapeditor
-        this.jTabbedPane1.add("Regeln", new RulesEditor(game));
+        this.jTabbedPane1.add(ConstantSrings.HEAD_MAP, new MapEditor());
+        this.jTabbedPane1.add(ConstantSrings.HEAD_RULES, new RulesEditor(game));
     }//GEN-LAST:event_NewProjectActionPerformed
 
     private void LoadProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadProjectActionPerformed
@@ -150,9 +153,10 @@ public class Mainframe extends javax.swing.JFrame {
         //needed to display changes
         this.jTabbedPane1.removeAll();
         //TODO: add mapeditor
-        this.jTabbedPane1.add("Regeln", new RulesEditor(game));
+        this.jTabbedPane1.add(ConstantSrings.HEAD_MAP,new MapEditor());
+        this.jTabbedPane1.add(ConstantSrings.HEAD_RULES, new RulesEditor(game));
         
-        
+        JOptionPane.showMessageDialog(this, ConstantSrings.MSG_LOADED, "Pandora", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_LoadProjectActionPerformed
 
     private void SaveProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveProjectActionPerformed
@@ -169,6 +173,8 @@ public class Mainframe extends javax.swing.JFrame {
         
        game.saveProject(fileName);
        System.out.println("saved");
+       
+       JOptionPane.showMessageDialog(this, ConstantSrings.MSG_SAVED, "Pandora", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_SaveProjectActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
@@ -176,24 +182,30 @@ public class Mainframe extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitActionPerformed
 
     private void ParseitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ParseitActionPerformed
+
+    }//GEN-LAST:event_ParseitActionPerformed
+
+    private void GenerateGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerateGameActionPerformed
         Parser newParser = new Parser(game);
         try {
           newParser.parseit();
+          JOptionPane.showMessageDialog(this, ConstantSrings.MSG_PARSE_OK, "Pandora", JOptionPane.INFORMATION_MESSAGE);
         }
         catch (Exception e) 
         {
             System.out.println("Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, ConstantSrings.MSG_PARSE_FAIL, "Pandora", JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_ParseitActionPerformed
+    }//GEN-LAST:event_GenerateGameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Exit;
+    private javax.swing.JMenu Export;
+    private javax.swing.JMenuItem GenerateGame;
     private javax.swing.JMenuItem LoadProject;
     private javax.swing.JMenu Menu;
-    private javax.swing.JMenu Menu1;
     private javax.swing.JMenuItem NewProject;
-    private javax.swing.JMenuItem Parseit;
     private javax.swing.JMenuItem SaveProject;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JTabbedPane jTabbedPane1;
