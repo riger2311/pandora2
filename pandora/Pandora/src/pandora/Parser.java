@@ -25,24 +25,18 @@ public class Parser {
   
     
     //Parse
-    public static void main (String[] args) throws Exception {
-    
-    // Testcase    
-    Game newGame = new Game();
-    newGame.setNameOfGame("TestNamedesSpieles");
+    public void parseit() throws Exception {
     
     FileWriter fileWriter = null;
-    String project_name = newGame.getNameOfGame();
+    String project_name = game.getNameOfGame();
     
-    String test = "hello";
-    String shit = "Hallo5555";
     //Dynamic Variables in parsing text
     String background_file = "background.png";
     String pieces_file = "pieces.png";
     
     //Game variables for use to dynamiv parsing
     //TODO: change hardcoded values to game member values!
-    int player = 2;
+    int player = game.getNumberOfPlayers();
 
     String source;
     /*
@@ -494,7 +488,7 @@ public class Parser {
         engine.eval(source);
         //engine.eval("print('Hello, World')");
         
-        File html5 = new File(project_name+".html");
+        File html5 = new File("./" + project_name + "/" + project_name + ".html");
             fileWriter = new FileWriter(html5);
             fileWriter.write(sourcehtml);
             fileWriter.close();

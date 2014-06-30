@@ -42,6 +42,8 @@ public class Mainframe extends javax.swing.JFrame {
         SaveProject = new javax.swing.JMenuItem();
         LoadProject = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
+        Menu1 = new javax.swing.JMenu();
+        Parseit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,13 +88,25 @@ public class Mainframe extends javax.swing.JFrame {
 
         jMenuBar1.add(Menu);
 
+        Menu1.setText("Parse");
+
+        Parseit.setText("Parse it!");
+        Parseit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ParseitActionPerformed(evt);
+            }
+        });
+        Menu1.add(Parseit);
+
+        jMenuBar1.add(Menu1);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,12 +175,25 @@ public class Mainframe extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_ExitActionPerformed
 
+    private void ParseitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ParseitActionPerformed
+        Parser newParser = new Parser(game);
+        try {
+          newParser.parseit();
+        }
+        catch (Exception e) 
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_ParseitActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Exit;
     private javax.swing.JMenuItem LoadProject;
     private javax.swing.JMenu Menu;
+    private javax.swing.JMenu Menu1;
     private javax.swing.JMenuItem NewProject;
+    private javax.swing.JMenuItem Parseit;
     private javax.swing.JMenuItem SaveProject;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JTabbedPane jTabbedPane1;
