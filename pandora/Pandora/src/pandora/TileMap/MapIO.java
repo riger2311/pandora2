@@ -19,6 +19,10 @@ import org.jdom2.output.*;
  */
 public class MapIO 
 {
+     private static TileSheet sheet;
+     private static TilePanel1 tilePanel;
+     private static MapPanel1 mapPanel;
+    
 	/*
 	 * Information about Base64 can be found at http://en.wikipedia.org/wiki/Base64
 	 */
@@ -179,7 +183,7 @@ public class MapIO
 	 * @param filePath - The file path to read the project from
 	 * @param frame - The MapperFrame in use
 	 */
-	public static void loadProjectAsXML(String fileName, MapperFrame parentFrame)
+	public static void loadProjectAsXML(String fileName, MapEditor parentFrame)
 	{
 		SAXBuilder parser = new SAXBuilder();
 		
@@ -244,26 +248,24 @@ public class MapIO
 			BufferedImage decodedImage = ImageIO.read(in);
 						
 			// Create the tile sheet from the variables that have been read
-			TileSheet sheet = new TileSheet(decodedImage, tileWidth, tileHeight, new Color(red, green, blue));
+			sheet = new TileSheet(decodedImage, tileWidth, tileHeight, new Color(red, green, blue));
 						
 			// Create the map, tile, and object panels					
-			TilePanel tilePanel = new TilePanel(sheet, false);
-			TilePanel objectPanel = new TilePanel(sheet, true);
-			MapPanel mapPanel = new MapPanel(parentFrame, mapWidth, mapHeight, tilePanel, objectPanel);
+			tilePanel = new TilePanel1(getSheet(), true);
+			mapPanel = new MapPanel1(parentFrame, 10, 10, getTilePanel());
 						
 			// Assign the panels to the main frame
-			parentFrame.setTilePanel(tilePanel);
-			parentFrame.setObjectPanel(objectPanel);
-			parentFrame.setMapPanel(mapPanel);
+			parentFrame.setTeilpanel(tilePanel);
+			parentFrame.setPanelmap(mapPanel);
 						
 			// Assign the map panel to the tile selection panels
 			tilePanel.setMapPanel(mapPanel);
-			objectPanel.setMapPanel(mapPanel);
+			//objectPanel.setMapPanel(mapPanel);
 						
 			LayoutManager manager;
 						
 			// If a layout manager doesn't already exist, create one
-			if (parentFrame.getLayoutManager() == null)
+			if (parentFrame.getLayoutManager()== null)
 			{
 				manager = new LayoutManager(parentFrame, mapPanel);
 				parentFrame.setLayoutManager(manager);
@@ -288,13 +290,34 @@ public class MapIO
 			e.printStackTrace();
 		}
 	}
+
+    /**
+     * @return the sheet
+     */
+    public static TileSheet getSheet() {
+        return sheet;
+    }
+
+    /**
+     * @return the tilePanel
+     */
+    public static TilePanel1 getTilePanel() {
+        return tilePanel;
+    }
+
+    /**
+     * @return the mapPanel
+     */
+    public static MapPanel1 getMapPanel() {
+        return mapPanel;
+    }
 	
 	/**
 	 * Exports the currently open map to a .map file
 	 * @param filePath - The file path to write the project to
 	 * @param frame - The MapperFrame in use
 	 */
-	public static void exportProjectAsXML(String filePath, MapperFrame frame)
+	/*public static void exportProjectAsXML(String filePath, MapperPanel frame)
 	{
 		String xml =
                 "<map>" +
@@ -402,11 +425,11 @@ public class MapIO
 			
             XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
             outputter.output(document, file);
-        } 
+        }
             
         catch (Exception e) 
         {
             e.printStackTrace();
         }
-	}
+	}*/
 }

@@ -19,7 +19,7 @@ public class Tile extends JLabel
 	private boolean selected = false;
 	private Image image;
 	private Icon iconImage;
-	private TilePanel parentTilePanel;
+	private TilePanel1 parentTilePanel;
 	private int id;
 	
 	/**
@@ -29,7 +29,7 @@ public class Tile extends JLabel
 	 * @param tilePanel - The TilePanel to which this instance of Tile belongs
 	 * @param id - A unique ID, used for the selection functionality
 	 */
-	public Tile(Image eraseTile, TilePanel tilePanel, int id)
+	public Tile(Image eraseTile, TilePanel1 tilePanel, int id)
 	{
 		super(new ImageIcon(eraseTile));
 		iconImage = new ImageIcon(eraseTile);
@@ -43,7 +43,7 @@ public class Tile extends JLabel
 	 * Gets the TilePanel to which this Tile belongs
 	 * @return the TilePanel to which this Tile belongs
 	 */
-	public TilePanel getParentTilePanel()
+	public TilePanel1 getParentTilePanel()
 	{
 		return parentTilePanel;
 	}

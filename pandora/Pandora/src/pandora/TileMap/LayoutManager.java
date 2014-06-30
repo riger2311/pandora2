@@ -2,7 +2,8 @@ package pandora.TileMap;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import javax.swing.BorderFactory;
+import java.awt.GridLayout;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
@@ -11,10 +12,10 @@ import javax.swing.JScrollPane;
  */
 public class LayoutManager 
 {
-	private MapperFrame parentFrame;
-	private MapPanel mapPanel;
+	private MapEditor parentFrame;
+	private MapPanel1 mapPanel;
+        private JPanel secondpanel;
 	private JScrollPane tilePanelScrollPane;
-	private JScrollPane objectPanelScrollPane;
 	private JScrollPane mapPanelScrollPane;
 	
 	private final float TILE_PANEL_RATIO = 0.25f;	
@@ -24,7 +25,7 @@ public class LayoutManager
 	 * @param parentFrame - The MapperFrame to assign this layout manager to
 	 * @param mapPanel - The MapPanel to assign this layout manager to
 	 */
-	public LayoutManager(MapperFrame parentFrame, MapPanel mapPanel)
+	public LayoutManager(MapEditor parentFrame, MapPanel1 mapPanel)
 	{
 		this.parentFrame = parentFrame;
 		this.mapPanel = mapPanel;
@@ -35,7 +36,7 @@ public class LayoutManager
 	 * @param parentFrame - The new MapperFrame to assign the layout manager to
 	 * @param mapPanel - The new MapPanel to assign the layout manager to
 	 */
-	public void setNewInfo(MapperFrame parentFrame, MapPanel mapPanel)
+	public void setNewInfo(MapEditor parentFrame, MapPanel1 mapPanel)
 	{
 		this.parentFrame = parentFrame;
 		this.mapPanel = mapPanel;
@@ -48,50 +49,30 @@ public class LayoutManager
 	public void initializeLayout()
 	{	
 		// Create the JScrollPanes for the tile and map panels
-		tilePanelScrollPane = new JScrollPane(mapPanel.getTilePanel());
-		tilePanelScrollPane.setMinimumSize(new Dimension((int)(parentFrame.getWidth() * TILE_PANEL_RATIO), parentFrame.getHeight() / 2));
-		tilePanelScrollPane.setBorder(BorderFactory.createTitledBorder("Tiles"));
-		
-		objectPanelScrollPane = new JScrollPane(mapPanel.getObjectPanel());
-		objectPanelScrollPane.setMinimumSize(new Dimension((int)(parentFrame.getWidth() * TILE_PANEL_RATIO), parentFrame.getHeight() / 2));
-		objectPanelScrollPane.setBorder(BorderFactory.createTitledBorder("Objects"));
-				
+		tilePanelScrollPane = new JScrollPane(parentFrame.getTeilpanel());
+		//tilePanelScrollPane.setMinimumSize(new Dimension((int)(parentFrame.getWidth() * TILE_PANEL_RATIO), parentFrame.getHeight() / 2));		
 		// Create the map panel
+                //mapPanel.getTilePanel().setSize(width, height);
 		mapPanelScrollPane = new JScrollPane(mapPanel);
-		mapPanelScrollPane.setBorder(BorderFactory.createTitledBorder("Map"));
+	
+                secondpanel = new JPanel(new GridLayout(1, 2));
 				
-		// Declare the constraints for the GridBagLayout
-		GridBagConstraints c = new GridBagConstraints();
-		c.weightx = 1;
-		c.weighty = 1;
-		c.gridheight = 2;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.fill = GridBagConstraints.BOTH;
-				
+                parentFrame.setLayout(new GridLayout(1, 2));
 		// Add the MapPanel to the frame
-		parentFrame.add(mapPanelScrollPane, c);
-		parentFrame.validate();
+		parentFrame.add(mapPanelScrollPane);
+		//parentFrame.validate();
 				
-		// Update constraints for the object panel
-		c.weightx = 0;
-		c.weighty = 1;
-		c.gridheight = 1;
-		c.gridx = 1;
-		c.gridy = 1;
-				
-		parentFrame.add(objectPanelScrollPane, c);
-		parentFrame.validate();
-		
-		// Update constraints for the tile panel
-		c.gridy = 0;
+
 		
 		// Add the TilePanel to the frame
-		parentFrame.add(tilePanelScrollPane, c);
-		parentFrame.validate();
+		secondpanel.add(tilePanelScrollPane);
+                secondpanel.add(parentFrame.getOption());
+               // secondpanel.add(mapPanel.get)
+		secondpanel.validate();
 		
+                parentFrame.add(secondpanel);
 		// Enable map dependent menu buttons
-		parentFrame.getMenuPanel().setMapDependentItems(true);
+		//parentFrame.getMenuPanel().setMapDependentItems(true);
 		parentFrame.repaint();
 	}
 	
@@ -100,13 +81,12 @@ public class LayoutManager
 	 */
 	public void clearExistingLayout()
 	{
-		objectPanelScrollPane.removeAll();
 		tilePanelScrollPane.removeAll();
 		mapPanelScrollPane.removeAll();
 		
-		parentFrame.remove(objectPanelScrollPane);
 		parentFrame.remove(tilePanelScrollPane);
 		parentFrame.remove(mapPanelScrollPane);
+                parentFrame.remove(secondpanel);
 	}
 	
 }
