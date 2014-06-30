@@ -37,7 +37,7 @@ public class Wizard extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         game_ = game;
         t_number_of_players.removeAllItems();
-        for(int i = 1; i <= 5; i++)
+        for(int i = Constants.LOWER_PLAYER_BOUND; i <= Constants.UPPER_PLAYER_BOUND; i++)
         {
           t_number_of_players.addItem(i);
         }
@@ -301,27 +301,27 @@ public class Wizard extends javax.swing.JDialog {
         return;
     }
     
-    if(width_ > 42 || width_ < 2)
+    if(width_ > Constants.FIELD_SIZE || width_ < Constants.LOWER_BOUND)
     {     
         error_label.setText("Error: Breite ungültig!");
         return;
     }
-    else if(height_ > 42 || height_ < 2)
+    else if(height_ > Constants.FIELD_SIZE || height_ < Constants.LOWER_BOUND)
     {
         error_label.setText("Error: Höhe ungültig!");
         return;
     }
-    else if(dizes_ > 7 || dizes_ < 0)
+    else if(dizes_ > Constants.MAX_DICES || dizes_ < 0)
     {
         error_label.setText("Error: Höhe ungültig!");
         return;
     }
-    else if(dizes_count_ > 42 || dizes_count_ < 2)
+    else if(dizes_count_ > Constants.MAX_EYES || dizes_count_ < Constants.LOWER_BOUND)
     {
         error_label.setText("Error: Höhe ungültig!");
         return;
     }
-    else if(tokens_per_player_ > 128 || tokens_per_player_ < 1)
+    else if(tokens_per_player_ > Constants.MAX_TOKENS || tokens_per_player_ < 1)
     {
         error_label.setText("Error: Höhe ungültig!");
         return;
@@ -366,48 +366,6 @@ public class Wizard extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_t_tokenActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    /*
-    public static void main(String args[]) {
-        // Set the Nimbus look and feel 
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         *
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Wizard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Wizard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Wizard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Wizard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        // Create and display the dialog 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Wizard dialog = new Wizard(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel error_label;

@@ -9,6 +9,7 @@ package pandora;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.StringReader;
+import java.util.ArrayList;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
@@ -31,6 +32,8 @@ public class Game {
       private int tokensPerPlayer;
       private int staticMovement; //movement, if dices are not enabled
       
+      private ArrayList<ArrayList<String>> collisions;
+      
       
 
     public Game() {
@@ -43,6 +46,7 @@ public class Game {
         dices = 1;
         tokensPerPlayer = 1;
         staticMovement = 1;
+        collisions = new ArrayList<ArrayList<String>>();
         
     }
       void reset()
@@ -55,7 +59,8 @@ public class Game {
         eyesOfDice = 6;
         dices = 1;
         tokensPerPlayer = 1;
-        setStaticMovement(1);
+        staticMovement = 1;
+        collisions = new ArrayList<ArrayList<String>>();
         
       }
       
@@ -227,6 +232,28 @@ public class Game {
           Element staticMovement_= root.getChild("StaticMovement");
           staticMovement = Integer.parseInt(staticMovement_.getText());
           
+          //loads the collision arraylist
+          //gets the size of the arraylist
+          Element sizeOfCollision_= root.getChild("SizeOfCollision");
+          int sizeOfCollision = Integer.parseInt(sizeOfCollision_.getText());
+          
+          //loads all elements
+          for(int i = 0; i < sizeOfCollision; i++)
+          {
+              Element collision_= root.getChild("Collision" + i);
+              Element collision0_ = collision_.getChild("Collision_0");
+              Element collision1_ = collision_.getChild("Collision_1");
+              Element collision2_ = collision_.getChild("Collision_2");
+              
+              ArrayList<String> tempArray = new ArrayList<String>();
+              
+              tempArray.add(0, collision0_.getText());
+              tempArray.add(1, collision1_.getText());
+              tempArray.add(2, collision2_.getText());
+              
+              collisions.add(i, tempArray);
+          }
+          
           
         }
         catch(Exception e)
@@ -252,9 +279,20 @@ public class Game {
                 "   <DiceEnabled></DiceEnabled>" +
                 "   <EyesOfDice> + </EyesOfDice>" +
                 "   <Dices> + </Dices>" +
-                "   <TokensPerPlayer> + </TokensPerPlayer>" +
-                "   <StaticMovement> + </StaticMovement>" +
-                "</map>";
+                "   <TokensPerPlayer></TokensPerPlayer>" +
+                "   <StaticMovement></StaticMovement>" +
+                "   <SizeOfCollision></SizeOfCollision>";
+              
+               for(int i = 0; i < collisions.size(); i++)
+               {
+                  xml += "<Collision" + i + ">" +
+                         "  <Collision_0></Collision_0>" +
+                         "  <Collision_1></Collision_1>" +
+                         "  <Collision_2></Collision_2>" +
+                         "</Collision" + i + ">";
+               }                
+               
+                xml += "</map>";
         
         SAXBuilder builder = new SAXBuilder();
         
@@ -292,10 +330,28 @@ public class Game {
           
           Element staticMovement_= root.getChild("StaticMovement");
           staticMovement_.setText(Integer.toString(staticMovement));
-            
+          
+          
+          //saves the collision arraylist
+          //saves the size of the arraylist for loading
+          Element sizeOfCollision_= root.getChild("SizeOfCollision");
+          sizeOfCollision_.setText(Integer.toString(collisions.size()));
+          
+          for(int i = 0; i < collisions.size(); i++)
+          {
+              Element collision_= root.getChild("Collision" + i);
+              Element collision0_ = collision_.getChild("Collision_0");
+              Element collision1_ = collision_.getChild("Collision_1");
+              Element collision2_ = collision_.getChild("Collision_2");
+              
+              collision0_.setText(collisions.get(i).get(0));
+              collision1_.setText(collisions.get(i).get(1));
+              //no cast needed, is already a string
+              collision2_.setText(collisions.get(i).get(2));
+          }
+          
             // Output the file
             FileWriter file;
-            System.out.println("hi");
 			
 			// Check to see if the .box extension doesn't already exist on the file
 			if (!fileName.contains(".box"))
@@ -318,6 +374,20 @@ public class Game {
             System.out.println("Exception: " + e.getMessage());
         }
         
+    }
+
+    /**
+     * @return the collisions
+     */
+    public ArrayList<ArrayList<String>> getCollisions() {
+        return collisions;
+    }
+
+    /**
+     * @param collisions the collisions to set
+     */
+    public void setCollisions(ArrayList<ArrayList<String>> collisions) {
+        this.collisions = collisions;
     }
     
 }

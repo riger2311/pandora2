@@ -44,15 +44,13 @@ public class RulesEditor extends javax.swing.JPanel {
         //initializing the collision-2D arraylist to avoid exceptions
         indexForInsert = 0;
         collisions = new ArrayList<ArrayList<String>>();
-        /*
-        ArrayList<String> tempList = new ArrayList();
-
-        tempList.add(0, "");
-        tempList.add(1, "");
-        tempList.add(2, "");
-
-        collisions.add(indexForInsert, tempList);
-        */
+        
+        //fills collisions with saved collisions when loading
+        if(!actualGame.getCollisions().isEmpty())
+        {
+            collisions = actualGame.getCollisions();
+            System.out.println(collisions.get(0).get(0));
+        }
         
         //checks if dices are enabled or if the movement 
         //textfield has to be displayed
@@ -261,7 +259,7 @@ public class RulesEditor extends javax.swing.JPanel {
         
         //TODO: Collision-things schould be transported to "Add"-Button
         //getting collision parameters 
-        ownObject = selectedPlayer.getSelectedValue().toString();
+        /*ownObject = selectedPlayer.getSelectedValue().toString();
         collidesWith = ContactObjectList.getSelectedItem().toString();
         
         //Printing Errormessage when Objects collide with itself
@@ -276,7 +274,18 @@ public class RulesEditor extends javax.swing.JPanel {
         System.out.println("object " + ownObject + " performs action " + 
                 collisionAction + " on object " + collidesWith);
         System.out.println("Movement is " + actualGame.getStaticMovement());
+        */
+        //copys collision rules to game class
+        actualGame.setCollisions(collisions);
         
+        for(int i = 0; i < actualGame.getCollisions().size(); i++)
+        {
+            System.out.println(actualGame.getCollisions().get(i).get(0) + 
+                    " collides with " + 
+                    actualGame.getCollisions().get(i).get(1) + 
+                    " and performs action " + 
+                    actualGame.getCollisions().get(i).get(2));
+        }
         
         
     }//GEN-LAST:event_ApplyRulesActionPerformed
@@ -295,6 +304,14 @@ public class RulesEditor extends javax.swing.JPanel {
             tempList.add(0, selectedPlayer.getSelectedValue().toString());
             tempList.add(1, ContactObjectList.getSelectedItem().toString());
             tempList.add(2, Integer.toString(ContactActionBox.getSelectedIndex()));
+            
+            //checks for collision with itself
+            //TODO: should be in code or not? -> design question
+            //TODO: check functionality...
+            if(tempList.get(0).equals(tempList.get(1)))
+            {
+              ErrorLabel.setText(ConstantSrings.COLLISION_WITH_ITSELF);
+            }
             
             //get index of an collision rule and removes it, 
             //if a collision rule already exists
