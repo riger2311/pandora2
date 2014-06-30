@@ -27,15 +27,6 @@ public class Wizard extends javax.swing.JDialog {
             Boolean wizard_ok = false;
             int tokens_per_player_;
             int total_tokens_;
-    /*        
-    public
-            String giveName;
-            String givePlayers;
-            String giveWidth;
-            String giveHeight;
-            String giveDizes;
-            String giveDizesCount;
-            */
             
     /**
      * Creates new form Wizard

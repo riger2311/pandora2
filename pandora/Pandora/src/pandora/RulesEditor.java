@@ -6,6 +6,7 @@
 
 package pandora;
 
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 
@@ -21,6 +22,16 @@ public class RulesEditor extends javax.swing.JPanel {
     int collisionAction;
     Game actualGame;
     
+    /*2D arralist to store collisions into it
+    *
+    * [0] = own object (from list)
+    * [1] = object to collide with (from combo box)
+    * [2] = action to perform (from combo box)
+    * !attention! action is a string and has to be casted to int
+    */
+    ArrayList<ArrayList<String>> collisions;
+    int indexForInsert;
+    
     /**
      * Creates new form RulesEditor
      * @param game
@@ -30,38 +41,57 @@ public class RulesEditor extends javax.swing.JPanel {
         actualGame = game;
         this.rolling = false;
         
+        //initializing the collision-2D arraylist to avoid exceptions
+        indexForInsert = 0;
+        collisions = new ArrayList<ArrayList<String>>();
+        /*
+        ArrayList<String> tempList = new ArrayList();
+
+        tempList.add(0, "");
+        tempList.add(1, "");
+        tempList.add(2, "");
+
+        collisions.add(indexForInsert, tempList);
+        */
+        
+        //checks if dices are enabled or if the movement 
+        //textfield has to be displayed
         if(game.getDiceEnabled())
         {
-            MovementLabel.setText("Bewegung durch Würfeln");
+            MovementLabel.setText(ConstantSrings.MOVEMENT_DICE);
             Movement.setVisible(false);
         }
         
-        jList1.removeAll();
-        DefaultListModel list = new DefaultListModel(); //stores information into jList
+        //fills list with players to select from
+        selectedPlayer.removeAll();
+        DefaultListModel list = new DefaultListModel();
         
         for(int i = 0; i < game.getNumberOfPlayers(); i++)
         {
-            list.addElement("Spieler " + i);
+            list.addElement(ConstantSrings.PLAYER + " " + i);
         }
 
-        jList1.setModel(list); //fills data into jList
-        jList1.setSelectedIndex(0);
+        selectedPlayer.setModel(list); //fills data into jList
+        selectedPlayer.setSelectedIndex(0);
         
-        //initialize ContactComboBox
+        //filling combo box with player items
         ContactObjectList.removeAllItems();
-        //ComboBoxModel comboList = new ComboBoxModel(list.toArray());
-        //ContactObjectList.setModel(comboList);
         for(int i = 0; i < list.getSize(); i++)
         {
           ContactObjectList.addItem(list.toArray()[i]);
         }
         
+        //filling action combo box
         ContactActionBox.removeAllItems();
-        String possible_actions[] = {"schlagen", "ignorieren", "überspringen", "nicht ziehen"};
+        String possible_actions[] = {ConstantSrings.ACTION_KILL, 
+                                     ConstantSrings.ACTION_IGNORE, 
+                                     ConstantSrings.ACTION_JUMP, 
+                                     ConstantSrings.ACTION_DO_NOTHING};
         for(int i = 0; i < possible_actions.length; i++)
         {
           ContactActionBox.addItem(possible_actions[i]);
         }
+
         
     }
 
@@ -75,7 +105,7 @@ public class RulesEditor extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        selectedPlayer = new javax.swing.JList();
         Movement = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         ContactObjectList = new javax.swing.JComboBox();
@@ -86,14 +116,14 @@ public class RulesEditor extends javax.swing.JPanel {
         ErrorLabel = new javax.swing.JLabel();
         MovementLabel = new javax.swing.JLabel();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        selectedPlayer.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jList1.setSelectedIndex(0);
-        jScrollPane1.setViewportView(jList1);
+        selectedPlayer.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        selectedPlayer.setSelectedIndex(0);
+        jScrollPane1.setViewportView(selectedPlayer);
 
         Movement.setText("3");
         Movement.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +151,11 @@ public class RulesEditor extends javax.swing.JPanel {
         });
 
         addButton.setText("+");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
 
         RemoveButton.setText("-");
         RemoveButton.addActionListener(new java.awt.event.ActionListener() {
@@ -208,7 +243,7 @@ public class RulesEditor extends javax.swing.JPanel {
                 //checks for boundaries in movement
                 if(movement < Constants.LOWER_MOVEMENT_BOUND || movement > Constants.UPPER_MOVEMENT_BOUND)
                 {
-                    ErrorLabel.setText("Bitte Bewegungsweite neu eingeben");
+                    ErrorLabel.setText(ConstantSrings.MOVEMENT_RANGE_NEW);
                 }
                 else
                 {
@@ -219,20 +254,20 @@ public class RulesEditor extends javax.swing.JPanel {
             }
             catch(NumberFormatException e)
             {   
-                ErrorLabel.setText("Bitte Bewegungsweite eingeben");
+                ErrorLabel.setText(ConstantSrings.MOVEMENT_RANGE);
                 System.out.println("Exception " + e.getMessage());
             }
         }
         
         //TODO: Collision-things schould be transported to "Add"-Button
         //getting collision parameters 
-        ownObject = jList1.getSelectedValue().toString();
+        ownObject = selectedPlayer.getSelectedValue().toString();
         collidesWith = ContactObjectList.getSelectedItem().toString();
         
         //Printing Errormessage when Objects collide with itself
         if(collidesWith.equals(ownObject))
         {
-            ErrorLabel.setText("Collision with itself is not allowed.");
+            ErrorLabel.setText(ConstantSrings.COLLISION_WITH_ITSELF);
         }
         
         collisionAction = ContactActionBox.getSelectedIndex();
@@ -251,8 +286,118 @@ public class RulesEditor extends javax.swing.JPanel {
     }//GEN-LAST:event_ContactObjectListActionPerformed
 
     private void RemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveButtonActionPerformed
-        // TODO add your handling code here:
+        
+        if(!collisions.isEmpty())
+        {
+            //gets user input
+            ArrayList<String> tempList = new ArrayList();
+            
+            tempList.add(0, selectedPlayer.getSelectedValue().toString());
+            tempList.add(1, ContactObjectList.getSelectedItem().toString());
+            tempList.add(2, Integer.toString(ContactActionBox.getSelectedIndex()));
+            
+            //get index of an collision rule and removes it, 
+            //if a collision rule already exists
+            if(collisionExists(collisions, tempList))
+            {
+                int index = getCollisionIndex(collisions, tempList);
+                collisions.remove(index);
+            }
+            //setting index for inserting to last element of arraylist
+            indexForInsert = collisions.size()-1;
+            if(indexForInsert < 0)
+            {
+                indexForInsert = 0;
+            }
+            
+        }
+        else
+        {
+            ErrorLabel.setText(ConstantSrings.ERROR_COLLISION_EMPTY);
+        }
+        
+
+        
     }//GEN-LAST:event_RemoveButtonActionPerformed
+
+    /*
+    *  checks, if an collision strategy exists for two objects
+    *  returns index of element, if combination of both objects exists in 2D arraylist
+    *
+    * @param collisionArray Arraylist to search for the combination
+    * @param currentArray Arraylist of combinations to check
+    */
+    private Boolean collisionExists(ArrayList<ArrayList<String>> collisionArray, ArrayList<String> currentArray)
+      {
+        int index;
+        for(index = 0; index < collisionArray.size(); index++)
+        {
+            if(collisionArray.get(index).get(0).equals(currentArray.get(0)) &&
+               collisionArray.get(index).get(1).equals(currentArray.get(1)))
+            {
+                return true;
+            }
+        }
+        return false;
+      }
+    
+    
+    /*
+    *  checks, if an collision strategy exists for two objects
+    *  returns true, if combination of both objects exists in 2D arraylist
+    *
+    * @param collisionArray Arraylist to search for the combination
+    * @param currentArray Arraylist of combinations to check
+    */
+    private int getCollisionIndex(ArrayList<ArrayList<String>> collisionArray, ArrayList<String> currentArray)
+      {
+        int index;
+        for(index = 0; index < collisionArray.size(); index++)
+        {
+            if(collisionArray.get(index).get(0).equals(currentArray.get(0)) &&
+               collisionArray.get(index).get(1).equals(currentArray.get(1)))
+            {
+                return index;
+            }
+        }
+        return 0;
+      }
+    
+    
+    /*
+    *  adds collision rule to vector
+    *
+    *  prints error, if collision rule for the objects already exists
+    */
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        // read full line (combination of 3 objects) and store line at last position in vector
+        try{
+
+            ArrayList<String> tempList = new ArrayList();
+            
+            tempList.add(0, selectedPlayer.getSelectedValue().toString());
+            tempList.add(1, ContactObjectList.getSelectedItem().toString());
+            tempList.add(2, Integer.toString(ContactActionBox.getSelectedIndex()));
+            
+            if(!collisionExists(collisions, tempList))
+            {         
+                collisions.add(indexForInsert, tempList);
+
+                System.out.println(collisions.get(indexForInsert).get(0) + " " + 
+                                   collisions.get(indexForInsert).get(1) + " " + 
+                                   collisions.get(indexForInsert).get(2));       
+                indexForInsert++;
+            }
+            else
+            {
+                ErrorLabel.setText(ConstantSrings.COLLISION_EXISTS);
+            }
+        }
+        catch(Exception e)
+        {
+            System.err.println("Exception " + e.getMessage());
+        }
+    }//GEN-LAST:event_addButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -265,7 +410,7 @@ public class RulesEditor extends javax.swing.JPanel {
     private javax.swing.JButton RemoveButton;
     private javax.swing.JButton addButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList selectedPlayer;
     // End of variables declaration//GEN-END:variables
 }
