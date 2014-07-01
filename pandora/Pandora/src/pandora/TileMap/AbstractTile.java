@@ -10,8 +10,8 @@ public class AbstractTile
 	private int height;
 	private BufferedImage texture;
 	
-	public static final int DEFAULT_TILE_HEIGHT = 75;
-	public static final int DEFAULT_TILE_WIDTH = 75;
+	public static final int DEFAULT_TILE_HEIGHT = 32;
+	public static final int DEFAULT_TILE_WIDTH = 32;
 	
 	/**
 	 * Default Tile constructor. Probably won't be used anyway,

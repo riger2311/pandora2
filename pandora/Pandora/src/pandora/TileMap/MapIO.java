@@ -251,7 +251,7 @@ public class MapIO
 			sheet = new TileSheet(decodedImage, tileWidth, tileHeight, new Color(red, green, blue));
 						
 			// Create the map, tile, and object panels					
-			tilePanel = new TilePanel1(getSheet(), true);
+			tilePanel = new TilePanel1(getSheet(), false);
 			mapPanel = new MapPanel1(parentFrame, 10, 10, getTilePanel());
 						
 			// Assign the panels to the main frame
@@ -283,7 +283,7 @@ public class MapIO
 			manager.initializeLayout();
 						
 			// Set tiles and object data to the MapPanel
-			mapPanel.setLayerData(tilesLayerData, objectsLayerData, collisionLayerData);
+			mapPanel.setLayerData(tilesLayerData, collisionLayerData);
 		}
 		catch (Exception e)
 		{
@@ -317,7 +317,7 @@ public class MapIO
 	 * @param filePath - The file path to write the project to
 	 * @param frame - The MapperFrame in use
 	 */
-	/*public static void exportProjectAsXML(String filePath, MapperPanel frame)
+	public static void exportProjectAsXML(String filePath, MapEditor frame)
 	{
 		String xml =
                 "<map>" +
@@ -345,7 +345,7 @@ public class MapIO
             
             // Calculate original tilesheet image
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    		ImageIO.write(frame.getTilePanel().getTileSheet().getRawImage(), "png", baos);
+    		ImageIO.write(frame.getTeilpanel().getTileSheet().getRawImage(), "png", baos);
     		char[] encodedImage = MapIO.base64Encode(baos.toByteArray());
     		
     		// Store it
@@ -354,17 +354,17 @@ public class MapIO
 
             // Calculate map width and height
             Element map_width = map.getChild("map_width");
-            map_width.setText(frame.getMapPanel().getWidthInTiles() + "");
+            map_width.setText(frame.getPanelmap().getWidthInTiles() + "");
             
             Element map_height = map.getChild("map_height");
-            map_height.setText(frame.getMapPanel().getHeightInTiles() + "");
+            map_height.setText(frame.getPanelmap().getHeightInTiles() + "");
             
             // Calculate tile width and height
             Element tile_width = map.getChild("tile_width");
-            tile_width.setText(frame.getTilePanel().getTileSheet().getWidthOfTiles() + "");
+            tile_width.setText(frame.getTeilpanel().getTileSheet().getWidthOfTiles() + "");
             
             Element tile_height = map.getChild("tile_height");
-            tile_height.setText(frame.getTilePanel().getTileSheet().getHeightOfTiles() + "");
+            tile_height.setText(frame.getTeilpanel().getTileSheet().getHeightOfTiles() + "");
             
             // Calculate transparent color
             Element transparent_color = map.getChild("transparent_color");
@@ -372,15 +372,15 @@ public class MapIO
             Element green = transparent_color.getChild("green");
             Element blue = transparent_color.getChild("blue");
             
-            Color transparent = frame.getTilePanel().getTileSheet().getTransparentColor();
+            Color transparent = frame.getTeilpanel().getTileSheet().getTransparentColor();
             red.setText(transparent.getRed() + "");
             green.setText(transparent.getGreen() + "");
             blue.setText(transparent.getBlue() + "");
             
             // Get object and tile layer data
-            ArrayList<Integer> tileIDs = frame.getMapPanel().getTileLayerData();
-            ArrayList<Integer> objectIDs = frame.getMapPanel().getObjectLayerData();
-            ArrayList<Byte> collisionIDs = frame.getMapPanel().getCollisionLayerData();
+            ArrayList<Integer> tileIDs = frame.getPanelmap().getTileLayerData();
+            ArrayList<Integer> objectIDs = frame.getPanelmap().getObjectLayerData();
+            ArrayList<Byte> collisionIDs = frame.getPanelmap().getCollisionLayerData();
             
     		for(int i = 0; i < tileIDs.size(); i++)
     		{
@@ -431,5 +431,5 @@ public class MapIO
         {
             e.printStackTrace();
         }
-	}*/
+	}
 }

@@ -209,16 +209,16 @@ public class MapPanel1 extends javax.swing.JPanel {
      * @param tileLayer - The ArrayList<Integer> of tile data to set
      * @param objectLayer - The ArrayList<Integer> of object data to set
      */
-    public void setLayerData(ArrayList<Integer> tileLayer, ArrayList<Integer> objectLayer, ArrayList<Byte> collisionLayer) {
+    public void setLayerData(ArrayList<Integer> tileLayer, ArrayList<Byte> collisionLayer) {
         for (int i = 0; i < tiles.size(); i++) {
             MapTile currentTile = tiles.get(i);
-
+            
             // Set the object and tile layer data
-            currentTile.setObjectLayerId(objectLayer.get(i));
+            //currentTile.setObjectLayerId(objectLayer.get(i));
             currentTile.setTileLayerId(tileLayer.get(i));
 
             // Set the collision layer data
-            currentTile.setCollidable(collisionLayer.get(i));
+            //currentTile.setCollidable(collisionLayer.get(i));
 
             // Redraw
             currentTile.repaint();
@@ -249,8 +249,8 @@ public class MapPanel1 extends javax.swing.JPanel {
      * @return Whether or not collision mode is enabled
      */
     public boolean collisionModeEnabled() {
-        System.out.println("CollisionModeEnable");
-        return true;//parentFrame.getMenuPanel().getViewMenu().getCollisionMode();
+        //System.out.println("CollisionModeEnable");
+        return false;//parentFrame.getMenuPanel().getViewMenu().getCollisionMode();
     }
 
     /**
@@ -259,8 +259,8 @@ public class MapPanel1 extends javax.swing.JPanel {
      * @return Whether or not object mode is enabled
      */
     public boolean objectModeEnabled() {
-        System.out.println("CollisionModeEnable");
-        return true; //parentFrame.getMenuPanel().getViewMenu().getObjectLayerMode();
+        //System.out.println("CollisionModeEnable");
+        return false; //parentFrame.getMenuPanel().getViewMenu().getObjectLayerMode();
     }
 
     /**
@@ -269,7 +269,7 @@ public class MapPanel1 extends javax.swing.JPanel {
      * @return Whether or not tile mode is enabled
      */
     public boolean tileModeEnabled() {
-           System.out.println("CollisionModeEnable");
+          // System.out.println("CollisionModeEnable");
          return true;//return parentFrame.getMenuPanel().getViewMenu().getTileLayerMode();
     }
 
@@ -279,7 +279,7 @@ public class MapPanel1 extends javax.swing.JPanel {
      * @return Whether or not grid mode is enabled
      */
     public boolean gridModeEnabled() {
-           System.out.println("CollisionModeEnable");
+           //System.out.println("CollisionModeEnable");
          return true;//return parentFrame.getMenuPanel().getViewMenu().getGridMode();
     }
 

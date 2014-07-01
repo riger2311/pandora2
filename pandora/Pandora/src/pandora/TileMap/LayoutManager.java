@@ -50,29 +50,18 @@ public class LayoutManager
 	{	
 		// Create the JScrollPanes for the tile and map panels
 		tilePanelScrollPane = new JScrollPane(parentFrame.getTeilpanel());
-		//tilePanelScrollPane.setMinimumSize(new Dimension((int)(parentFrame.getWidth() * TILE_PANEL_RATIO), parentFrame.getHeight() / 2));		
-		// Create the map panel
-                //mapPanel.getTilePanel().setSize(width, height);
 		mapPanelScrollPane = new JScrollPane(mapPanel);
 	
-                secondpanel = new JPanel(new GridLayout(1, 2));
+                secondpanel = new JPanel(new GridLayout(2, 1));
 				
                 parentFrame.setLayout(new GridLayout(1, 2));
-		// Add the MapPanel to the frame
 		parentFrame.add(mapPanelScrollPane);
-		//parentFrame.validate();
-				
-
-		
-		// Add the TilePanel to the frame
 		secondpanel.add(tilePanelScrollPane);
                 secondpanel.add(parentFrame.getOption());
-               // secondpanel.add(mapPanel.get)
 		secondpanel.validate();
 		
                 parentFrame.add(secondpanel);
-		// Enable map dependent menu buttons
-		//parentFrame.getMenuPanel().setMapDependentItems(true);
+
 		parentFrame.repaint();
 	}
 	
