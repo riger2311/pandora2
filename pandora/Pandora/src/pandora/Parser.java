@@ -346,14 +346,6 @@ public class Parser {
         "  team[selectedToken.position].col = clickedBlock.col; \n" +
         "  team[selectedToken.position].row = clickedBlock.row; \n" +
             
-        // Sarah added this
-        "  var goalBlock = block_coord(2, 0); \n" + // hier brauchen wir die coords des zielblocks
-        "  if ((clickedBlock.col === goalBlock.col) && (clickedBlock.row === goalBlock.row))\n" +
-        "  {\n" +
-        "    alert(\"Du gewinnst!\");\n" +
-        "  } \n" +
-        // Sarah added stuff ends here
-            
         "  if (enemyToken !== null) \n" +
         "  { \n" +
         "    // Clear the piece your about to take \n" +
@@ -362,7 +354,15 @@ public class Parser {
         "    opposite[enemyToken.position].status = LOST; \n" +
         "  } \n" +
         "  // Draw the piece in the new position \n" +
-        "  drawToken(selectedToken, currentTurn + 1);        \n" +
+        "  drawToken(selectedToken, currentTurn + 1); \n" +
+            
+        "  var goalRow = 2; \n" + // hier brauchen wir die coords des zielblocks
+        "  var goalCol = 4; \n" +   
+        "  if ((selectedToken.col === goalCol) && (selectedToken.row === goalRow)) \n" +
+        "  {\n" +
+        "    alert(\"Du gewinnst!\");\n" +
+        "  } \n" +
+            
         "  currentTurn = (currentTurn === 0 ? 1 : 0); \n" +
         "  document.getElementById('button').style.visibility = 'visible'; \n" +
         "  selectedtoken = null; \n" +
