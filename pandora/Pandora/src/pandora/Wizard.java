@@ -19,8 +19,6 @@ public class Wizard extends javax.swing.JDialog {
             Game game_;
             String game_name_;
             int number_of_players_;
-            int width_;
-            int height_;
             int dizes_;
             int dizes_count_;
             Boolean dizes_enabled = true;
@@ -57,11 +55,6 @@ public class Wizard extends javax.swing.JDialog {
         t_game_name_ = new javax.swing.JTextField();
         number_of_players_lab = new javax.swing.JLabel();
         t_number_of_players = new javax.swing.JComboBox();
-        number_of_players_lab1 = new javax.swing.JLabel();
-        t_width = new javax.swing.JTextField();
-        t_height = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         error_label = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -91,21 +84,6 @@ public class Wizard extends javax.swing.JDialog {
                 t_number_of_playersActionPerformed(evt);
             }
         });
-
-        number_of_players_lab1.setText(ConstantStrings.SIZE_OF_FIELD);
-
-        t_width.setText("10");
-
-        t_height.setText("10");
-        t_height.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_heightActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("x");
-
-        jLabel3.setText(ConstantStrings.SIZE_RESTRIC);
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -163,7 +141,7 @@ public class Wizard extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
+                .addGap(89, 89, 89)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -177,7 +155,6 @@ public class Wizard extends javax.swing.JDialog {
                                         .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(number_of_players_lab1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                     .addComponent(number_of_players_lab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                     .addComponent(game_name_lab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                 .addComponent(jLabel4)
@@ -185,21 +162,13 @@ public class Wizard extends javax.swing.JDialog {
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(layout.createSequentialGroup()
                                                     .addGap(76, 76, 76)
-                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(t_number_of_players, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                            .addComponent(t_width, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addGap(20, 20, 20)
-                                                            .addComponent(jLabel2)
-                                                            .addGap(18, 18, 18)
-                                                            .addComponent(t_height, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                            .addComponent(jLabel3))
                                                         .addGroup(layout.createSequentialGroup()
                                                             .addComponent(t_dizes, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                             .addComponent(jLabel11))
-                                                        .addComponent(t_game_name_)))
+                                                        .addComponent(t_game_name_, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                 .addGroup(layout.createSequentialGroup()
                                                     .addGap(77, 77, 77)
                                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,7 +182,7 @@ public class Wizard extends javax.swing.JDialog {
                                                             .addComponent(jLabel8))))))
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                                     .addComponent(jLabel10))
-                                .addGap(0, 173, Short.MAX_VALUE))
+                                .addGap(0, 45, Short.MAX_VALUE))
                             .addComponent(error_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -244,13 +213,6 @@ public class Wizard extends javax.swing.JDialog {
                             .addComponent(number_of_players_lab))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(t_width, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(t_height, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(number_of_players_lab1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(t_dizes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel11))
@@ -276,10 +238,6 @@ public class Wizard extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_t_number_of_playersActionPerformed
 
-    private void t_heightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_heightActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_t_heightActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
     game_name_ = t_game_name_.getText();
@@ -287,8 +245,7 @@ public class Wizard extends javax.swing.JDialog {
     
     try {      
 
-    width_ = Integer.parseInt(t_width.getText());
-    height_ = Integer.parseInt(t_height.getText());
+    
     dizes_ = Integer.parseInt(t_dizes.getText());
     dizes_count_ = Integer.parseInt(t_dizes_max_val.getText());
     tokens_per_player_ = Integer.parseInt(t_token.getText());
@@ -296,34 +253,24 @@ public class Wizard extends javax.swing.JDialog {
     } catch (NumberFormatException e) {
         System.out.println(ConstantStrings.ERROR_INPUT);
         error_label.setText(ConstantStrings.ERROR_INPUT);
-        return;
     }
     
-    if(width_ > Constants.FIELD_SIZE || width_ < Constants.LOWER_BOUND)
-    {     
-        error_label.setText(ConstantStrings.ERROR_WIDTH);
-        return;
-    }
-    else if(height_ > Constants.FIELD_SIZE || height_ < Constants.LOWER_BOUND)
-    {
-        error_label.setText(ConstantStrings.ERROR_HEIGHT);
-        return;
-    }
-    else if(dizes_ > Constants.MAX_DICES || dizes_ < 0)
+    
+    
+    if(dizes_ > Constants.MAX_DICES || dizes_ < 0)
     {
         error_label.setText(ConstantStrings.ERROR_NUM_OF_DICES);
-        return;
     }
     else if(dizes_count_ > Constants.MAX_EYES || dizes_count_ < Constants.LOWER_BOUND)
     {
         error_label.setText(ConstantStrings.ERROR_EYE_OF_DICES);
-        return;
     }
     else if(tokens_per_player_ > Constants.MAX_TOKENS || tokens_per_player_ < 1)
     {
         error_label.setText(ConstantStrings.ERROR_NUM_OF_TOKEN);
-        return;
     }
+    else
+    {
     
     //====================================================
     // Error Handling OK
@@ -343,13 +290,11 @@ public class Wizard extends javax.swing.JDialog {
     game_.setDiceEnabled(dizes_enabled);
     game_.setDices(dizes_);
     game_.setEyesOfDice(dizes_count_);
-    game_.setFieldHeight(height_);
-    game_.setFieldWidth(width_);
     game_.setNumberOfPlayers(number_of_players_);
     game_.setTokensPerPlayer(tokens_per_player_);
         
     dispose();
-    
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void t_dizesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_dizesActionPerformed
@@ -372,8 +317,6 @@ public class Wizard extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -381,13 +324,10 @@ public class Wizard extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel number_of_players_lab;
-    private javax.swing.JLabel number_of_players_lab1;
     private javax.swing.JTextField t_dizes;
     private javax.swing.JTextField t_dizes_max_val;
     private javax.swing.JTextField t_game_name_;
-    private javax.swing.JTextField t_height;
     private javax.swing.JComboBox t_number_of_players;
     private javax.swing.JTextField t_token;
-    private javax.swing.JTextField t_width;
     // End of variables declaration//GEN-END:variables
 }

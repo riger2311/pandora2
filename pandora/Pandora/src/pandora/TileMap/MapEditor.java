@@ -5,15 +5,9 @@
  */
 package pandora.TileMap;
 
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.io.File;
-import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import pandora.ConstantStrings;
 import pandora.Game;
 
 /**
@@ -70,7 +64,11 @@ public class MapEditor extends javax.swing.JPanel {
     }
 
     public void createNewMapDialog() {
-        new NewMapDialog(this);
+        NewMapDialog mapDialog = new NewMapDialog(this);
+        game.setFieldWidth((Integer) mapDialog.getxSize().getValue());
+        game.setFieldHeight((Integer) mapDialog.getxSize().getValue());
+        System.out.println(game.getFieldHeight());
+        System.out.println(game.getFieldHeight());
     }
 
     public void SaveMap() {
@@ -96,7 +94,6 @@ public class MapEditor extends javax.swing.JPanel {
         if (response == JFileChooser.APPROVE_OPTION) {
             currentMapFilePath = dialog.getSelectedFile().toString();
             MapIO.loadProjectAsXML(currentMapFilePath, this);
-
         }
     }
 

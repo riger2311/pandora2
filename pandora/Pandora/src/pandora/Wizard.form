@@ -24,7 +24,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -39,7 +39,6 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="number_of_players_lab1" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="number_of_players_lab" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="game_name_lab" alignment="0" max="32767" attributes="0"/>
                                               </Group>
@@ -49,23 +48,14 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
                                                   <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="t_number_of_players" min="-2" pref="130" max="-2" attributes="0"/>
-                                                      <Group type="102" attributes="0">
-                                                          <Component id="t_width" min="-2" pref="54" max="-2" attributes="0"/>
-                                                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                          <Component id="t_height" min="-2" pref="50" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Component id="t_dizes" min="-2" pref="54" max="-2" attributes="0"/>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                                       </Group>
-                                                      <Component id="t_game_name_" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="t_game_name_" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
@@ -89,7 +79,7 @@
                                   </Group>
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="173" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="45" max="32767" attributes="0"/>
                           </Group>
                           <Component id="error_label" alignment="1" max="32767" attributes="0"/>
                       </Group>
@@ -129,14 +119,6 @@
                           <Component id="number_of_players_lab" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="t_width" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="t_height" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="number_of_players_lab1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -199,38 +181,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t_number_of_playersActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="number_of_players_lab1">
-      <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="ConstantStrings.SIZE_OF_FIELD" type="code"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="t_width">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="10"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="t_height">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="10"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t_heightActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="x"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
-      <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="ConstantStrings.SIZE_RESTRIC" type="code"/>
-        </Property>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>

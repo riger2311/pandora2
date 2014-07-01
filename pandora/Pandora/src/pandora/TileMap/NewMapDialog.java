@@ -111,8 +111,8 @@ public class NewMapDialog extends JDialog {
         xTiles = new JSpinner();
         yTiles = new JSpinner();
 
-        xTiles.setValue(40);
-        yTiles.setValue(40);
+        xTiles.setValue(10);
+        yTiles.setValue(10);
 
         // Create the JLabels
         JLabel widthLabel = new JLabel("Width:");
@@ -139,11 +139,11 @@ public class NewMapDialog extends JDialog {
         panel.setBorder(BorderFactory.createTitledBorder("Tile Size"));
 
         // Create the JSpinners
-        xSize = new JSpinner();
-        ySize = new JSpinner();
+        setxSize(new JSpinner());
+        setySize(new JSpinner());
 
-        xSize.setValue(32);
-        ySize.setValue(32);
+        getxSize().setValue(32);
+        getySize().setValue(32);
 
         // Create the JLabels
         JLabel widthLabel = new JLabel("Width:");
@@ -152,9 +152,9 @@ public class NewMapDialog extends JDialog {
 
         // Add the components to the frame
         panel.add(widthLabel);
-        panel.add(xSize);
+        panel.add(getxSize());
         panel.add(heightLabel);
-        panel.add(ySize);
+        panel.add(getySize());
         panel.add(unitLabel);
 
         return panel;
@@ -275,7 +275,7 @@ public class NewMapDialog extends JDialog {
     private void setupLayout() {
         // Create a new TileSheet 
         try {
-            setSheet(new TileSheet(new File(getSelectedFilePath()), (Integer) xSize.getValue(), (Integer) ySize.getValue(), transparentColor));
+            setSheet(new TileSheet(new File(getSelectedFilePath()), (Integer) getxSize().getValue(), (Integer) getySize().getValue(), transparentColor));
             System.out.println("You chose to open this file: " + getSelectedFilePath());
 
             parentFrame.setSelectedFilePath(getSelectedFilePath());
@@ -358,5 +358,33 @@ public class NewMapDialog extends JDialog {
      */
     public String getSelectedFilePath() {
         return selectedFilePath;
+    }
+
+    /**
+     * @return the xSize
+     */
+    public JSpinner getxSize() {
+        return xSize;
+    }
+
+    /**
+     * @param xSize the xSize to set
+     */
+    public void setxSize(JSpinner xSize) {
+        this.xSize = xSize;
+    }
+
+    /**
+     * @return the ySize
+     */
+    public JSpinner getySize() {
+        return ySize;
+    }
+
+    /**
+     * @param ySize the ySize to set
+     */
+    public void setySize(JSpinner ySize) {
+        this.ySize = ySize;
     }
 }
