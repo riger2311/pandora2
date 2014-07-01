@@ -270,39 +270,39 @@ function removeSelection(selectedToken)
   //drawToken(selectedToken, currentTurn);
 }
 //press button dice to get a value
+//TODO finc malfunction
 function checkMovement(selectedToken, clickedBlock)
 {
   var tokenrow = selectedToken.row;
   var tokencol = selectedToken.col;
+  var difference;
   dice = document.getElementById('textarea').value;
-  if(clickedBlock.row === tokenrow)
+if(tokenrow === clickedBlock.row)
+{
+  if(Math.abs(tokencol-clickedBlock.col) == dice)
   {
-    if(tokencol === (clickedBlock.col - dice))
-    {
-      alert("same row -dice");
-      return true;
-    }
-    if(tokencol === (clickedBlock.col + dice))
-    {
-      alerz("same row + dice");
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-
-  }
-  else if(clickedBlock.col == tokencol)
-  {
-    return((tokenrow === (clickedBlock.row - dice))||(tokenrow === (clickedBlock.row + dice)));
-
+    return true;
   }
   else
   {
     return false;
   }
-
+}
+else if(tokencol === clickedBlock.col)
+{
+  if(Math.abs(tokenrow - clickedBlock.row) == dice)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+else
+{
+  return false;
+}
 }
 function toDice(number)
 {
@@ -319,7 +319,6 @@ function moveToken(clickedBlock, enemyToken)
   //TODO Implement due to missing draw tiles function
   //TODO implement rules and mission accomplished
   //drawBlock(selectedToken.col, selectedToken.row);
-  alert("movement possible");
   var team = (currentTurn === 0 ? json.player1:json.player2);
   var opposite = (currentTurn !== 1 ? json.player1:json.player2);
   team[selectedToken.position].col = clickedBlock.col;
@@ -329,7 +328,6 @@ function moveToken(clickedBlock, enemyToken)
     // Clear the piece your about to take
     //TODO implemt function due to missing draw tiles
     //drawBlock(enemyToken.col, enemyPiece.row);
-        alert("enemy not null");
     opposite[enemyToken.position].status = LOST;
 
   }

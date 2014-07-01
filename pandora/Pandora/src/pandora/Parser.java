@@ -379,6 +379,18 @@ public class Parser {
         "  var opposite = getOwner(enemyToken); \n" +
         "  team[selectedToken.position].col = clickedBlock.col; \n" +
         "  team[selectedToken.position].row = clickedBlock.row; \n" +
+            
+        // Sarah added this
+        " var goalBlock = block_coord(0, 0); \n" + // hier brauchen wir die coords des zielblocks
+        "  if (clickedBlock.col === goalBlock.col)\n" +
+        "  {\n" +
+        "   if (clickedBlock.row === goalBlock.row)\n" +
+        "  {\n" +
+        "    alert(\"Du gewinnst!\");\n" +
+        "  } \n" +
+        "  } \n" +
+        // Sarah added stuff ends here
+            
         "  if (enemyToken !== null) \n" +
         "  { \n" +
         "    // Clear the piece your about to take \n" +
