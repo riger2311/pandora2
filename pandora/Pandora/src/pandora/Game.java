@@ -33,7 +33,7 @@ public class Game {
       private int staticMovement; //movement, if dices are not enabled
       
       private ArrayList<ArrayList<String>> collisions;
-      
+      private ArrayList<ArrayList<Integer>> map;
       
 
     public Game() {
@@ -47,7 +47,7 @@ public class Game {
         tokensPerPlayer = 1;
         staticMovement = 1;
         collisions = new ArrayList<ArrayList<String>>();
-        
+        map = new ArrayList<ArrayList<Integer>>();
     }
       void reset()
       {
@@ -61,7 +61,7 @@ public class Game {
         tokensPerPlayer = 1;
         staticMovement = 1;
         collisions = new ArrayList<ArrayList<String>>();
-        
+        setMap(new ArrayList<ArrayList<Integer>>());
       }
       
 
@@ -388,6 +388,20 @@ public class Game {
      */
     public void setCollisions(ArrayList<ArrayList<String>> collisions) {
         this.collisions = collisions;
+    }
+
+    /**
+     * @return the map
+     */
+    public ArrayList<ArrayList<Integer>> getMap() {
+        return map;
+    }
+
+    /**
+     * @param map the map to set
+     */
+    public void setMap(ArrayList<ArrayList<Integer>> map) {
+        this.map = map;
     }
     
 }

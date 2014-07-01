@@ -283,7 +283,8 @@ public class NewMapDialog extends JDialog {
             // Create the map, tile, and object panels					
             tilePanel = new TilePanel1(getSheet(), false);
             //TilePanel1 objectPanel = new TilePanel(sheet, true);
-            mapPanel = new MapPanel1(parentFrame, 10, 10, tilePanel);
+            mapPanel = new MapPanel1(parentFrame,(Integer)xTiles.getValue(), 
+                    (Integer)yTiles.getValue(), tilePanel);
 
             // Assign the panels to the main frame
             parentFrame.setTeilpanel(tilePanel);

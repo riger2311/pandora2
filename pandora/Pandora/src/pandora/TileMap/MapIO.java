@@ -257,7 +257,7 @@ public class MapIO {
 
                 // Create the map, tile, and object panels					
                 tilePanel = new TilePanel1(getSheet(), false);
-                mapPanel = new MapPanel1(parentFrame, 10, 10, getTilePanel());
+                mapPanel = new MapPanel1(parentFrame, tileWidth,tileHeight, getTilePanel());
 
                 // Assign the panels to the main frame
                 parentFrame.setTeilpanel(tilePanel);
@@ -291,6 +291,7 @@ public class MapIO {
         catch (Exception e)
 		{
 			e.printStackTrace();
+                        System.out.println("Error: "+ e.getMessage());
 		}
     }
 

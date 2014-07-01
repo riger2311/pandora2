@@ -164,7 +164,7 @@ public class Mainframe extends javax.swing.JFrame {
         //needed to display changes
         this.jTabbedPane1.removeAll();
         //TODO: add mapeditor
-        this.jTabbedPane1.add(ConstantStrings.HEAD_MAP, new MapEditor());
+        this.jTabbedPane1.add(ConstantStrings.HEAD_MAP, new MapEditor(game));
         this.jTabbedPane1.add(ConstantStrings.HEAD_RULES, new RulesEditor(game));
     }//GEN-LAST:event_NewProjectActionPerformed
 
@@ -184,7 +184,7 @@ public class Mainframe extends javax.swing.JFrame {
         //needed to display changes
         this.jTabbedPane1.removeAll();
         //TODO: add mapeditor
-        this.jTabbedPane1.add(ConstantStrings.HEAD_MAP, new MapEditor());
+        this.jTabbedPane1.add(ConstantStrings.HEAD_MAP, new MapEditor(game));
         this.jTabbedPane1.add(ConstantStrings.HEAD_RULES, new RulesEditor(game));
 
         JOptionPane.showMessageDialog(this, ConstantStrings.MSG_LOADED, "Pandora", JOptionPane.INFORMATION_MESSAGE);

@@ -53,7 +53,7 @@ public class Pandora extends JApplet {
 
                 
                 //TODO: implement gameValues in MapEditor 
-                MapEditor mapEditor = new MapEditor();
+                MapEditor mapEditor = new MapEditor(gameValues);
                 main.getjTabbedPane1().add(ConstantStrings.HEAD_MAP, mapEditor);
                 main.setMap_editor(mapEditor);
 

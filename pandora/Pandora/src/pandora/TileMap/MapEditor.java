@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import pandora.ConstantStrings;
+import pandora.Game;
 
 /**
  *
@@ -27,23 +28,18 @@ public class MapEditor extends javax.swing.JPanel {
     private LayoutManager layoutManager;
     private String currentMapFilePath;
     private String selectedFilePath;
+    private Game game;
 
     /**
      * Creates new form MapEditor
      */
-    public MapEditor() {
+    public MapEditor(Game game) {
         initComponents();
+        this.game = game;
         setLayout(new GridLayout());
         this.option = new OptionPanel1();
 
-            try {
-
-                MapIO.loadProjectAsXML("image/example_map.tmf", this);
-            } 
-            catch (Exception e) {
-                System.out.println("Exception: " + e.getMessage());
-                this.createNewMapDialog();
-            }
+        MapIO.loadProjectAsXML("image/example_map.tmf", this);
 
     }
 
@@ -165,6 +161,20 @@ public class MapEditor extends javax.swing.JPanel {
      */
     public void setSelectedFilePath(String selectedFilePath) {
         this.selectedFilePath = selectedFilePath;
+    }
+
+    /**
+     * @return the game
+     */
+    public Game getGame() {
+        return game;
+    }
+
+    /**
+     * @param game the game to set
+     */
+    public void setGame(Game game) {
+        this.game = game;
     }
 
 }
