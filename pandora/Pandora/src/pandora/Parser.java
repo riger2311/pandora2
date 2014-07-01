@@ -50,7 +50,7 @@ public class Parser {
         "}                                               \n";
     */
     String str01_draw =
-        "var BLOCK_SIZE = 100;\n" +
+        "var BLOCK_SIZE = 75;\n" +
         "var IN_PLAY = 1;\n" +
         "var LOST = 0;\n" +
         "var currentTurn = 0; //starting with player 1\n" +
@@ -82,7 +82,7 @@ public class Parser {
     //draw Tokens of each PLayer
     //number defines tokens of which players
     //using later in function "getImageCoords"
-    for(int i = 0 ; i <= game.getNumberOfPlayers(); i++)
+    for(int i = 0 ; i < game.getNumberOfPlayers(); i++)
     {
         str02_drawAllTokens += "drawTeam(json.player" + Integer.toString(i+1) + ", "+Integer.toString(i+1)+");\n";
     }
@@ -138,12 +138,12 @@ public class Parser {
         "  json =  \n" +
         "  { \n";
         
-        for(int i = 0 ; i <= game.getNumberOfPlayers(); i++)
+        for(int i = 0 ; i < game.getNumberOfPlayers(); i++)
         {
             str06_params +="    \"player" + Integer.toString(i+1) + "\":  \n" +
                            "    [ \n";
             
-                for(int j= 0 ; j <= game.getTokensPerPlayer(); j++)
+                for(int j= 0 ; j < game.getTokensPerPlayer(); j++)
                 {    
                 str06_params += "      { \n" +
                                 "        \"token\": 0, \n" + //Token Position in Tiles
@@ -239,11 +239,14 @@ public class Parser {
         "  {  \n";
         
         //loop
-        for(int i = 0 ; i <= game.getNumberOfPlayers(); i++)
+        for(int i = 0 ; i < game.getNumberOfPlayers(); i++)
         {
-           str10_gettokenatblock += "    case " + Integer.toString(i+1) + ":  \n" +
-           "        team = json.player" + Integer.toString(i+1) + ";  \n" +
-           "        break;  \n";
+           str10_gettokenatblock += "    case " + Integer.toString(i) + ":  \n" +
+           "        team = json.player" + Integer.toString(i+1) + ";  \n" ;
+           if (i != game.getNumberOfPlayers() - 1)
+           {
+             str10_gettokenatblock += "        break;  \n";
+           }
                                     /*"    case 1:  \n" +
                                     "        team = json.player2;  \n";*/
         }
@@ -304,7 +307,6 @@ public class Parser {
         "  }\n" +
         "  else if (checkMovement(selectedToken, clickedBlock) === true)\n" +
         "  {\n" +
-        "    //TODO implement function \n" +
         "    moveToken(clickedBlock, enemyToken);\n" +
         "  }\n" +
         "}\n" ;
@@ -312,22 +314,18 @@ public class Parser {
     String str14_getEnemy =
         "function getEnemy(clickedBlock) \n" +
         "{ \n" +
-        "  var team = getOwner(clickedBlock); \n" +
+        "  var team; \n" +
         "  //BEWARE ORDER!!!! \n" +
         "  //change if more than 2 players \n" +
         "  //TODO DYNAMIC \n" +
         "  switch(currentTurn) \n" +
-        "  { \n";
-        
-       /* for(int i = 0 ; i <= game.getNumberOfPlayers(); i++)
-        {
-        str14_getEnemy += "    case " + Integer.toString(i) + ": \n" +
-                          "        team = json.player2; \n" +
-                          "        break; \n" +
+        "  { \n" +
+        "    case 0: \n" +
+                "team = json.player2; \n" +
+                "break; \n" +
         "    case 1: \n" +
-        "        team = json.player1; \n" +
-        }*/
-        str14_getEnemy += "  } \n" +
+        "team = json.player1; \n" +
+        "  } \n" +
         "  return getTokenAtBlockForTeam(team, clickedBlock); \n" +
         "}             \n" ;
     
@@ -341,19 +339,37 @@ public class Parser {
     
     //BUG INSIDE (no, it's not from Intel...)
     String str16_checkMovement =    
-        "//press button dice to get a value \n" +
         "function checkMovement(selectedToken, clickedBlock) \n" +
         "{ \n" +
-        "  var rowMoveTo = selectedToken.row; \n" +
-        "  var colMoveTo = selectedToken.col; \n" +
-        "  var dice = document.getElementById('textarea').value; \n" +
-        "  document.getElementById('button').visibility = 'hidden'; \n" +
-        "  return (((clickedBlock.row === (rowMoveTo.row - dice) \n" +
-        "        ||(clickedBlock.row === (rowMoveTo.row + dice))) \n" +
-        "        &&(clickedBlock.col === rowMoveTo.col)) \n" +
-        "        ||((clickedBlock.col === (rowMoveTo.col - dice) \n" +
-        "        ||(clickedBlock.col === (rowMoveTo.col + dice))) \n" +
-        "        &&(clickedBlock.row === rowMoveTo.row))); \n" +
+        "  var tokenrow = selectedToken.row; \n" +
+        "  var tokencol = selectedToken.col; \n" +
+        "  dice = document.getElementById('textarea').value; \n" +
+        "  if (tokenrow === clickedBlock.row) \n" +
+        "  { \n" +
+        "    if (Math.abs(tokencol - clickedBlock.col) == dice) \n" +
+        "    { \n" +
+        "      return true; \n" +
+        "    } \n" +
+        "    else \n" +
+        "    { \n" +
+        "      return false; \n" +
+        "    } \n" +
+        "  } \n" +
+        "  else if (tokencol === clickedBlock.col) \n" +
+        "  { \n" +
+        "    if (Math.abs(tokenrow - clickedBlock.row) == dice) \n" +
+        "    { \n" +
+        "      return true; \n" +
+        "    } \n" +
+        "    else \n" +
+        "    { \n" +
+        "      return false; \n" +
+        "    } \n" +
+        "  } \n" +
+        "  else \n" +
+        "  { \n" +
+        "    return false \n" +
+        "  } \n" +
         "} \n" ;
     
     String str17_toDice =
@@ -375,19 +391,16 @@ public class Parser {
         "  //TODO Implement due to missing draw tiles function \n" +
         "  //TODO implement rules and mission accomplished \n" +
         "  //drawBlock(selectedPiece.col, selectedPiece.row); \n" +
-        "  var team = currentTurn; \n" +
-        "  var opposite = getOwner(enemyToken); \n" +
+        "  var team = (currentTurn === 0 ? json.player1 : json.player2); \n" +
+        "  var opposite = (currentTurn !== 1 ? json.player1 : json.player2); \n" +
         "  team[selectedToken.position].col = clickedBlock.col; \n" +
         "  team[selectedToken.position].row = clickedBlock.row; \n" +
             
         // Sarah added this
-        " var goalBlock = block_coord(0, 0); \n" + // hier brauchen wir die coords des zielblocks
-        "  if (clickedBlock.col === goalBlock.col)\n" +
-        "  {\n" +
-        "   if (clickedBlock.row === goalBlock.row)\n" +
+        "  var goalBlock = block_coord(0, 0); \n" + // hier brauchen wir die coords des zielblocks
+        "  if ((clickedBlock.col === goalBlock.col) && (clickedBlock.row === goalBlock.row))\n" +
         "  {\n" +
         "    alert(\"Du gewinnst!\");\n" +
-        "  } \n" +
         "  } \n" +
         // Sarah added stuff ends here
             
@@ -399,8 +412,8 @@ public class Parser {
         "    opposite[enemyToken.position].status = LOST; \n" +
         "  } \n" +
         "  // Draw the piece in the new position \n" +
-        "  drawToken(selectedToken, currentTurn);        \n" +
-        "  currentTurn = (currentTurn + 1); \n" +
+        "  drawToken(selectedToken, currentTurn + 1);        \n" +
+        "  currentTurn = (currentTurn === 0 ? 1 : 0); \n" +
         "  document.getElementById('button').style.visibility = 'visible'; \n" +
         "  selectedtoken = null; \n" +
         "} \n" ;
@@ -516,7 +529,7 @@ public class Parser {
                 + "<button onclick=\"toDice()\"style = \"visibility:visible\" "
                 + "id=\"button\" value=\"0\" type=\"button\">Dice</button> \n"
                 + "<textarea style = \"resize:none\" rows=\"1\" cols=\"1\" id=\"textarea\" "
-                + "name=\"text\"></textarea> \n"
+                + "name=\"text\" disabled = \"disabled\"></textarea> \n"
                 + "</form> \n"
                 + "<div> \n"
                 + "<canvas id=\"board\" width=\"800\" height=\"800\"></canvas> \n"
