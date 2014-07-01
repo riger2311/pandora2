@@ -34,21 +34,11 @@ public class Parser {
     String background_file = ConstantStrings.BG_FILE;
     String pieces_file = ConstantStrings.PIECES_FILE;
     
-    //Game variables for use to dynamiv parsing
-    //TODO: change hardcoded values to game member values!
+    //Game variables for use to dynamic parsing
     int player = game.getNumberOfPlayers();
 
     String source;
-    /*
-        "var system = new Array();                       \n" +
-        "system['foo'] = function(s) { return '"+test+"'; } \n" +
-        "                                                \n" +
-        "var results = system.foo('example');            \n" +
-        "                                                \n" +
-        "if(results == \"hello\") {                      \n" +
-        "  print(\""+shit+".\");                        \n" +
-        "}                                               \n";
-    */
+   
     String str01_draw =
         "var BLOCK_SIZE = 75;\n" +
         "var IN_PLAY = 1;\n" +
@@ -78,8 +68,8 @@ public class Parser {
       
         "function drawAllTokens() \n" +
     "{\n";
-    //TODO DYNAMIC
-    //draw Tokens of each PLayer
+    
+    //draw Tokens of each Player
     //number defines tokens of which players
     //using later in function "getImageCoords"
     for(int i = 0 ; i < game.getNumberOfPlayers(); i++)
@@ -121,7 +111,6 @@ public class Parser {
     String str05_getImageCoords =
         "function getImageCoords(token, playerID) \n" +
         "{ \n" +
-        "  //TODO how to change y \n" +
         "  var imageCoords =  \n" +
         "  { \n" +
         "    \"x\": token * BLOCK_SIZE,  \n" +
@@ -134,7 +123,6 @@ public class Parser {
     String str06_params =  
         "function params() \n" +
         "{ \n" +
-        "  //TODO DYNAMIC \n" +
         "  json =  \n" +
         "  { \n";
         
@@ -154,35 +142,7 @@ public class Parser {
                 }    
             str06_params += "    ], \n";
         }    
-        /*"      { \n" +
-        "        \"token\": 1, \n" +
-        "        \"row\": 0, \n" +
-        "        \"col\": 1, \n" +
-        "        \"status\": IN_PLAY \n" +
-        "      }, \n" +
-        "      { \n" +
-        "        \"token\": 0, \n" +
-        "        \"row\": 0, \n" +
-        "        \"col\": 2, \n" +
-        "        \"status\": IN_PLAY \n" +
-        "      } \n" +*/
         
-                
-        /*"    \"player2\":  \n" +
-        "    [ \n" +
-        "      { \n" +
-        "        \"token\": 2, \n" +
-        "        \"row\": 3, \n" +
-        "        \"col\": 1, \n" +
-        "        \"status\": IN_PLAY \n" +
-        "      }, \n" +
-        "      { \n" +
-        "        \"token\": 4, \n" +
-        "        \"row\": 3, \n" +
-        "        \"col\": 0, \n" +
-        "        \"status\": IN_PLAY \n" +
-        "      } \n" +
-        "    ]    \n" +*/
         str06_params += "  }; \n" +
                         "} \n" ;
     
@@ -234,7 +194,6 @@ public class Parser {
         "  var team;  \n" +
         "  //which team is selected  \n" +
         "  //global var currentTurn saves team which turn it is  \n" +
-        "  //TODO DYNAMIC  \n" +
         "  switch(currentTurn)  \n" +
         "  {  \n";
         
@@ -247,8 +206,6 @@ public class Parser {
            {
              str10_gettokenatblock += "        break;  \n";
            }
-                                    /*"    case 1:  \n" +
-                                    "        team = json.player2;  \n";*/
         }
         str10_gettokenatblock += "  }  \n" +   
         "  return getTokenAtBlockForTeam(team, clickedBlock);  \n" +
@@ -300,8 +257,6 @@ public class Parser {
         "  var enemyToken = getEnemy(clickedBlock);\n" +
         "  if (tokenAtBlock !== null)\n" +
         "  {\n" +
-        "    //NOTE: pls uncomment if removeSelection implementation works\n" +
-        "    //TODO\n" +
         "    //removeSelection(selectedToken);\n" +
         "    checkIfTokenClicked(clickedBlock);      \n" +
         "  }\n" +
@@ -317,7 +272,6 @@ public class Parser {
         "  var team; \n" +
         "  //BEWARE ORDER!!!! \n" +
         "  //change if more than 2 players \n" +
-        "  //TODO DYNAMIC \n" +
         "  switch(currentTurn) \n" +
         "  { \n" +
         "    case 0: \n" +
@@ -333,11 +287,9 @@ public class Parser {
     String str15_removeSelection =
         "function removeSelection(selectedToken) \n" +
         "{ \n" +
-        "  //TODO draw tiles at point selectedToken.col/.row \n" +
         "  //drawToken(selectedToken, currentTurn); \n" +
         "} \n" ;
     
-    //BUG INSIDE (no, it's not from Intel...)
     String str16_checkMovement =    
         "function checkMovement(selectedToken, clickedBlock) \n" +
         "{ \n" +
@@ -376,7 +328,6 @@ public class Parser {
         "function toDice() \n" +
         "{ \n" +
         "  //NOTE Math.random generates float values between 0 and 1 \n" +
-        "  //TODO DYNAMIC \n" +
         "  var rnd = 1 + Math.floor(Math.random() * " + game.getEyesOfDice() + "); \n" +
         "  document.getElementById('textarea').value = rnd; \n" +
         "  document.getElementById('button').style.visibility = 'hidden'; \n" +
@@ -388,8 +339,7 @@ public class Parser {
         "function moveToken(clickedBlock, enemyToken) \n" +
         "{ \n" +
         "  // Clear the block in the original position \n" +
-        "  //TODO Implement due to missing draw tiles function \n" +
-        "  //TODO implement rules and mission accomplished \n" +
+        "  // implement here rules and mission goal \n" +
         "  //drawBlock(selectedPiece.col, selectedPiece.row); \n" +
         "  var team = (currentTurn === 0 ? json.player1 : json.player2); \n" +
         "  var opposite = (currentTurn !== 1 ? json.player1 : json.player2); \n" +
@@ -397,7 +347,7 @@ public class Parser {
         "  team[selectedToken.position].row = clickedBlock.row; \n" +
             
         // Sarah added this
-        "  var goalBlock = block_coord(0, 0); \n" + // hier brauchen wir die coords des zielblocks
+        "  var goalBlock = block_coord(2, 0); \n" + // hier brauchen wir die coords des zielblocks
         "  if ((clickedBlock.col === goalBlock.col) && (clickedBlock.row === goalBlock.row))\n" +
         "  {\n" +
         "    alert(\"Du gewinnst!\");\n" +
@@ -407,7 +357,7 @@ public class Parser {
         "  if (enemyToken !== null) \n" +
         "  { \n" +
         "    // Clear the piece your about to take \n" +
-        "    //TODO implemt function due to missing draw tiles \n" +
+        "    //TODO implement function due to missing draw tiles \n" +
         "    //drawBlock(enemyToken.col, enemyPiece.row);   \n" +
         "    opposite[enemyToken.position].status = LOST; \n" +
         "  } \n" +
@@ -422,7 +372,6 @@ public class Parser {
     String str19_getOwner =
         "function getOwner(token) \n" +
         "{ \n" +
-        "  //TODO DYNAMIC \n" +
         "  var count; \n" +
         "  var owner = null; \n" +
         "  for (count = 0; count < " + game.getTokensPerPlayer() + "; count++)  \n" +
