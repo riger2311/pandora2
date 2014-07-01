@@ -283,7 +283,7 @@ public class Wizard extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
     game_name_ = t_game_name_.getText();
-    number_of_players_ = t_number_of_players.getSelectedIndex() + 1;   
+    number_of_players_ = t_number_of_players.getSelectedIndex() + 2;   
     
     try {      
 

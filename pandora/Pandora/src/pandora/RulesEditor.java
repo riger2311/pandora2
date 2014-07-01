@@ -66,7 +66,7 @@ public class RulesEditor extends javax.swing.JPanel {
         
         for(int i = 0; i < game.getNumberOfPlayers(); i++)
         {
-            list.addElement(ConstantStrings.PLAYER + " " + i);
+            list.addElement(ConstantStrings.PLAYER + " " + (i + 1));
         }
 
         selectedPlayer.setModel(list); //fills data into jList
