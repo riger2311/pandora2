@@ -178,6 +178,7 @@ public class MapTile extends JLabel
 	private void drawTile()
 	{
             System.out.println("TIles");
+            int valuetile = 0;
 		// Determine which tile should be drawn and then draw it
 		if (parentMapPanel.objectPanelSelectedLast())
 		{
@@ -185,10 +186,13 @@ public class MapTile extends JLabel
 		}
 		else
 		{
-			setTileLayerId(parentMapPanel.getTilePanel().getSelectedTileIndex());
+                    valuetile = parentMapPanel.getTilePanel().getSelectedTileIndex();
+                    parentMapPanel.getParentFrame().getGame().getMap().set(index, valuetile);
+			setTileLayerId(valuetile);
 		}
 		
 		repaint();
+                parentMapPanel.getParentFrame().getGame().printMap();
 	}
 	
 	/**

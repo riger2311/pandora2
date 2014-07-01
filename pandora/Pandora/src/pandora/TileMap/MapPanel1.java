@@ -337,4 +337,18 @@ public class MapPanel1 extends javax.swing.JPanel {
         return drawCount;
     }
 
+    /**
+     * @return the parentFrame
+     */
+    public MapEditor getParentFrame() {
+        return parentFrame;
+    }
+
+    /**
+     * @param parentFrame the parentFrame to set
+     */
+    public void setParentFrame(MapEditor parentFrame) {
+        this.parentFrame = parentFrame;
+    }
+
 }

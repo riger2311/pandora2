@@ -111,8 +111,8 @@ public class NewMapDialog extends JDialog {
         xTiles = new JSpinner();
         yTiles = new JSpinner();
 
-        xTiles.setValue(10);
-        yTiles.setValue(10);
+        getxTiles().setValue(10);
+        getyTiles().setValue(10);
 
         // Create the JLabels
         JLabel widthLabel = new JLabel("Width:");
@@ -121,9 +121,9 @@ public class NewMapDialog extends JDialog {
 
         // Add the components to the frame
         panel.add(widthLabel);
-        panel.add(xTiles);
+        panel.add(getxTiles());
         panel.add(heightLabel);
-        panel.add(yTiles);
+        panel.add(getyTiles());
         panel.add(unitLabel);
 
         return panel;
@@ -283,8 +283,8 @@ public class NewMapDialog extends JDialog {
             // Create the map, tile, and object panels					
             tilePanel = new TilePanel1(getSheet(), false);
             //TilePanel1 objectPanel = new TilePanel(sheet, true);
-            mapPanel = new MapPanel1(parentFrame,(Integer)xTiles.getValue(), 
-                    (Integer)yTiles.getValue(), tilePanel);
+            mapPanel = new MapPanel1(parentFrame,(Integer)getxTiles().getValue(), 
+                    (Integer)getyTiles().getValue(), tilePanel);
 
             // Assign the panels to the main frame
             parentFrame.setTeilpanel(tilePanel);
@@ -316,6 +316,7 @@ public class NewMapDialog extends JDialog {
             JOptionPane.showMessageDialog(this, ConstantStrings.ERROR_FILE ,"File Error",JOptionPane.ERROR_MESSAGE);
             
         }
+
 
     }
 
@@ -386,5 +387,19 @@ public class NewMapDialog extends JDialog {
      */
     public void setySize(JSpinner ySize) {
         this.ySize = ySize;
+    }
+
+    /**
+     * @return the xTiles
+     */
+    public JSpinner getxTiles() {
+        return xTiles;
+    }
+
+    /**
+     * @return the yTiles
+     */
+    public JSpinner getyTiles() {
+        return yTiles;
     }
 }

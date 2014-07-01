@@ -33,7 +33,7 @@ public class Game {
       private int staticMovement; //movement, if dices are not enabled
       
       private ArrayList<ArrayList<String>> collisions;
-      private ArrayList<ArrayList<Integer>> map;
+      private ArrayList<Integer> map;
       
 
     public Game() {
@@ -47,7 +47,8 @@ public class Game {
         tokensPerPlayer = 1;
         staticMovement = 1;
         collisions = new ArrayList<ArrayList<String>>();
-        map = new ArrayList<ArrayList<Integer>>();
+        map = new ArrayList<Integer>();
+        this.initMap();
     }
       void reset()
       {
@@ -61,7 +62,8 @@ public class Game {
         tokensPerPlayer = 1;
         staticMovement = 1;
         collisions = new ArrayList<ArrayList<String>>();
-        setMap(new ArrayList<ArrayList<Integer>>());
+        setMap(new ArrayList<Integer>());
+        this.initMap();
       }
       
 
@@ -70,6 +72,47 @@ public class Game {
      */
     public String getNameOfGame() {
         return nameOfGame;
+    }
+    
+    public void printMap()
+    {
+        int countmapy ;
+        int countmapx ;
+        int index=0;
+        
+        System.out.print("[");
+        for (countmapx = 0; countmapx < (fieldWidth);countmapx++)
+        {
+            System.out.print("[");
+            for(countmapy = 0; countmapy < fieldHeight;countmapy++)
+            {
+             if(countmapy != (fieldHeight-1))
+             {
+             System.out.print(map.get(index)+",");
+             }
+             else
+             {
+               System.out.print(map.get(index));//map.get(countmapy));
+             }
+             index++;
+            }
+            System.out.println("]");
+        }
+        System.out.println("]");
+    }
+    
+    public void initMap()
+    {
+        
+        int countmap =0;
+        int width = fieldWidth;
+        int height = fieldHeight;
+        int summe = width * height;
+        while (countmap < summe)
+        {
+            map.add(countmap, 0);
+            countmap++;
+        }
     }
 
     /**
@@ -393,14 +436,14 @@ public class Game {
     /**
      * @return the map
      */
-    public ArrayList<ArrayList<Integer>> getMap() {
+    public ArrayList<Integer> getMap() {
         return map;
     }
 
     /**
      * @param map the map to set
      */
-    public void setMap(ArrayList<ArrayList<Integer>> map) {
+    public void setMap(ArrayList<Integer> map) {
         this.map = map;
     }
     

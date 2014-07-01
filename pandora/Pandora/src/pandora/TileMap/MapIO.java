@@ -207,6 +207,9 @@ public class MapIO {
 
                 int mapWidth = Integer.parseInt(map_width.getText());
                 int mapHeight = Integer.parseInt(map_height.getText());
+                
+                parentFrame.getGame().setFieldHeight(mapHeight);
+                parentFrame.getGame().setFieldWidth(mapWidth);
 
                 // Get tile width and height
                 Element tile_width = root.getChild("tile_width");
