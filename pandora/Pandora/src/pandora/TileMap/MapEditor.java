@@ -58,6 +58,10 @@ public class MapEditor extends javax.swing.JPanel {
         return panelmap;
     }
 
+    public void createNewMapDialog() {
+        new NewMapDialog(this);
+    }
+
     /**
      * @param panelmap the panelmap to set
      */

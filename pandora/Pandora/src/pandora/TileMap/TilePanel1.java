@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import pandora.util.SpringUtilities;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 
 /**
@@ -69,7 +70,7 @@ public class TilePanel1 extends javax.swing.JPanel {
         } else {
             tempSheet = tileSheet.tiles;
             tempSize = tileSheet.tiles.size();
-            setBackground(Color.BLACK);
+            setBackground(Color.LIGHT_GRAY);
         }
 
         // Loop through the sheet and add each tile to the panel

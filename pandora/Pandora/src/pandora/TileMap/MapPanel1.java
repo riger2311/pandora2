@@ -39,17 +39,13 @@ public class MapPanel1 extends javax.swing.JPanel {
         tiles = new ArrayList<MapTile>();
         projectedTileIndexes = new ArrayList<Integer>();
         this.TilePanel1 = tilepanel;
-        
-        
-        if(xTiles <= 42 || yTiles <= 42)
-        {
-         this.xTiles = xTiles;
-         this.yTiles = yTiles;
-        }
-        else
-        {
-          this.xTiles = 10;
-          this.yTiles = 10;
+
+        if (xTiles <= 42 || yTiles <= 42) {
+            this.xTiles = xTiles;
+            this.yTiles = yTiles;
+        } else {
+            this.xTiles = 10;
+            this.yTiles = 10;
         }
 
         objectPanelSelectedLast = false;
@@ -115,6 +111,8 @@ public class MapPanel1 extends javax.swing.JPanel {
     public TilePanel1 getTilePanel() {
         return TilePanel1;
     }
+
+ 
 
     /**
      * Gets all of the MapTiles stored in this map
@@ -212,14 +210,13 @@ public class MapPanel1 extends javax.swing.JPanel {
     public void setLayerData(ArrayList<Integer> tileLayer, ArrayList<Byte> collisionLayer) {
         for (int i = 0; i < tiles.size(); i++) {
             MapTile currentTile = tiles.get(i);
-            
+
             // Set the object and tile layer data
             //currentTile.setObjectLayerId(objectLayer.get(i));
             currentTile.setTileLayerId(tileLayer.get(i));
 
             // Set the collision layer data
             //currentTile.setCollidable(collisionLayer.get(i));
-
             // Redraw
             currentTile.repaint();
         }
@@ -269,8 +266,8 @@ public class MapPanel1 extends javax.swing.JPanel {
      * @return Whether or not tile mode is enabled
      */
     public boolean tileModeEnabled() {
-          // System.out.println("CollisionModeEnable");
-         return true;//return parentFrame.getMenuPanel().getViewMenu().getTileLayerMode();
+        // System.out.println("CollisionModeEnable");
+        return true;//return parentFrame.getMenuPanel().getViewMenu().getTileLayerMode();
     }
 
     /**
@@ -279,8 +276,8 @@ public class MapPanel1 extends javax.swing.JPanel {
      * @return Whether or not grid mode is enabled
      */
     public boolean gridModeEnabled() {
-           //System.out.println("CollisionModeEnable");
-         return true;//return parentFrame.getMenuPanel().getViewMenu().getGridMode();
+        //System.out.println("CollisionModeEnable");
+        return true;//return parentFrame.getMenuPanel().getViewMenu().getGridMode();
     }
 
     /**

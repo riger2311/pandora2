@@ -46,6 +46,10 @@ public class Mainframe extends javax.swing.JFrame {
         Exit = new javax.swing.JMenuItem();
         Export = new javax.swing.JMenu();
         GenerateGame = new javax.swing.JMenuItem();
+        Map = new javax.swing.JMenu();
+        NewBoard = new javax.swing.JMenuItem();
+        SaveBoard = new javax.swing.JMenuItem();
+        LoadBoard = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,6 +105,24 @@ public class Mainframe extends javax.swing.JFrame {
         Export.add(GenerateGame);
 
         jMenuBar1.add(Export);
+
+        Map.setText("Brett");
+
+        NewBoard.setText("Neues Brett");
+        NewBoard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NewBoardActionPerformed(evt);
+            }
+        });
+        Map.add(NewBoard);
+
+        SaveBoard.setText("Brett speichern");
+        Map.add(SaveBoard);
+
+        LoadBoard.setText("Brett laden");
+        Map.add(LoadBoard);
+
+        jMenuBar1.add(Map);
 
         setJMenuBar(jMenuBar1);
 
@@ -200,14 +222,25 @@ public class Mainframe extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_GenerateGameActionPerformed
 
+    private void NewBoardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewBoardActionPerformed
+ 
+       //this.createNewMapDialog();
+       
+        
+    }//GEN-LAST:event_NewBoardActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Exit;
     private javax.swing.JMenu Export;
     private javax.swing.JMenuItem GenerateGame;
+    private javax.swing.JMenuItem LoadBoard;
     private javax.swing.JMenuItem LoadProject;
+    private javax.swing.JMenu Map;
     private javax.swing.JMenu Menu;
+    private javax.swing.JMenuItem NewBoard;
     private javax.swing.JMenuItem NewProject;
+    private javax.swing.JMenuItem SaveBoard;
     private javax.swing.JMenuItem SaveProject;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JTabbedPane jTabbedPane1;

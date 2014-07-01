@@ -48,6 +48,7 @@ public class LayoutManager
 	 */
 	public void initializeLayout()
 	{	
+            System.out.println("InitLayout");
 		// Create the JScrollPanes for the tile and map panels
 		tilePanelScrollPane = new JScrollPane(parentFrame.getTeilpanel());
 		mapPanelScrollPane = new JScrollPane(mapPanel);
@@ -62,6 +63,7 @@ public class LayoutManager
 		
                 parentFrame.add(secondpanel);
 
+                parentFrame.validate();
 		parentFrame.repaint();
 	}
 	

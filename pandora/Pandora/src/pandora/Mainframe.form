@@ -61,6 +61,31 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="Map">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Brett"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="NewBoard">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Neues Brett"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NewBoardActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="SaveBoard">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Brett speichern"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="LoadBoard">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Brett laden"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>
