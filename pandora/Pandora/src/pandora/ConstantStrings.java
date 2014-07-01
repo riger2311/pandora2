@@ -73,7 +73,7 @@ public class ConstantStrings {
     */
     //labels and buttons
     public static final String WIZARD_HEAD_LABEL = "Neues Projekt";
-    public static final String WIZARD_INFO = "Hier können Sie die Grundeinstellungen vornehmen";
+    public static final String WIZARD_INFO = "DU KOMMST NICHT VORBEI (...an den Grundeinstellungen des Spieles)!";
     public static final String NAME_OF_GAME = "Name des Spieles:";
     public static final String NUMBER_OF_PLAYERS = "Spieleranzahl:";
     public static final String SIZE_OF_FIELD = "Spielfeldgröße (BxH):";
@@ -87,6 +87,10 @@ public class ConstantStrings {
     public static final String ERROR_INPUT = "Error: Falsche Eingabe erfolgt. (Zahlen/Text)";
     public static final String ERROR_WIDTH = "Error: Breite ungültig!";
     public static final String ERROR_HEIGHT = "Error: Höhe ungültig!";
+    public static final String ERROR_NUM_OF_TOKEN = "Error: Anzahl der Spielfiguren!";
+    public static final String ERROR_NUM_OF_DICES = "Error: Anzahl der Würfel!";
+    public static final String ERROR_EYE_OF_DICES = "Error: Augenzahl der Würfel!";
+
     
     /*
     *

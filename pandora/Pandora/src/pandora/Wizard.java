@@ -145,7 +145,7 @@ public class Wizard extends javax.swing.JDialog {
             }
         });
 
-        jLabel8.setText("(1 - 128)");
+        jLabel8.setText("(1 - 7)");
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pandora/gandalf.png"))); // NOI18N
         jLabel9.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -311,17 +311,17 @@ public class Wizard extends javax.swing.JDialog {
     }
     else if(dizes_ > Constants.MAX_DICES || dizes_ < 0)
     {
-        error_label.setText(ConstantStrings.ERROR_HEIGHT);
+        error_label.setText(ConstantStrings.ERROR_NUM_OF_DICES);
         return;
     }
     else if(dizes_count_ > Constants.MAX_EYES || dizes_count_ < Constants.LOWER_BOUND)
     {
-        error_label.setText(ConstantStrings.ERROR_HEIGHT);
+        error_label.setText(ConstantStrings.ERROR_EYE_OF_DICES);
         return;
     }
     else if(tokens_per_player_ > Constants.MAX_TOKENS || tokens_per_player_ < 1)
     {
-        error_label.setText(ConstantStrings.ERROR_HEIGHT);
+        error_label.setText(ConstantStrings.ERROR_NUM_OF_TOKEN);
         return;
     }
     

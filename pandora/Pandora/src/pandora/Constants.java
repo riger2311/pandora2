@@ -29,7 +29,7 @@ public class Constants {
     //number of dices in Wizard
     public static final int MAX_DICES = 7;
     //number of eyes of the dices
-    public static final int MAX_EYES = 42;
+    public static final int MAX_EYES = 20;
     //maximum amount of tokens per player
     public static final int MAX_TOKENS = 6;
     
