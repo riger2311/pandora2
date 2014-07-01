@@ -83,9 +83,9 @@ public class Parser {
     //draw Tokens of each PLayer
     //number defines tokens of which players
     //using later in function "getImageCoords"
-    for(int i = 1 ; i <= player; i++)
+    for(int i = 0 ; i <= game.getNumberOfPlayers(); i++)
     {
-        str02_drawAllTokens += "drawTeam(json.player" + Integer.toString(i) + ", "+Integer.toString(i)+");\n";
+        str02_drawAllTokens += "drawTeam(json.player" + Integer.toString(i+1) + ", "+Integer.toString(i+1)+");\n";
     }
     str02_drawAllTokens += "}\n" ;
     
