@@ -79,11 +79,11 @@ public class Wizard extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        game_name_lab.setText("Name des Spieles:");
+        game_name_lab.setText(ConstantStrings.NAME_OF_GAME);
 
-        t_game_name_.setText("Spielnamen eingeben");
+        t_game_name_.setText(ConstantStrings.NAME_OF_GAME_FIELD);
 
-        number_of_players_lab.setText("Spieleranzahl:");
+        number_of_players_lab.setText(ConstantStrings.NUMBER_OF_PLAYERS);
 
         t_number_of_players.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         t_number_of_players.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +92,7 @@ public class Wizard extends javax.swing.JDialog {
             }
         });
 
-        number_of_players_lab1.setText("Spielfeldgröße (BxH):");
+        number_of_players_lab1.setText(ConstantStrings.SIZE_OF_FIELD);
 
         t_width.setText("10");
 
@@ -105,7 +105,7 @@ public class Wizard extends javax.swing.JDialog {
 
         jLabel2.setText("x");
 
-        jLabel3.setText("(min 2x2 max. 42x42 Felder)");
+        jLabel3.setText(ConstantStrings.SIZE_RESTRIC);
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -115,9 +115,8 @@ public class Wizard extends javax.swing.JDialog {
         });
 
         error_label.setForeground(new java.awt.Color(204, 0, 0));
-        error_label.setText("-");
 
-        jLabel4.setText("Anzahl der Würfel:");
+        jLabel4.setText(ConstantStrings.NUM_OF_DICE);
 
         t_dizes.setText("1");
         t_dizes.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +125,7 @@ public class Wizard extends javax.swing.JDialog {
             }
         });
 
-        jLabel5.setText("Augenzahl der Würfel:");
+        jLabel5.setText(ConstantStrings.EYE_OF_DICE);
 
         t_dizes_max_val.setText("6");
         t_dizes_max_val.addActionListener(new java.awt.event.ActionListener() {
@@ -135,9 +134,9 @@ public class Wizard extends javax.swing.JDialog {
             }
         });
 
-        jLabel6.setText("(von 2 - 20)");
+        jLabel6.setText("(2 - 20)");
 
-        jLabel7.setText("Anzahl Spielfiguren/Spieler:");
+        jLabel7.setText(ConstantStrings.NUM_OF_TOKENS);
 
         t_token.setText("4");
         t_token.addActionListener(new java.awt.event.ActionListener() {
@@ -146,17 +145,16 @@ public class Wizard extends javax.swing.JDialog {
             }
         });
 
-        jLabel8.setText("(von 1 - 128)");
+        jLabel8.setText("(1 - 128)");
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pandora/gandalf.png"))); // NOI18N
         jLabel9.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabel9.setSize(new java.awt.Dimension(75, 113));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 102, 255));
-        jLabel1.setText("Willkommen beim WIZARD! ");
+        jLabel1.setText(ConstantStrings.WIZARD_HEAD_LABEL);
 
-        jLabel10.setText("Hier können Sie die Grundeigenschaften zum Spiel eintragen:");
+        jLabel10.setText(ConstantStrings.WIZARD_INFO);
 
         jLabel11.setText("(0 - 7)");
 
@@ -215,7 +213,7 @@ public class Wizard extends javax.swing.JDialog {
                                                             .addComponent(jLabel8))))))
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                                     .addComponent(jLabel10))
-                                .addGap(0, 22, Short.MAX_VALUE))
+                                .addGap(0, 173, Short.MAX_VALUE))
                             .addComponent(error_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))

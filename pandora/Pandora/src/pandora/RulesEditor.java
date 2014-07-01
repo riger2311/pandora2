@@ -105,7 +105,7 @@ public class RulesEditor extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         selectedPlayer = new javax.swing.JList();
         Movement = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        CollisionLabel = new javax.swing.JLabel();
         ContactObjectList = new javax.swing.JComboBox();
         ContactActionBox = new javax.swing.JComboBox();
         ApplyRules = new javax.swing.JButton();
@@ -130,7 +130,7 @@ public class RulesEditor extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Bei Kontakt mit");
+        CollisionLabel.setText(ConstantStrings.COLLISION_LABEL);
 
         ContactObjectList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ContactObjectList.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +141,7 @@ public class RulesEditor extends javax.swing.JPanel {
 
         ContactActionBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        ApplyRules.setText("Apply");
+        ApplyRules.setText(ConstantStrings.APPLY_BUTTON);
         ApplyRules.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ApplyRulesActionPerformed(evt);
@@ -164,7 +164,7 @@ public class RulesEditor extends javax.swing.JPanel {
 
         ErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
 
-        MovementLabel.setText("Bewegungsreichweite");
+        MovementLabel.setText(ConstantStrings.MOVEMENT_LABEL);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -190,12 +190,12 @@ public class RulesEditor extends javax.swing.JPanel {
                         .addComponent(ApplyRules))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                            .addComponent(CollisionLabel)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(MovementLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Movement, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 116, Short.MAX_VALUE))))
+                        .addGap(0, 166, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +207,7 @@ public class RulesEditor extends javax.swing.JPanel {
                             .addComponent(MovementLabel)
                             .addComponent(Movement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(50, 50, 50)
-                        .addComponent(jLabel1)
+                        .addComponent(CollisionLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ContactObjectList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -419,6 +419,7 @@ public class RulesEditor extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ApplyRules;
+    private javax.swing.JLabel CollisionLabel;
     private javax.swing.JComboBox ContactActionBox;
     private javax.swing.JComboBox ContactObjectList;
     private javax.swing.JLabel ErrorLabel;
@@ -426,7 +427,6 @@ public class RulesEditor extends javax.swing.JPanel {
     private javax.swing.JLabel MovementLabel;
     private javax.swing.JButton RemoveButton;
     private javax.swing.JButton addButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList selectedPlayer;
     // End of variables declaration//GEN-END:variables
