@@ -145,7 +145,7 @@ public class Wizard extends javax.swing.JDialog {
             }
         });
 
-        jLabel8.setText("(1 - 7)");
+        jLabel8.setText("(1 - 6)");
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pandora/gandalf.png"))); // NOI18N
         jLabel9.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
