@@ -272,18 +272,36 @@ function removeSelection(selectedToken)
 //press button dice to get a value
 function checkMovement(selectedToken, clickedBlock)
 {
-  var rowMoveTo = selectedToken.row;
-  var colMoveTo = selectedToken.col;
+  var tokenrow = selectedToken.row;
+  var tokencol = selectedToken.col;
+  dice = document.getElementById('textarea').value;
+  if(clickedBlock.row === tokenrow)
+  {
+    if(tokencol === (clickedBlock.col - dice))
+    {
+      alert("same row -dice");
+      return true;
+    }
+    if(tokencol === (clickedBlock.col + dice))
+    {
+      alerz("same row + dice");
+      return true;
+    }
+    else
+    {
+      return false;
+    }
 
-  var dice = document.getElementById('textarea').value;
-  document.getElementById('button').visibility = 'hidden';
-          
-  return (((clickedBlock.row === (rowMoveTo.row - dice)
-        ||(clickedBlock.row === (rowMoveTo.row + dice)))
-        &&(clickedBlock.col === rowMoveTo.col))
-        ||((clickedBlock.col === (rowMoveTo.col - dice)
-        ||(clickedBlock.col === (rowMoveTo.col + dice)))
-        &&(clickedBlock.row === rowMoveTo.row)));
+  }
+  else if(clickedBlock.col == tokencol)
+  {
+    return((tokenrow === (clickedBlock.row - dice))||(tokenrow === (clickedBlock.row + dice)));
+
+  }
+  else
+  {
+    return false;
+  }
 
 }
 function toDice(number)
@@ -300,26 +318,26 @@ function moveToken(clickedBlock, enemyToken)
   // Clear the block in the original position
   //TODO Implement due to missing draw tiles function
   //TODO implement rules and mission accomplished
-  //drawBlock(selectedPiece.col, selectedPiece.row);
-  
-  var team = currentTurn;
-  var opposite = getOwner(enemyToken);
-
+  //drawBlock(selectedToken.col, selectedToken.row);
+  alert("movement possible");
+  var team = (currentTurn === 0 ? json.player1:json.player2);
+  var opposite = (currentTurn !== 1 ? json.player1:json.player2);
   team[selectedToken.position].col = clickedBlock.col;
   team[selectedToken.position].row = clickedBlock.row;
-  
   if (enemyToken !== null)
   {
     // Clear the piece your about to take
     //TODO implemt function due to missing draw tiles
-    //drawBlock(enemyToken.col, enemyPiece.row);  
+    //drawBlock(enemyToken.col, enemyPiece.row);
+        alert("enemy not null");
     opposite[enemyToken.position].status = LOST;
+
   }
   
   // Draw the piece in the new position
-  drawToken(selectedToken, currentTurn);       
+  drawToken(selectedToken, currentTurn + 1);      
   
-  currentTurn = (currentTurn + 1);
+  currentTurn = (currentTurn === 0 ? 1:0);
   document.getElementById('button').style.visibility = 'visible';
   selectedtoken = null;
 }
@@ -344,7 +362,7 @@ function getOwner(token)
   {
     for (count = 0; count < player2.length; count++) 
   {
-    token = player1[count];
+    token = player2[count];
     
     if(token.status === IN_PLAY &&
       token.col === clickedBlock.col &&
