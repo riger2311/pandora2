@@ -177,7 +177,6 @@ public class MapTile extends JLabel
 	 */
 	private void drawTile()
 	{
-            System.out.println("TIles");
             int valuetile = 0;
 		// Determine which tile should be drawn and then draw it
 		if (parentMapPanel.objectPanelSelectedLast())
@@ -192,7 +191,6 @@ public class MapTile extends JLabel
 		}
 		
 		repaint();
-                parentMapPanel.getParentFrame().getGame().printMap();
 	}
 	
 	/**

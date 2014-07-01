@@ -65,7 +65,6 @@ public class Pandora extends JApplet {
                 //setting location of frame to center of screen
                 main.setLocationRelativeTo(null);
                 main.setVisible(true);
-                
                 }
                 catch(Exception e)
                 {

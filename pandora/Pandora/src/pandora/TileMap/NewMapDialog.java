@@ -290,6 +290,12 @@ public class NewMapDialog extends JDialog {
             parentFrame.setTeilpanel(tilePanel);
             parentFrame.setPanelmap(mapPanel);
 
+            System.out.println("height "+(Integer)getyTiles().getValue());
+            System.out.println("width "+(Integer)getxTiles().getValue());
+            parentFrame.getGame().setFieldHeight((Integer)getyTiles().getValue());
+            parentFrame.getGame().setFieldWidth((Integer)getxTiles().getValue());
+            
+            parentFrame.getGame().initMap();
             // Assign the map panel to the tile selection panels
             tilePanel.setMapPanel(mapPanel);
             //objectPanel.setMapPanel(mapPanel);

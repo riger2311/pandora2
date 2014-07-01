@@ -65,10 +65,9 @@ public class MapEditor extends javax.swing.JPanel {
 
     public void createNewMapDialog() {
         NewMapDialog mapDialog = new NewMapDialog(this);
-        game.setFieldWidth((Integer)mapDialog.getyTiles().getValue());
-        game.setFieldHeight((Integer) mapDialog.getyTiles().getValue());
-        game.initMap();
-        game.printMap();
+        //game.setFieldWidth((Integer)mapDialog.getyTiles().getValue());
+        //game.setFieldHeight((Integer) mapDialog.getyTiles().getValue());
+        //game.initMap();
     }
 
     public void SaveMap() {
