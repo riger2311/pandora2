@@ -48,4 +48,30 @@ public class ConstantSrings {
     //Displays "Spieler n" in List and Combobox
     public static final String PLAYER = "Spieler";
     public static final String MOVEMENT_DICE = "Bewegung durch Würfeln";
+    
+    /*
+    *
+    *  Strings in Wizard.java
+    *
+    */
+    public static final String ERROR_INPUT = "Error: Falsche Eingabe erfolgt. (Zahlen/Text)";
+    public static final String ERROR_WIDTH = "Error: Breite ungültig!";
+    public static final String ERROR_HEIGHT = "Error: Höhe ungültig!";
+    
+    /*
+    *
+    *  Strings in Parser.java
+    *
+    */
+    public static final String BG_FILE = "background.png";
+    public static final String PIECES_FILE = "pieces.png";
+    public static final String JAVA_ENGINE = "JavaScript";
+    public static final String DIRECTORY_EXISTS = "Cannot overwrite directory.";
+    public static final String DOT_SLASH = "./";
+    public static final String SLASH = "/";
+    public static final String HTML = ".html";
+    public static final String JS = ".js";
+    
+    
+    
 }

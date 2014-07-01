@@ -211,7 +211,7 @@ public class Game {
           Element numberOfPlayers_= root.getChild("NumberOfPlayers");
           numberOfPlayers = Integer.parseInt(numberOfPlayers_.getText());
 
-          Element fieldWidth_= root.getChild("FieldWitdth");
+          Element fieldWidth_= root.getChild("FieldWidth");
           fieldWidth = Integer.parseInt(fieldWidth_.getText());
           
           Element fieldHeight_= root.getChild("FieldHeight");
@@ -274,7 +274,7 @@ public class Game {
                 "<map>" +
                 "   <NameOfGame></NameOfGame>" +
                 "   <NumberOfPlayers></NumberOfPlayers>" +
-                "   <FieldWitdth></FieldWitdth>" +
+                "   <FieldWidth></FieldWidth>" +
                 "   <FieldHeight></FieldHeight>" +
                 "   <DiceEnabled></DiceEnabled>" +
                 "   <EyesOfDice> + </EyesOfDice>" +
@@ -310,7 +310,7 @@ public class Game {
           Element numberOfPlayers_ = root.getChild("NumberOfPlayers");
           numberOfPlayers_.setText(Integer.toString(numberOfPlayers));
 
-          Element fieldWidth_= root.getChild("FieldWitdth");
+          Element fieldWidth_= root.getChild("FieldWidth");
           fieldWidth_.setText(Integer.toString(fieldWidth));
 
           Element fieldHeight_= root.getChild("FieldHeight");

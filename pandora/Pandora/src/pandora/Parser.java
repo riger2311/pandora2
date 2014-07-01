@@ -31,8 +31,8 @@ public class Parser {
     String project_name = game.getNameOfGame();
     
     //Dynamic Variables in parsing text
-    String background_file = "background.png";
-    String pieces_file = "pieces.png";
+    String background_file = ConstantSrings.BG_FILE;
+    String pieces_file = ConstantSrings.PIECES_FILE;
     
     //Game variables for use to dynamiv parsing
     //TODO: change hardcoded values to game member values!
@@ -467,13 +467,13 @@ public class Parser {
         // create a script engine manager
         ScriptEngineManager factory = new ScriptEngineManager();
         // create a JavaScript engine
-        ScriptEngine engine = factory.getEngineByName("JavaScript");
+        ScriptEngine engine = factory.getEngineByName(ConstantSrings.JAVA_ENGINE);
         
         // create directory
         File directory = new File(project_name);
         if (directory.exists())
         {
-                System.out.println("Cannot overwrite directory.");
+                System.out.println(ConstantSrings.DIRECTORY_EXISTS);
         }
         else 
         {
@@ -481,14 +481,14 @@ public class Parser {
         }
         
         // evaluate JavaScript code from String
-         File newTextFile = new File("./" + project_name + "/" + project_name+".js");
+         File newTextFile = new File(ConstantSrings.DOT_SLASH + project_name + ConstantSrings.SLASH + project_name+ConstantSrings.JS);
             fileWriter = new FileWriter(newTextFile);
             fileWriter.write(source);
             fileWriter.close();
         engine.eval(source);
         //engine.eval("print('Hello, World')");
         
-        File html5 = new File("./" + project_name + "/" + project_name + ".html");
+        File html5 = new File(ConstantSrings.DOT_SLASH + project_name + ConstantSrings.SLASH + project_name + ConstantSrings.HTML);
             fileWriter = new FileWriter(html5);
             fileWriter.write(sourcehtml);
             fileWriter.close();

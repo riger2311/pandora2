@@ -296,34 +296,34 @@ public class Wizard extends javax.swing.JDialog {
     tokens_per_player_ = Integer.parseInt(t_token.getText());
     
     } catch (NumberFormatException e) {
-        System.out.println("Error: Falsche Eingabe erfolgt. (Zahlen/Text)");
-        error_label.setText("Error: Falsche Eingabe erfolgt. (Zahlen/Text)");
+        System.out.println(ConstantSrings.ERROR_INPUT);
+        error_label.setText(ConstantSrings.ERROR_INPUT);
         return;
     }
     
     if(width_ > Constants.FIELD_SIZE || width_ < Constants.LOWER_BOUND)
     {     
-        error_label.setText("Error: Breite ungültig!");
+        error_label.setText(ConstantSrings.ERROR_WIDTH);
         return;
     }
     else if(height_ > Constants.FIELD_SIZE || height_ < Constants.LOWER_BOUND)
     {
-        error_label.setText("Error: Höhe ungültig!");
+        error_label.setText(ConstantSrings.ERROR_HEIGHT);
         return;
     }
     else if(dizes_ > Constants.MAX_DICES || dizes_ < 0)
     {
-        error_label.setText("Error: Höhe ungültig!");
+        error_label.setText(ConstantSrings.ERROR_HEIGHT);
         return;
     }
     else if(dizes_count_ > Constants.MAX_EYES || dizes_count_ < Constants.LOWER_BOUND)
     {
-        error_label.setText("Error: Höhe ungültig!");
+        error_label.setText(ConstantSrings.ERROR_HEIGHT);
         return;
     }
     else if(tokens_per_player_ > Constants.MAX_TOKENS || tokens_per_player_ < 1)
     {
-        error_label.setText("Error: Höhe ungültig!");
+        error_label.setText(ConstantSrings.ERROR_HEIGHT);
         return;
     }
     
