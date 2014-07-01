@@ -7,10 +7,13 @@ package pandora.TileMap;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.io.File;
 import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import pandora.ConstantStrings;
 
 /**
  *
@@ -32,7 +35,15 @@ public class MapEditor extends javax.swing.JPanel {
         initComponents();
         setLayout(new GridLayout());
         this.option = new OptionPanel1();
-        MapIO.loadProjectAsXML("image/example_map.tmf", this);
+
+            try {
+
+                MapIO.loadProjectAsXML("image/example_map.tmf", this);
+            } 
+            catch (Exception e) {
+                System.out.println("Exception: " + e.getMessage());
+                this.createNewMapDialog();
+            }
 
     }
 
@@ -89,7 +100,7 @@ public class MapEditor extends javax.swing.JPanel {
         if (response == JFileChooser.APPROVE_OPTION) {
             currentMapFilePath = dialog.getSelectedFile().toString();
             MapIO.loadProjectAsXML(currentMapFilePath, this);
-          
+
         }
     }
 
