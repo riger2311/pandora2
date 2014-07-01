@@ -9,7 +9,6 @@ package pandora;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.StringReader;
 import javax.script.*;
 /**
  *
@@ -137,16 +136,25 @@ public class Parser {
         "{ \n" +
         "  //TODO DYNAMIC \n" +
         "  json =  \n" +
-        "  { \n" +
-        "    \"player1\":  \n" +
-        "    [ \n" +
-        "      { \n" +
-        "        \"token\": 0, \n" +
-        "        \"row\": 0, \n" +
-        "        \"col\": 0, \n" +
-        "        \"status\": IN_PLAY \n" +
-        "      }, \n" +
-        "      { \n" +
+        "  { \n";
+        
+        for(int i = 0 ; i <= game.getNumberOfPlayers(); i++)
+        {
+            str06_params +="    \"player" + Integer.toString(i+1) + "\":  \n" +
+                           "    [ \n";
+            
+                for(int j= 0 ; j <= game.getTokensPerPlayer(); j++)
+                {    
+                str06_params += "      { \n" +
+                                "        \"token\": 0, \n" + //Token Position in Tiles
+                                "        \"row\": 0, \n" + //Starting Position 
+                                "        \"col\": 0, \n" + //Starting Position
+                                "        \"status\": IN_PLAY \n" + 
+                                "      }, \n";
+                }    
+            str06_params += "    ], \n";
+        }    
+        /*"      { \n" +
         "        \"token\": 1, \n" +
         "        \"row\": 0, \n" +
         "        \"col\": 1, \n" +
@@ -157,9 +165,10 @@ public class Parser {
         "        \"row\": 0, \n" +
         "        \"col\": 2, \n" +
         "        \"status\": IN_PLAY \n" +
-        "      } \n" +
-        "    ], \n" +
-        "    \"player2\":  \n" +
+        "      } \n" +*/
+        
+                
+        /*"    \"player2\":  \n" +
         "    [ \n" +
         "      { \n" +
         "        \"token\": 2, \n" +
@@ -173,9 +182,9 @@ public class Parser {
         "        \"col\": 0, \n" +
         "        \"status\": IN_PLAY \n" +
         "      } \n" +
-        "    ]    \n" +
-        "  }; \n" +
-        "} \n" ;
+        "    ]    \n" +*/
+        str06_params += "  }; \n" +
+                        "} \n" ;
     
     String str07_clickonboard =
         "function click_on_board(ev)  \n" +
@@ -227,13 +236,18 @@ public class Parser {
         "  //global var currentTurn saves team which turn it is  \n" +
         "  //TODO DYNAMIC  \n" +
         "  switch(currentTurn)  \n" +
-        "  {  \n" +
-        "    case 0:  \n" +
-        "        team = json.player1;  \n" +
-        "        break;  \n" +
-        "    case 1:  \n" +
-        "        team = json.player2;  \n" +
-        "  }  \n" +
+        "  {  \n";
+        
+        //loop
+        for(int i = 0 ; i <= game.getNumberOfPlayers(); i++)
+        {
+           str10_gettokenatblock += "    case " + Integer.toString(i+1) + ":  \n" +
+           "        team = json.player" + Integer.toString(i+1) + ";  \n" +
+           "        break;  \n";
+                                    /*"    case 1:  \n" +
+                                    "        team = json.player2;  \n";*/
+        }
+        str10_gettokenatblock += "  }  \n" +   
         "  return getTokenAtBlockForTeam(team, clickedBlock);  \n" +
         "}  \n" ;
     
@@ -298,18 +312,22 @@ public class Parser {
     String str14_getEnemy =
         "function getEnemy(clickedBlock) \n" +
         "{ \n" +
-        "  var team; \n" +
+        "  var team = getOwner(clickedBlock); \n" +
         "  //BEWARE ORDER!!!! \n" +
         "  //change if more than 2 players \n" +
         "  //TODO DYNAMIC \n" +
         "  switch(currentTurn) \n" +
-        "  { \n" +
-        "    case 0: \n" +
-        "        team = json.player2; \n" +
-        "        break; \n" +
+        "  { \n";
+        
+       /* for(int i = 0 ; i <= game.getNumberOfPlayers(); i++)
+        {
+        str14_getEnemy += "    case " + Integer.toString(i) + ": \n" +
+                          "        team = json.player2; \n" +
+                          "        break; \n" +
         "    case 1: \n" +
         "        team = json.player1; \n" +
-        "  } \n" +
+        }*/
+        str14_getEnemy += "  } \n" +
         "  return getTokenAtBlockForTeam(team, clickedBlock); \n" +
         "}             \n" ;
     
@@ -321,6 +339,7 @@ public class Parser {
         "  //drawToken(selectedToken, currentTurn); \n" +
         "} \n" ;
     
+    //BUG INSIDE (no, it's not from Intel...)
     String str16_checkMovement =    
         "//press button dice to get a value \n" +
         "function checkMovement(selectedToken, clickedBlock) \n" +
@@ -338,11 +357,11 @@ public class Parser {
         "} \n" ;
     
     String str17_toDice =
-        "function toDice(number) \n" +
+        "function toDice() \n" +
         "{ \n" +
         "  //NOTE Math.random generates float values between 0 and 1 \n" +
         "  //TODO DYNAMIC \n" +
-        "  var rnd = 1 + Math.floor(Math.random() * 6); \n" +
+        "  var rnd = 1 + Math.floor(Math.random() * " + game.getEyesOfDice() + "); \n" +
         "  document.getElementById('textarea').value = rnd; \n" +
         "  document.getElementById('button').style.visibility = 'hidden'; \n" +
         "  return rnd; \n" +
@@ -381,7 +400,7 @@ public class Parser {
         "  //TODO DYNAMIC \n" +
         "  var count; \n" +
         "  var owner = null; \n" +
-        "  for (count = 0; count < player1.length; count++)  \n" +
+        "  for (count = 0; count < " + game.getTokensPerPlayer() + "; count++)  \n" +
         "  { \n" +
         "    token = player1[count]; \n" +
         "    if(token.status === IN_PLAY && \n" +
@@ -391,22 +410,28 @@ public class Parser {
         "      count = player1.length; \n" +
         "      owner = player1; \n" +
         "    } \n" +
-        "  } \n" +
-        "  if(owner === null) \n" +
-        "  {v \n" +
-        "    for (count = 0; count < player2.length; count++)  \n" +
+        "  } \n";
+    
+        for(int i = 1 ; i <= game.getNumberOfPlayers(); i++)
+        {
+        str19_getOwner +="  if(owner === null) \n" +
         "  { \n" +
-        "    token = player2[count]; \n" +
+        "    for (count = 0; count < player" + Integer.toString(i+1) + ".length; count++)  \n" +
+        "  { \n" +
+        "    token = player" + Integer.toString(i+1) + "[count]; \n" +
         "    if(token.status === IN_PLAY && \n" +
         "      token.col === clickedBlock.col && \n" +
         "      token.row === clickedBlock.row) \n" +
         "    { \n" +
-        "      count = player2.length; \n" +
-        "      owner = player2; \n" +
+        "      count = player" + Integer.toString(i+1) + ".length; \n" +
+        "      owner = player" + Integer.toString(i+1) + "; \n" +
         "    } \n" +
         "  } \n" +
-        "  } \n" +
-        "  return owner; \n" +
+        "  } \n";
+        }
+        
+        
+        str19_getOwner += "  return owner; \n" +
         "} \n" ;
         
     
