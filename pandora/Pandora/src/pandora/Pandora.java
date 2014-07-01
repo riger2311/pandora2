@@ -54,12 +54,12 @@ public class Pandora extends JApplet {
                 
                 //TODO: implement gameValues in MapEditor 
                 MapEditor mapEditor = new MapEditor();
-                main.getjTabbedPane1().add(ConstantSrings.HEAD_MAP, mapEditor);
+                main.getjTabbedPane1().add(ConstantStrings.HEAD_MAP, mapEditor);
 
                 RulesEditor rulesPanel = new RulesEditor(gameValues);
                 
                 //adding Tabbe Panel
-                main.getjTabbedPane1().add(ConstantSrings.HEAD_RULES, rulesPanel);
+                main.getjTabbedPane1().add(ConstantStrings.HEAD_RULES, rulesPanel);
                 main.validate();
                 //setting location of frame to center of screen
                 main.setLocationRelativeTo(null);

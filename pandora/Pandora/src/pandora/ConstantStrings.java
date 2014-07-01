@@ -10,7 +10,7 @@ package pandora;
  *
  * @author dominikmocher
  */
-public class ConstantSrings {
+public class ConstantStrings {
     
     /*
     *
@@ -70,7 +70,9 @@ public class ConstantSrings {
     public static final String DOT_SLASH = "./";
     public static final String SLASH = "/";
     public static final String HTML = ".html";
-    public static final String JS = ".js";
+    //public static final String BOARD = "board.js";
+    public static final String READER = "reader.js";
+    //public static final String JS = ".js";
     
     
     

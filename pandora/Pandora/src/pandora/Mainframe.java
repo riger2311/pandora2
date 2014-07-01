@@ -132,8 +132,8 @@ public class Mainframe extends javax.swing.JFrame {
         //needed to display changes
         this.jTabbedPane1.removeAll();
         //TODO: add mapeditor
-        this.jTabbedPane1.add(ConstantSrings.HEAD_MAP, new MapEditor());
-        this.jTabbedPane1.add(ConstantSrings.HEAD_RULES, new RulesEditor(game));
+        this.jTabbedPane1.add(ConstantStrings.HEAD_MAP, new MapEditor());
+        this.jTabbedPane1.add(ConstantStrings.HEAD_RULES, new RulesEditor(game));
     }//GEN-LAST:event_NewProjectActionPerformed
 
     private void LoadProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadProjectActionPerformed
@@ -153,10 +153,10 @@ public class Mainframe extends javax.swing.JFrame {
         //needed to display changes
         this.jTabbedPane1.removeAll();
         //TODO: add mapeditor
-        this.jTabbedPane1.add(ConstantSrings.HEAD_MAP,new MapEditor());
-        this.jTabbedPane1.add(ConstantSrings.HEAD_RULES, new RulesEditor(game));
+        this.jTabbedPane1.add(ConstantStrings.HEAD_MAP,new MapEditor());
+        this.jTabbedPane1.add(ConstantStrings.HEAD_RULES, new RulesEditor(game));
         
-        JOptionPane.showMessageDialog(this, ConstantSrings.MSG_LOADED, "Pandora", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, ConstantStrings.MSG_LOADED, "Pandora", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_LoadProjectActionPerformed
 
     private void SaveProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveProjectActionPerformed
@@ -174,7 +174,7 @@ public class Mainframe extends javax.swing.JFrame {
        game.saveProject(fileName);
        System.out.println("saved");
        
-       JOptionPane.showMessageDialog(this, ConstantSrings.MSG_SAVED, "Pandora", JOptionPane.INFORMATION_MESSAGE);
+       JOptionPane.showMessageDialog(this, ConstantStrings.MSG_SAVED, "Pandora", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_SaveProjectActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
@@ -188,13 +188,15 @@ public class Mainframe extends javax.swing.JFrame {
     private void GenerateGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerateGameActionPerformed
         Parser newParser = new Parser(game);
         try {
-          newParser.parseit();
-          JOptionPane.showMessageDialog(this, ConstantSrings.MSG_PARSE_OK, "Pandora", JOptionPane.INFORMATION_MESSAGE);
+          newParser.parseBoard();
+          newParser.parseMain();
+          newParser.parseReader();
+          JOptionPane.showMessageDialog(this, ConstantStrings.MSG_PARSE_OK, "Pandora", JOptionPane.INFORMATION_MESSAGE);
         }
         catch (Exception e) 
         {
             System.out.println("Error: " + e.getMessage());
-            JOptionPane.showMessageDialog(this, ConstantSrings.MSG_PARSE_FAIL, "Pandora", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, ConstantStrings.MSG_PARSE_FAIL, "Pandora", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_GenerateGameActionPerformed
 

@@ -20,19 +20,20 @@ public class Parser {
     
     public Parser(Game game_){
       game = game_;  
-// To use the game members
+      // To use the game members
     }
   
     
     //Parse
-    public void parseit() throws Exception {
+    public void parseBoard() throws Exception 
+    {
     
     FileWriter fileWriter = null;
     String project_name = game.getNameOfGame();
     
     //Dynamic Variables in parsing text
-    String background_file = ConstantSrings.BG_FILE;
-    String pieces_file = ConstantSrings.PIECES_FILE;
+    String background_file = ConstantStrings.BG_FILE;
+    String pieces_file = ConstantStrings.PIECES_FILE;
     
     //Game variables for use to dynamiv parsing
     //TODO: change hardcoded values to game member values!
@@ -408,13 +409,6 @@ public class Parser {
         "  return owner; \n" +
         "} \n" ;
         
-        
-    
-    
-    
-    
-    
-    
     
           
     // merges the function strings together to the parsed whole .js programm
@@ -437,43 +431,18 @@ public class Parser {
              str17_toDice +
              str18_moveToken +
              str19_getOwner;
-    
-        String sourcehtml =
-        "<!DOCTYPE html>                       \n" +
-        "<html lang=\"en\">                      \n" +
-        "<head>                                \n" +
-        "<meta charset=\"utf-8\" />            \n" +
-        "<title>HTML5 Canvas - "+project_name+"</title> \n" +
-        "<script src='board.js'></script>         \n" +
-        "</head>                                  \n" +
-        "<body onload='draw();'>                  \n" +
-        "<form>                                   \n" +
-        "<button onclick=\"toDice()\"style = \"visibility:visible\" "
-                + "id=\"button\" value=\"0\" type=\"button\">Dice</button> \n" +
-          
-         "<textarea style = \"resize:none\" rows=\"1\" cols=\"1\" id=\"textarea\" "
-                + "name=\"text\"></textarea> \n"+
-        "</form> \n"+
-        "<div> \n"+
-            "<canvas id=\"board\" width=\"800\" height=\"800\"></canvas> \n"+
-
-        "</div> \n"+
-        "</body> \n"+
-        "</html> \n";
-
-    //ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
-
+  
     
         // create a script engine manager
         ScriptEngineManager factory = new ScriptEngineManager();
         // create a JavaScript engine
-        ScriptEngine engine = factory.getEngineByName(ConstantSrings.JAVA_ENGINE);
+        ScriptEngine engine = factory.getEngineByName(ConstantStrings.JAVA_ENGINE);
         
         // create directory
         File directory = new File(project_name);
         if (directory.exists())
         {
-                System.out.println(ConstantSrings.DIRECTORY_EXISTS);
+                System.out.println(ConstantStrings.DIRECTORY_EXISTS);
         }
         else 
         {
@@ -481,22 +450,87 @@ public class Parser {
         }
         
         // evaluate JavaScript code from String
-         File newTextFile = new File(ConstantSrings.DOT_SLASH + project_name + ConstantSrings.SLASH + project_name+ConstantSrings.JS);
+         File newTextFile = new File(ConstantStrings.DOT_SLASH + project_name + ConstantStrings.SLASH + project_name + ".js" /*ConstantStrings.BOARD +ConstantStrings.JS*/);
             fileWriter = new FileWriter(newTextFile);
             fileWriter.write(source);
             fileWriter.close();
         engine.eval(source);
         //engine.eval("print('Hello, World')");
         
-        File html5 = new File(ConstantSrings.DOT_SLASH + project_name + ConstantSrings.SLASH + project_name + ConstantSrings.HTML);
-            fileWriter = new FileWriter(html5);
-            fileWriter.write(sourcehtml);
-            fileWriter.close();
+
         
     }
 
+    public void parseMain() throws Exception
+    {
+        FileWriter fileWriter = null;
+        String project_name = game.getNameOfGame();
+
+        String sourcehtml
+                = "<!DOCTYPE html>                       \n"
+                + "<html lang=\"en\">                      \n"
+                + "<head>                                \n"
+                + "<meta charset=\"utf-8\" />            \n"
+                + "<title>HTML5 Canvas - " + project_name + "</title> \n"
+                + "<script src='" + project_name + ".js'></script>         \n"
+                + "</head>                                  \n"
+                + "<body onload='draw();'>                  \n"
+                + "<form>                                   \n"
+                + "<button onclick=\"toDice()\"style = \"visibility:visible\" "
+                + "id=\"button\" value=\"0\" type=\"button\">Dice</button> \n"
+                + "<textarea style = \"resize:none\" rows=\"1\" cols=\"1\" id=\"textarea\" "
+                + "name=\"text\"></textarea> \n"
+                + "</form> \n"
+                + "<div> \n"
+                + "<canvas id=\"board\" width=\"800\" height=\"800\"></canvas> \n"
+                + "</div> \n"
+                + "</body> \n"
+                + "</html> \n";
+
+        // create directory
+        File directory = new File(project_name);
+        if (directory.exists()) {
+            System.out.println(ConstantStrings.DIRECTORY_EXISTS);
+        } else {
+            directory.mkdir();
+        }
+
+        File html5 = new File(ConstantStrings.DOT_SLASH + project_name + ConstantStrings.SLASH + project_name + ConstantStrings.HTML);
+        fileWriter = new FileWriter(html5);
+        fileWriter.write(sourcehtml);
+        fileWriter.close();
+    }    
     
-    
-    
+    public void parseReader() throws Exception 
+    {
+        FileWriter fileWriter = null;
+        String project_name = game.getNameOfGame();
+        
+        String source = "var game_name = " + game.getNameOfGame() + ";\n" + //document.Wizard.getValue(giveName);
+                        "var player_nr = " + game.getNumberOfPlayers() + ";\n" + //session.getValue(givePlayers);
+                        "var width = " + game.getFieldWidth() + ";\n" + //Wizard.getValue(giveWidth);
+                        "var height = " + game.getFieldHeight() + ";\n" + //Wizard.getValue(giveHeight);
+                        "var dizes = " + game.getDices() + ";\n" + //Wizard.getValue(giveDizes);
+                        "var dizes_count = " + game.getEyesOfDice() + ";\n"; //Wizard.getValue(giveDizesCount);
+
+        
+        // create directory
+        File directory = new File(project_name);
+        if (directory.exists()) {
+            System.out.println(ConstantStrings.DIRECTORY_EXISTS);
+        } else {
+            directory.mkdir();
+        }
+        
+        
+        // evaluate JavaScript code from String
+        File newTextFile = new File(ConstantStrings.DOT_SLASH + project_name + ConstantStrings.SLASH + ConstantStrings.READER /*+ ConstantStrings.JS*/);
+          fileWriter = new FileWriter(newTextFile);
+          fileWriter.write(source);
+          fileWriter.close();
+
+        
+        
+    }
     
 }

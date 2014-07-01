@@ -56,7 +56,7 @@ public class RulesEditor extends javax.swing.JPanel {
         //textfield has to be displayed
         if(game.getDiceEnabled())
         {
-            MovementLabel.setText(ConstantSrings.MOVEMENT_DICE);
+            MovementLabel.setText(ConstantStrings.MOVEMENT_DICE);
             Movement.setVisible(false);
         }
         
@@ -66,7 +66,7 @@ public class RulesEditor extends javax.swing.JPanel {
         
         for(int i = 0; i < game.getNumberOfPlayers(); i++)
         {
-            list.addElement(ConstantSrings.PLAYER + " " + i);
+            list.addElement(ConstantStrings.PLAYER + " " + i);
         }
 
         selectedPlayer.setModel(list); //fills data into jList
@@ -81,10 +81,10 @@ public class RulesEditor extends javax.swing.JPanel {
         
         //filling action combo box
         ContactActionBox.removeAllItems();
-        String possible_actions[] = {ConstantSrings.ACTION_KILL, 
-                                     ConstantSrings.ACTION_IGNORE, 
-                                     ConstantSrings.ACTION_JUMP, 
-                                     ConstantSrings.ACTION_DO_NOTHING};
+        String possible_actions[] = {ConstantStrings.ACTION_KILL, 
+                                     ConstantStrings.ACTION_IGNORE, 
+                                     ConstantStrings.ACTION_JUMP, 
+                                     ConstantStrings.ACTION_DO_NOTHING};
         for(int i = 0; i < possible_actions.length; i++)
         {
           ContactActionBox.addItem(possible_actions[i]);
@@ -241,7 +241,7 @@ public class RulesEditor extends javax.swing.JPanel {
                 //checks for boundaries in movement
                 if(movement < Constants.LOWER_MOVEMENT_BOUND || movement > Constants.UPPER_MOVEMENT_BOUND)
                 {
-                    ErrorLabel.setText(ConstantSrings.MOVEMENT_RANGE_NEW);
+                    ErrorLabel.setText(ConstantStrings.MOVEMENT_RANGE_NEW);
                 }
                 else
                 {
@@ -252,7 +252,7 @@ public class RulesEditor extends javax.swing.JPanel {
             }
             catch(NumberFormatException e)
             {   
-                ErrorLabel.setText(ConstantSrings.MOVEMENT_RANGE);
+                ErrorLabel.setText(ConstantStrings.MOVEMENT_RANGE);
                 System.out.println("Exception " + e.getMessage());
             }
         }
@@ -265,7 +265,7 @@ public class RulesEditor extends javax.swing.JPanel {
         //Printing Errormessage when Objects collide with itself
         if(collidesWith.equals(ownObject))
         {
-            ErrorLabel.setText(ConstantSrings.COLLISION_WITH_ITSELF);
+            ErrorLabel.setText(ConstantStrings.COLLISION_WITH_ITSELF);
         }
         
         collisionAction = ContactActionBox.getSelectedIndex();
@@ -310,7 +310,7 @@ public class RulesEditor extends javax.swing.JPanel {
             //TODO: check functionality...
             if(tempList.get(0).equals(tempList.get(1)))
             {
-              ErrorLabel.setText(ConstantSrings.COLLISION_WITH_ITSELF);
+              ErrorLabel.setText(ConstantStrings.COLLISION_WITH_ITSELF);
             }
             
             //get index of an collision rule and removes it, 
@@ -330,7 +330,7 @@ public class RulesEditor extends javax.swing.JPanel {
         }
         else
         {
-            ErrorLabel.setText(ConstantSrings.ERROR_COLLISION_EMPTY);
+            ErrorLabel.setText(ConstantStrings.ERROR_COLLISION_EMPTY);
         }
         
 
@@ -407,7 +407,7 @@ public class RulesEditor extends javax.swing.JPanel {
             }
             else
             {
-                ErrorLabel.setText(ConstantSrings.COLLISION_EXISTS);
+                ErrorLabel.setText(ConstantStrings.COLLISION_EXISTS);
             }
         }
         catch(Exception e)
