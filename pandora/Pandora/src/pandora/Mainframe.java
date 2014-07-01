@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pandora;
 
 import java.io.File;
@@ -18,14 +17,15 @@ import pandora.TileMap.MapEditor;
 public class Mainframe extends javax.swing.JFrame {
 
     Game game;
+    private MapEditor map_editor;
+
     /**
      * Creates new form Mainframe
      */
     public Mainframe(Game actualGame) {
         initComponents();
         game = actualGame;
-        
-        
+
     }
 
     /**
@@ -117,9 +117,19 @@ public class Mainframe extends javax.swing.JFrame {
         Map.add(NewBoard);
 
         SaveBoard.setText("Brett speichern");
+        SaveBoard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveBoardActionPerformed(evt);
+            }
+        });
         Map.add(SaveBoard);
 
         LoadBoard.setText("Brett laden");
+        LoadBoard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoadBoardActionPerformed(evt);
+            }
+        });
         Map.add(LoadBoard);
 
         jMenuBar1.add(Map);
@@ -141,7 +151,7 @@ public class Mainframe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuActionPerformed
-       
+
     }//GEN-LAST:event_MenuActionPerformed
 
     private void NewProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewProjectActionPerformed
@@ -149,7 +159,7 @@ public class Mainframe extends javax.swing.JFrame {
         game.reset();
         Wizard gandalf = new Wizard(null, true, game);
         gandalf.setVisible(true);
-        
+
         //displays new panels after reset,
         //needed to display changes
         this.jTabbedPane1.removeAll();
@@ -162,41 +172,39 @@ public class Mainframe extends javax.swing.JFrame {
         JFileChooser fc = new JFileChooser();
         File file = null;
         String fileName = "";
-        
-        if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-        {
+
+        if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             file = fc.getSelectedFile();
             fileName = file.getAbsolutePath().toString();
         }
-        
+
         game.loadProject(fileName);
         System.out.println("loaded " + fileName);
         //displays new rules panel after loading from a file, 
         //needed to display changes
         this.jTabbedPane1.removeAll();
         //TODO: add mapeditor
-        this.jTabbedPane1.add(ConstantStrings.HEAD_MAP,new MapEditor());
+        this.jTabbedPane1.add(ConstantStrings.HEAD_MAP, new MapEditor());
         this.jTabbedPane1.add(ConstantStrings.HEAD_RULES, new RulesEditor(game));
-        
+
         JOptionPane.showMessageDialog(this, ConstantStrings.MSG_LOADED, "Pandora", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_LoadProjectActionPerformed
 
     private void SaveProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveProjectActionPerformed
-       
-       JFileChooser fc = new JFileChooser();
-       File file = null;
-       String fileName = "";
-        
-       if(fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
-       {
-          file = fc.getSelectedFile();
-          fileName = file.getAbsolutePath().toString();
-       }
-        
-       game.saveProject(fileName);
-       System.out.println("saved");
-       
-       JOptionPane.showMessageDialog(this, ConstantStrings.MSG_SAVED, "Pandora", JOptionPane.INFORMATION_MESSAGE);
+
+        JFileChooser fc = new JFileChooser();
+        File file = null;
+        String fileName = "";
+
+        if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            file = fc.getSelectedFile();
+            fileName = file.getAbsolutePath().toString();
+        }
+
+        game.saveProject(fileName);
+        System.out.println("saved");
+
+        JOptionPane.showMessageDialog(this, ConstantStrings.MSG_SAVED, "Pandora", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_SaveProjectActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
@@ -210,24 +218,32 @@ public class Mainframe extends javax.swing.JFrame {
     private void GenerateGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerateGameActionPerformed
         Parser newParser = new Parser(game);
         try {
-          newParser.parseBoard();
-          newParser.parseMain();
-          newParser.parseReader();
-          JOptionPane.showMessageDialog(this, ConstantStrings.MSG_PARSE_OK, "Pandora", JOptionPane.INFORMATION_MESSAGE);
-        }
-        catch (Exception e) 
-        {
+            newParser.parseBoard();
+            newParser.parseMain();
+            newParser.parseReader();
+            JOptionPane.showMessageDialog(this, ConstantStrings.MSG_PARSE_OK, "Pandora", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             JOptionPane.showMessageDialog(this, ConstantStrings.MSG_PARSE_FAIL, "Pandora", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_GenerateGameActionPerformed
 
     private void NewBoardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewBoardActionPerformed
- 
-       //this.createNewMapDialog();
-       
-        
+
+        //Create a MapEditor Dialog
+        map_editor.createNewMapDialog();
+
+
     }//GEN-LAST:event_NewBoardActionPerformed
+
+    private void SaveBoardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveBoardActionPerformed
+        //Save Map in XML
+        map_editor.SaveMap();
+    }//GEN-LAST:event_SaveBoardActionPerformed
+
+    private void LoadBoardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadBoardActionPerformed
+        map_editor.LoadMap();
+    }//GEN-LAST:event_LoadBoardActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -251,6 +267,20 @@ public class Mainframe extends javax.swing.JFrame {
      */
     public javax.swing.JTabbedPane getjTabbedPane1() {
         return jTabbedPane1;
+    }
+
+    /**
+     * @return the map_editor
+     */
+    public MapEditor getMap_editor() {
+        return map_editor;
+    }
+
+    /**
+     * @param map_editor the map_editor to set
+     */
+    public void setMap_editor(MapEditor map_editor) {
+        this.map_editor = map_editor;
     }
 
 }

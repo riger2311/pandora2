@@ -100,7 +100,7 @@ public class ConstantStrings {
     public static final String BG_FILE = "background.png";
     public static final String PIECES_FILE = "pieces.png";
     public static final String JAVA_ENGINE = "JavaScript";
-    public static final String DIRECTORY_EXISTS = "Cannot overwrite directory.";
+    public static final String DIRECTORY_EXISTS = "Ordner besteht bereits.";
     public static final String DOT_SLASH = "./";
     public static final String SLASH = "/";
     public static final String HTML = ".html";
@@ -108,6 +108,11 @@ public class ConstantStrings {
     public static final String READER = "reader.js";
     //public static final String JS = ".js";
     
-    
+        /*
+    *
+    * String in PandoraTileMap
+    *
+    */
+    public static final String ERROR_FILE = "Keine Datei gefunden";
     
 }

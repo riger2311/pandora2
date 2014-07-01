@@ -8,7 +8,9 @@ package pandora.TileMap;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -20,6 +22,8 @@ public class MapEditor extends javax.swing.JPanel {
     private TilePanel1 teilpanel;
     private OptionPanel1 option;
     private LayoutManager layoutManager;
+    private String currentMapFilePath;
+    private String selectedFilePath;
 
     /**
      * Creates new form MapEditor
@@ -60,6 +64,33 @@ public class MapEditor extends javax.swing.JPanel {
 
     public void createNewMapDialog() {
         new NewMapDialog(this);
+    }
+
+    public void SaveMap() {
+        JFileChooser dialog = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "Tile Mapper files", "tmf");
+        dialog.setFileFilter(filter);
+
+        int response = dialog.showSaveDialog(this);
+        if (response == JFileChooser.APPROVE_OPTION) {
+            currentMapFilePath = dialog.getSelectedFile().toString();
+            MapIO.exportProjectAsXML(dialog.getSelectedFile().toString(), this);
+        }
+    }
+
+    public void LoadMap() {
+        JFileChooser dialog = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "Tile Mapper files", "tmf");
+        dialog.setFileFilter(filter);
+
+        int response = dialog.showOpenDialog(this);
+        if (response == JFileChooser.APPROVE_OPTION) {
+            currentMapFilePath = dialog.getSelectedFile().toString();
+            MapIO.loadProjectAsXML(currentMapFilePath, this);
+          
+        }
     }
 
     /**
@@ -109,6 +140,20 @@ public class MapEditor extends javax.swing.JPanel {
      */
     public void setLayoutManager(LayoutManager layoutManager) {
         this.layoutManager = layoutManager;
+    }
+
+    /**
+     * @return the selectedFilePath
+     */
+    public String getSelectedFilePath() {
+        return selectedFilePath;
+    }
+
+    /**
+     * @param selectedFilePath the selectedFilePath to set
+     */
+    public void setSelectedFilePath(String selectedFilePath) {
+        this.selectedFilePath = selectedFilePath;
     }
 
 }

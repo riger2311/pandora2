@@ -55,6 +55,7 @@ public class Pandora extends JApplet {
                 //TODO: implement gameValues in MapEditor 
                 MapEditor mapEditor = new MapEditor();
                 main.getjTabbedPane1().add(ConstantStrings.HEAD_MAP, mapEditor);
+                main.setMap_editor(mapEditor);
 
                 RulesEditor rulesPanel = new RulesEditor(gameValues);
                 

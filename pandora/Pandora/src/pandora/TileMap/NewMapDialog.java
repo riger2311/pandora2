@@ -16,10 +16,13 @@ import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import pandora.ConstantStrings;
 
 /**
  * A map dialog which is displayed to help in creating a new map.
@@ -27,6 +30,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class NewMapDialog extends JDialog {
 
     private static final long serialVersionUID = -1115249028397521382L;
+
+    /**
+     * @param aSheet the sheet to set
+     */
+    public static void setSheet(TileSheet aSheet) {
+        sheet = aSheet;
+    }
 
     private JTextField tileSheetField;
     private MapEditor parentFrame;
@@ -54,9 +64,8 @@ public class NewMapDialog extends JDialog {
      * @param parentFrame - The MapperFrame which created this object
      */
     public NewMapDialog(MapEditor parentFrame) {
-       
-        //super(parentFrame, "Create a new map", true);
 
+        //super(parentFrame, "Create a new map", true);
         // Set the frame's attributes
         this.parentFrame = parentFrame;
         transparentColor = DEFAULT_COLORPICKER_COLOR;
@@ -265,39 +274,48 @@ public class NewMapDialog extends JDialog {
      */
     private void setupLayout() {
         // Create a new TileSheet 
-        sheet = new TileSheet(new File(selectedFilePath), (Integer) xSize.getValue(), (Integer) ySize.getValue(), transparentColor);
-        System.out.println("You chose to open this file: " + selectedFilePath);
+        try {
+            setSheet(new TileSheet(new File(getSelectedFilePath()), (Integer) xSize.getValue(), (Integer) ySize.getValue(), transparentColor));
+            System.out.println("You chose to open this file: " + getSelectedFilePath());
 
-        // Create the map, tile, and object panels					
-         tilePanel = new TilePanel1(sheet, false);
-        //TilePanel1 objectPanel = new TilePanel(sheet, true);
-        mapPanel = new MapPanel1(parentFrame, 10, 10, tilePanel);
+            parentFrame.setSelectedFilePath(getSelectedFilePath());
 
-        // Assign the panels to the main frame
-        parentFrame.setTeilpanel(tilePanel);
-        parentFrame.setPanelmap(mapPanel);
+            // Create the map, tile, and object panels					
+            tilePanel = new TilePanel1(getSheet(), false);
+            //TilePanel1 objectPanel = new TilePanel(sheet, true);
+            mapPanel = new MapPanel1(parentFrame, 10, 10, tilePanel);
 
-        // Assign the map panel to the tile selection panels
-        tilePanel.setMapPanel(mapPanel);
-		//objectPanel.setMapPanel(mapPanel);
+            // Assign the panels to the main frame
+            parentFrame.setTeilpanel(tilePanel);
+            parentFrame.setPanelmap(mapPanel);
 
-        LayoutManager manager;
+            // Assign the map panel to the tile selection panels
+            tilePanel.setMapPanel(mapPanel);
+            //objectPanel.setMapPanel(mapPanel);
 
-        // If a layout manager doesn't already exist, create one
-        if (parentFrame.getLayoutManager() == null) {
-            //System.out.println("Manager not exist");
-            manager = new LayoutManager(parentFrame, mapPanel);
-            parentFrame.setLayoutManager(manager);
-        } // If one does exist, clear old layout and update it with the new info
-        else {
-            //System.out.println("Manager exist");
-            manager = parentFrame.getLayoutManager();
-            manager.clearExistingLayout();
-            manager.setNewInfo(parentFrame, mapPanel);
-            //parentFrame.setTeilplan("Tile Mapper");
+            LayoutManager manager;
+
+            // If a layout manager doesn't already exist, create one
+            if (parentFrame.getLayoutManager() == null) {
+                //System.out.println("Manager not exist");
+                manager = new LayoutManager(parentFrame, mapPanel);
+                parentFrame.setLayoutManager(manager);
+            } // If one does exist, clear old layout and update it with the new info
+            else {
+                //System.out.println("Manager exist");
+                manager = parentFrame.getLayoutManager();
+                manager.clearExistingLayout();
+                manager.setNewInfo(parentFrame, mapPanel);
+                //parentFrame.setTeilplan("Tile Mapper");
+            }
+
+            manager.initializeLayout();
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, ConstantStrings.ERROR_FILE ,"File Error",JOptionPane.ERROR_MESSAGE);
+            
         }
 
-        manager.initializeLayout();
     }
 
     /**
@@ -315,9 +333,8 @@ public class NewMapDialog extends JDialog {
 
         return temp;
     }
-    
-    
-        public static TileSheet getSheet() {
+
+    public static TileSheet getSheet() {
         return sheet;
     }
 
@@ -333,5 +350,12 @@ public class NewMapDialog extends JDialog {
      */
     public static MapPanel1 getMapPanel() {
         return mapPanel;
+    }
+
+    /**
+     * @return the selectedFilePath
+     */
+    public String getSelectedFilePath() {
+        return selectedFilePath;
     }
 }

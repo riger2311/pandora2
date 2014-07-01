@@ -78,11 +78,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Brett speichern"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SaveBoardActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="LoadBoard">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Brett laden"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LoadBoardActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

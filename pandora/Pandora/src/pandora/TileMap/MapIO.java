@@ -32,6 +32,7 @@ public class MapIO
 	
 	// Lookup table for converting base64 characters to value in range 0 ... 63
 	private static byte[] base64Codes = new byte[256];
+    private static String selectedFilePath;
 	static
 	{
 		// set all to -1
@@ -185,12 +186,16 @@ public class MapIO
 	 */
 	public static void loadProjectAsXML(String fileName, MapEditor parentFrame)
 	{
+            
 		SAXBuilder parser = new SAXBuilder();
 		
 		try
 		{
 			Document doc = parser.build(new File(fileName));
 			Element root = doc.getRootElement();
+                        
+                        //Element tilesheet_image = root.getChild("tilesheet_image");
+			//String tileSheetOriginal = tilesheet_image.getText();
 			
 			// Get tilesheet_image
 			Element tilesheet_image = root.getChild("tilesheet_image");
@@ -223,7 +228,7 @@ public class MapIO
 			
 			// Get tile, object, and collision layer data
 			ArrayList<Integer> tilesLayerData = new ArrayList<Integer>();
-			ArrayList<Integer> objectsLayerData = new ArrayList<Integer>();
+			//ArrayList<Integer> objectsLayerData = new ArrayList<Integer>();
 			ArrayList<Byte> collisionLayerData = new ArrayList<Byte>(); 
 			
 			List<Element> list = root.getChildren("tile");
@@ -233,12 +238,12 @@ public class MapIO
 			{
 				// Get the value of each ID
 				int tileLayerID = Integer.parseInt((list.get(i)).getChild("tile_layer_id").getText());
-				int objectLayerID = Integer.parseInt((list.get(i)).getChild("object_layer_id").getText());
+				//int objectLayerID = Integer.parseInt((list.get(i)).getChild("object_layer_id").getText());
 				byte collisionLayerID = Byte.parseByte(list.get(i).getChild("collision_layer_id").getText());
 				
 				// Add them to the list
 				tilesLayerData.add(tileLayerID);
-				objectsLayerData.add(objectLayerID);
+				//objectsLayerData.add(objectLayerID);
 				collisionLayerData.add(collisionLayerID);
 			}
 			
@@ -247,6 +252,7 @@ public class MapIO
 			InputStream in = new ByteArrayInputStream(imageBytes);
 			BufferedImage decodedImage = ImageIO.read(in);
 						
+                        //sheet = new TileSheet(new File(selectedFilePath), (Integer) tileWidth, (Integer) tileHeight, new Color(red, green, blue));
 			// Create the tile sheet from the variables that have been read
 			sheet = new TileSheet(decodedImage, tileWidth, tileHeight, new Color(red, green, blue));
 						
@@ -319,8 +325,11 @@ public class MapIO
 	 */
 	public static void exportProjectAsXML(String filePath, MapEditor frame)
 	{
+            System.out.println(filePath);
 		String xml =
                 "<map>" +
+                "  <image>"+
+                "   </image>"+
                 "   <tilesheet_image>" +
                 "   </tilesheet_image>" +
                 "   <map_width></map_width>" +
@@ -349,6 +358,10 @@ public class MapIO
     		char[] encodedImage = MapIO.base64Encode(baos.toByteArray());
     		
     		// Store it
+                
+                 System.out.println(frame.getSelectedFilePath());
+                
+
             Element tilesheet_image = map.getChild("tilesheet_image");
             tilesheet_image.setText(new String(encodedImage));
 
@@ -379,7 +392,7 @@ public class MapIO
             
             // Get object and tile layer data
             ArrayList<Integer> tileIDs = frame.getPanelmap().getTileLayerData();
-            ArrayList<Integer> objectIDs = frame.getPanelmap().getObjectLayerData();
+            //ArrayList<Integer> objectIDs = frame.getPanelmap().getObjectLayerData();
             ArrayList<Byte> collisionIDs = frame.getPanelmap().getCollisionLayerData();
             
     		for(int i = 0; i < tileIDs.size(); i++)
@@ -392,8 +405,8 @@ public class MapIO
     			tile_layer_id.setText(tileIDs.get(i) + "");
     			
     			// Object layer data
-    			Element object_layer_id = new Element("object_layer_id");
-    			object_layer_id.setText(objectIDs.get(i) + "");
+    			//Element object_layer_id = new Element("object_layer_id");
+    			//object_layer_id.setText(objectIDs.get(i) + "");
     			
     			// Collision layer data
     			Element collision_layer_id = new Element("collision_layer_id");
@@ -401,7 +414,7 @@ public class MapIO
     			
     			// Add attributes to tile element
     			tempTile.addContent(tile_layer_id);
-    			tempTile.addContent(object_layer_id);
+    			//tempTile.addContent(object_layer_id);
     			tempTile.addContent(collision_layer_id);
     			
     			// Add tile element to map
@@ -425,6 +438,7 @@ public class MapIO
 			
             XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
             outputter.output(document, file);
+            System.out.println("Finale Call of Save");
         }
             
         catch (Exception e) 
