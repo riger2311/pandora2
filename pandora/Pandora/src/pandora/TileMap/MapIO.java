@@ -211,6 +211,9 @@ public class MapIO {
                 parentFrame.getGame().setFieldHeight(mapHeight);
                 parentFrame.getGame().setFieldWidth(mapWidth);
 
+                System.out.println(map_width);
+                System.out.println(map_height);
+                
                 // Get tile width and height
                 Element tile_width = root.getChild("tile_width");
                 Element tile_height = root.getChild("tile_height");
@@ -260,7 +263,7 @@ public class MapIO {
 
                 // Create the map, tile, and object panels					
                 tilePanel = new TilePanel1(getSheet(), false);
-                mapPanel = new MapPanel1(parentFrame, tileWidth,tileHeight, getTilePanel());
+                mapPanel = new MapPanel1(parentFrame, mapWidth,mapHeight, getTilePanel());
 
                 // Assign the panels to the main frame
                 parentFrame.setTeilpanel(tilePanel);
