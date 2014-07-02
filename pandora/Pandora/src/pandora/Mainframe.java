@@ -178,17 +178,20 @@ public class Mainframe extends javax.swing.JFrame {
             file = fc.getSelectedFile();
             fileName = file.getAbsolutePath().toString();
         }
-
+        
+        if(file != null)
+        {
         game.loadProject(fileName);
         System.out.println("loaded " + fileName);
         //displays new rules panel after loading from a file, 
         //needed to display changes
         this.jTabbedPane1.removeAll();
-        //TODO: add mapeditor
         this.jTabbedPane1.add(ConstantStrings.HEAD_MAP, new MapEditor(game));
         this.jTabbedPane1.add(ConstantStrings.HEAD_RULES, new RulesEditor(game));
+        
 
         JOptionPane.showMessageDialog(this, ConstantStrings.MSG_LOADED, "Pandora", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_LoadProjectActionPerformed
 
     private void SaveProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveProjectActionPerformed
@@ -202,10 +205,13 @@ public class Mainframe extends javax.swing.JFrame {
             fileName = file.getAbsolutePath().toString();
         }
 
+        if(file != null)
+        {
         game.saveProject(fileName);
-        System.out.println("saved");
+        //System.out.println("saved");
 
         JOptionPane.showMessageDialog(this, ConstantStrings.MSG_SAVED, "Pandora", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_SaveProjectActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
