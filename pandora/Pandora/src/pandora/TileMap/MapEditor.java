@@ -32,7 +32,6 @@ public class MapEditor extends javax.swing.JPanel {
         this.game = game;
         setLayout(new GridLayout());
         this.option = new OptionPanel1();
-
         MapIO.loadProjectAsXML("image/example_map.tmf", this);
 
     }

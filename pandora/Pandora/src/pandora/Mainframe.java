@@ -163,8 +163,9 @@ public class Mainframe extends javax.swing.JFrame {
         //displays new panels after reset,
         //needed to display changes
         this.jTabbedPane1.removeAll();
+        map_editor = new MapEditor(game);
         //TODO: add mapeditor
-        this.jTabbedPane1.add(ConstantStrings.HEAD_MAP, new MapEditor(game));
+        this.jTabbedPane1.add(ConstantStrings.HEAD_MAP, map_editor);
         this.jTabbedPane1.add(ConstantStrings.HEAD_RULES, new RulesEditor(game));
     }//GEN-LAST:event_NewProjectActionPerformed
 

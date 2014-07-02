@@ -296,6 +296,7 @@ public class MapIO {
 			e.printStackTrace();
                         System.out.println("Error: "+ e.getMessage());
 		}
+        parentFrame.getGame().initMap();
     }
 
     /**

@@ -30,6 +30,8 @@ public class Game {
     private int dices;
     private int tokensPerPlayer;
     private int staticMovement; //movement, if dices are not enabled
+    private int startx_map;
+    private int starty_map;
 
     private ArrayList<ArrayList<String>> collisions;
     private ArrayList<Integer> map;
@@ -47,6 +49,8 @@ public class Game {
         collisions = new ArrayList<ArrayList<String>>();
         map = new ArrayList<Integer>();
         this.initMap();
+        startx_map = 0;
+        starty_map = 0;
     }
 
     void reset() {
@@ -62,6 +66,8 @@ public class Game {
         collisions = new ArrayList<ArrayList<String>>();
         setMap(new ArrayList<Integer>());
         this.initMap();
+        setStartx_map(0);
+        setStarty_map(0);
     }
 
     /**
@@ -451,6 +457,34 @@ public class Game {
      */
     public void setMap(ArrayList<Integer> map) {
         this.map = map;
+    }
+
+    /**
+     * @return the startx_map
+     */
+    public int getStartx_map() {
+        return startx_map;
+    }
+
+    /**
+     * @param startx_map the startx_map to set
+     */
+    public void setStartx_map(int startx_map) {
+        this.startx_map = startx_map;
+    }
+
+    /**
+     * @return the starty_map
+     */
+    public int getStarty_map() {
+        return starty_map;
+    }
+
+    /**
+     * @param starty_map the starty_map to set
+     */
+    public void setStarty_map(int starty_map) {
+        this.starty_map = starty_map;
     }
 
 }
