@@ -69,8 +69,8 @@ public class Parser {
 
         String str02_drawBackground
                 = " var tileSize = 75;\n"
-                + " var rowTileCount = "+game.getFieldWidth()+";\n"
-                + " var colTileCount = "+game.getFieldHeight()+";\n"
+                + " var rowTileCount = " + game.getFieldWidth() + ";\n"
+                + " var colTileCount = " + game.getFieldHeight() + ";\n"
                 + " var imageNumTiles = 4;\n"
                 + " function drawBackground (tilesetImage) \n"
                 + "{\n"
@@ -87,12 +87,21 @@ public class Parser {
                 + "       } \n"
                 + "    } \n"
                 + "}";
-       
-    String str02_drawAllTokens
+        String str02_drawBlock
+                = " function drawBlock (selectedToken, tilesetImage) \n"
+                + "{\n"
+                + "      var tile = ground[ selectedToken.row ][ selectedToken.col ]; \n"
+                + "      var tileRow = (tile / imageNumTiles) | 0; // Bitwise OR operation \n"
+                + "      var tileCol = (tile % imageNumTiles) | 0; \n"
+                + "      ctx.drawImage(tilesetImage, (tileCol * tileSize), \n"
+                + "      (tileRow * tileSize), tileSize, tileSize, \n"
+                + "      (selectedToken.col* tileSize), (selectedToken.row * tileSize), tileSize, tileSize);\n"
+                + "    } ";
+        String str02_drawAllTokens
                 = "function drawAllTokens() \n"
                 + "{\n";
 
-    //draw Tokens of each Player
+        //draw Tokens of each Player
         //number defines tokens of which players
         //using later in function "getImageCoords"
         for (int i = 0; i < game.getNumberOfPlayers(); i++) {
@@ -154,8 +163,8 @@ public class Parser {
             for (int j = 0; j < game.getTokensPerPlayer(); j++) {
                 str06_params += "      { \n"
                         + "        \"token\": 0, \n" + //Token Position in Tiles
-                        "        \"row\": 0, \n" + //Starting Position 
-                        "        \"col\": 0, \n" + //Starting Position
+                        "        \"row\": "+ (game.getStartx_map()+(i*(2))) +", \n" + //Starting Position 
+                        "        \"col\": "+(game.getStarty_map()+j)+", \n" + //Starting Position
                         "        \"status\": IN_PLAY \n"
                         + "      }, \n";
             }
@@ -302,7 +311,10 @@ public class Parser {
         String str15_removeSelection
                 = "function removeSelection(selectedToken) \n"
                 + "{ \n"
-                + "  drawToken(selectedToken, currentTurn + 1); \n"
+                + "  var tilesetImage = new Image();\n"
+                + "  tilesetImage.src = 'tilesheet.png';\n"
+                + "  drawBlock(selectedToken,tilesetImage);\n"
+                + "  drawToken(selectedToken, currentTurn+1); "
                 + "} \n";
 
         String str16_checkMovement
@@ -354,7 +366,9 @@ public class Parser {
                 + "{ \n"
                 + "  // Clear the block in the original position \n"
                 + "  // implement here rules and mission goal \n"
-                + "  //drawBlock(selectedPiece.col, selectedPiece.row); \n"
+                + "         var tilesetImage = new Image();\n"
+                + "      tilesetImage.src = 'tilesheet.png';"
+                + "  drawBlock(selectedToken, tilesetImage); \n"
                 + "  var team = (currentTurn === 0 ? json.player1 : json.player2); \n"
                 + "  var opposite = (currentTurn !== 1 ? json.player1 : json.player2); \n"
                 + "  team[selectedToken.position].col = clickedBlock.col; \n"
@@ -363,7 +377,7 @@ public class Parser {
                 + "  { \n"
                 + "    // Clear the piece your about to take \n"
                 + "    //TODO implement function due to missing draw tiles \n"
-                + "    //drawBlock(enemyToken.col, enemyPiece.row);   \n"
+                + "    drawBlock(enemyToken, tilesetImage);   \n"
                 + "    opposite[enemyToken.position].status = LOST; \n"
                 + "  } \n"
                 + "  // Draw the piece in the new position \n"
@@ -421,6 +435,7 @@ public class Parser {
                 + str01_draw
                 + str02_drawAllTokens
                 + str02_drawBackground
+                + str02_drawBlock
                 + str03_drawTeam
                 + str04_drawtoken
                 + str05_getImageCoords
