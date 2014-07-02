@@ -366,11 +366,11 @@ public class MapIO {
 
             // Calculate map width and height
             Element map_width = map.getChild("map_width");
-            map_width.setText(frame.getPanelmap().getWidthInTiles() + "");
-
+            //map_width.setText(frame.getPanelmap().getWidthInTiles() + "");
+            map_width.setText(String.valueOf(frame.getGame().getFieldWidth()));
             Element map_height = map.getChild("map_height");
-            map_height.setText(frame.getPanelmap().getHeightInTiles() + "");
-
+            //map_height.setText(frame.getPanelmap().getHeightInTiles() + "");
+            map_height.setText(String.valueOf(frame.getGame().getFieldHeight()));
             // Calculate tile width and height
             Element tile_width = map.getChild("tile_width");
             tile_width.setText(frame.getTeilpanel().getTileSheet().getWidthOfTiles() + "");
