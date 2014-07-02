@@ -273,7 +273,7 @@ public class Parser {
                 + "  var enemyToken = getEnemy(clickedBlock);\n"
                 + "  if (tokenAtBlock !== null)\n"
                 + "  {\n"
-                + "    //removeSelection(selectedToken);\n"
+                + "    removeSelection(selectedToken);\n"
                 + "    checkIfTokenClicked(clickedBlock);      \n"
                 + "  }\n"
                 + "  else if (checkMovement(selectedToken, clickedBlock) === true)\n"
@@ -302,7 +302,7 @@ public class Parser {
         String str15_removeSelection
                 = "function removeSelection(selectedToken) \n"
                 + "{ \n"
-                + "  //drawToken(selectedToken, currentTurn); \n"
+                + "  drawToken(selectedToken, currentTurn + 1); \n"
                 + "} \n";
 
         String str16_checkMovement

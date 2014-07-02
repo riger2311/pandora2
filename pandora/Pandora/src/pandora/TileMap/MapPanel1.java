@@ -213,7 +213,15 @@ public class MapPanel1 extends javax.swing.JPanel {
 
             // Set the object and tile layer data
             //currentTile.setObjectLayerId(objectLayer.get(i));
-            currentTile.setTileLayerId(tileLayer.get(i));
+            try 
+            {
+              currentTile.setTileLayerId(tileLayer.get(i));
+            }
+            catch (Exception e)
+            {
+                System.out.println("Out of bounds");
+            }
+                    
 
             // Set the collision layer data
             //currentTile.setCollidable(collisionLayer.get(i));
