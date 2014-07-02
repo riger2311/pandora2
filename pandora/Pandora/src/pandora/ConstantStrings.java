@@ -114,5 +114,6 @@ public class ConstantStrings {
     *
     */
     public static final String ERROR_FILE = "Keine Datei gefunden";
+    public static final String INVALID_VALUE = "Falsche Größe";
     
 }

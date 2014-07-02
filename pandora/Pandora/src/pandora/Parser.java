@@ -69,9 +69,9 @@ public class Parser {
 
         String str02_drawBackground
                 = " var tileSize = 75;\n"
-                + " var rowTileCount = 10;\n"
-                + " var colTileCount = 10;\n"
-                + " var imageNumTiles = 16;\n"
+                + " var rowTileCount = "+game.getFieldWidth()+";\n"
+                + " var colTileCount = "+game.getFieldHeight()+";\n"
+                + " var imageNumTiles = 4;\n"
                 + " function drawBackground (tilesetImage) \n"
                 + "{\n"
                 + "  for (var r = 0; r < rowTileCount; r++) \n"
